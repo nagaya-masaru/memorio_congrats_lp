@@ -1,0 +1,9 @@
+# デプロイ不要な素材・資料（LP表示に使わないもの）
+uploads/
+prompts/
+plan.docx
+plan.txt
+CLAUDE.md
+.idea/
+.thumbnail
+teaser-wf.dc.html

@@ -1,8 +1,9 @@
 # MemoriO Congrats ティザーLP — 引き継ぎ
 
 ## 成果物
-- `MemoriO Congrats LP.dc.html` — **本番LP（これが最新・メイン）**
-- `MemoriO Congrats Teaser WF.dc.html` — WF検討履歴（ターン1〜3、参照用。新規作業では触らない）
+- `index.html` — **本番LP（これが最新・メイン）**。Vercelのルート配信のため `MemoriO Congrats LP.dc.html` から改名（中身はdc形式のまま。`<x-dc>` + `./support.js`）
+- `teaser-wf.dc.html` — WF検討履歴（ターン1〜3、参照用。新規作業では触らない）
+- `vercel.json` / `.vercelignore` — 静的デプロイ設定（ビルドなし、`uploads/` などは除外）
 - `assets/main-visual.png` — MV実写（1920×1080、ヒーロー全面背景）
 - `assets/memorio-3d.html` — ユーザー提供の3Dビューア（回転・開閉・分解・音・刻印）。LPのTOUCHセクションにiframeで遅延読み込み
 - `plan.txt` / `plan.docx` — ブランド戦略ドキュメント（コピーの出典）
