@@ -25,12 +25,12 @@
 </head>
 <body>
 <x-dc>
-<helmet data-dc-atomics><link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@400;500;600&family=Cormorant+Garamond:wght@300;400;500&display=swap" rel="stylesheet"><style>html{scroll-behavior:smooth}html,body{overflow-x:clip}body{margin:0;background:#fbf7f1;color:#4e5348;font-family:"Shippori Mincho",serif;-webkit-font-smoothing:antialiased}*{box-sizing:border-box}a{color:#8b7345;text-decoration:none}a:hover{color:#4e5348}input{font-family:inherit}</style></helmet>
+<helmet data-dc-atomics><link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@400;500;600&family=Cormorant+Garamond:wght@300;400;500&display=swap" rel="stylesheet"><style>html{scroll-behavior:smooth}html,body{overflow-x:clip}body{margin:0;background:#fbf7f1;color:#4e5348;font-family:"Shippori Mincho",serif;-webkit-font-smoothing:antialiased}*{box-sizing:border-box}a{color:#8b7345;text-decoration:none}a:hover{color:#4e5348}input{font-family:inherit}.dc-hd{padding:14px 28px}.dc-nav{display:flex;align-items:center;gap:22px;flex-wrap:wrap}.dc-burger{display:none;width:42px;height:42px;margin-right:-9px;padding:0;border:none;background:none;cursor:pointer;align-items:center;justify-content:center;flex-direction:column;gap:6px}.dc-burger span{display:block;width:22px;height:1px;background:#4e5348;transition:transform .28s,opacity .2s}@media (max-width:900px){.dc-hd{padding:11px 18px}.dc-nav{display:none}.dc-burger{display:flex}}@media (min-width:901px){.dc-drawer{display:none !important}}</style></helmet>
 
 <div style="width:100%">
 
 <header style="position:sticky;top:0;z-index:40;background:rgba(251,247,241,.88);backdrop-filter:blur(10px);border-bottom:1px solid #ece3d5">
-<div style="max-width:1120px;margin:0 auto;padding:14px 28px;display:flex;align-items:center;justify-content:space-between;gap:20px">
+<div class="dc-hd" style="max-width:1120px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:20px">
 <a href="#" style="display:flex;align-items:center;gap:11px;text-decoration:none">
 <img src="assets/logo.png" alt="MemoriO" style="display:block;width:36px;height:36px;object-fit:contain"></img>
 <span style="display:flex;flex-direction:column;gap:1px">
@@ -38,12 +38,26 @@
 <span style="font-size:9.5px;letter-spacing:.22em;color:#a2998a">MODULAR MUSIC CUBE</span>
 </span>
 </a>
-<nav style="display:flex;align-items:center;gap:22px;flex-wrap:wrap">
+<nav class="dc-nav">
 <a href="#scenes" style="font-size:13px;letter-spacing:.06em;color:#6f6a5d">節目</a>
 <a href="#stack" style="font-size:13px;letter-spacing:.06em;color:#6f6a5d">積み重なる</a>
 <a href="#touch" style="font-size:13px;letter-spacing:.06em;color:#6f6a5d">触れてみる</a>
 <a href="#colors" style="font-size:13px;letter-spacing:.06em;color:#6f6a5d">カラー</a>
 <a href="#regist" style="display:inline-block;padding:10px 20px;border-radius:2px;background:#4e5348;color:#fbf7f1;font-size:12.5px;letter-spacing:.1em">発売通知を受け取る</a>
+</nav>
+<button class="dc-burger" onClick="{{ toggleMenu }}" aria-label="{{ menuLabel }}" aria-expanded="{{ menuExpanded }}">
+<span style="transform:{{ bar1 }}"></span>
+<span style="opacity:{{ bar2 }}"></span>
+<span style="transform:{{ bar3 }}"></span>
+</button>
+</div>
+<div class="dc-drawer" style="display:{{ menuDisp }};position:absolute;top:100%;left:0;right:0;border-top:1px solid #ece3d5;border-bottom:1px solid #ece3d5;background:rgba(253,250,245,.98);backdrop-filter:blur(10px);box-shadow:0 14px 26px -18px rgba(69,74,64,.35)">
+<nav style="padding:6px 18px 18px;display:flex;flex-direction:column">
+<a href="#scenes" onClick="{{ closeMenu }}" style="padding:15px 2px;border-bottom:1px solid #ece3d5;font-size:14px;letter-spacing:.08em;color:#4e5348;display:flex;align-items:center;justify-content:space-between">節目<span style="font-family:'Cormorant Garamond',serif;font-size:11px;letter-spacing:.16em;color:#b3925f">Scenes</span></a>
+<a href="#stack" onClick="{{ closeMenu }}" style="padding:15px 2px;border-bottom:1px solid #ece3d5;font-size:14px;letter-spacing:.08em;color:#4e5348;display:flex;align-items:center;justify-content:space-between">積み重なる<span style="font-family:'Cormorant Garamond',serif;font-size:11px;letter-spacing:.16em;color:#b3925f">Stack</span></a>
+<a href="#touch" onClick="{{ closeMenu }}" style="padding:15px 2px;border-bottom:1px solid #ece3d5;font-size:14px;letter-spacing:.08em;color:#4e5348;display:flex;align-items:center;justify-content:space-between">触れてみる<span style="font-family:'Cormorant Garamond',serif;font-size:11px;letter-spacing:.16em;color:#b3925f">Touch</span></a>
+<a href="#colors" onClick="{{ closeMenu }}" style="padding:15px 2px;border-bottom:1px solid #ece3d5;font-size:14px;letter-spacing:.08em;color:#4e5348;display:flex;align-items:center;justify-content:space-between">カラー<span style="font-family:'Cormorant Garamond',serif;font-size:11px;letter-spacing:.16em;color:#b3925f">Colorway</span></a>
+<a href="#regist" onClick="{{ closeMenu }}" style="margin-top:18px;padding:15px;border-radius:2px;background:#4e5348;color:#fbf7f1;font-size:13px;letter-spacing:.1em;text-align:center">発売通知を受け取る</a>
 </nav>
 </div>
 </header>
@@ -541,7 +555,7 @@
 </x-dc>
 <script type="text/x-dc" data-dc-script data-props="{&quot;waitlistCount&quot;:{&quot;editor&quot;:&quot;int&quot;,&quot;default&quot;:1240,&quot;min&quot;:0,&quot;max&quot;:100000,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;ティザー設定&quot;},&quot;show3d&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;ティザー設定&quot;},&quot;faqOpenFirst&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;ティザー設定&quot;}}">
 class Component extends DCLogic {
-  state = { scene: 0, step: 0, faq: 0, load3d: false, scrolled: false };
+  state = { scene: 0, step: 0, faq: 0, load3d: false, scrolled: false, menu: false };
 
   scenes = [
     ['誕生・出産', 'Birth', 'はじまりの声を、ひとつ目に。', '産声、初めて名前を呼んだ声、贈られた言葉。人生の最初の声を、その人の1ブロック目として残します。生まれる前から声を集めておくこともできます。', ['2026.08.15', 'Welcome to the world.', 'You are our treasure.'], '出産予定日の1〜2か月前', '父・母・祖父母・きょうだい', '予定日と刻印の文言を決めて注文する。届いたら本体を手元に置いておく。', '入院前に録音リンクを共有し、待っている人たちの声を先に集めておく。', '退院後に産声を追加して完成。棚に置いた1つ目が、その人の記録のはじまりになる。'],
@@ -559,6 +573,7 @@ class Component extends DCLogic {
 
   componentDidMount() {
     this.onScroll = () => {
+      if (this.state.menu && window.innerWidth > 900) this.setState({ menu: false });
       const el = this.stackEl;
       if (el) {
         const r = el.getBoundingClientRect();
@@ -605,7 +620,15 @@ class Component extends DCLogic {
       stackStep: String(step + 1) + ' / 5',
       stackRef: (el) => { this.stackEl = el; },
       threeRef: (el) => { this.threeEl = el; },
-      load3d: (this.props.show3d ?? true) && this.state.load3d
+      load3d: (this.props.show3d ?? true) && this.state.load3d,
+      menuDisp: this.state.menu ? 'block' : 'none',
+      menuExpanded: this.state.menu ? 'true' : 'false',
+      menuLabel: this.state.menu ? 'メニューを閉じる' : 'メニューを開く',
+      bar1: this.state.menu ? 'translateY(3.5px) rotate(45deg)' : 'none',
+      bar2: this.state.menu ? 0 : 1,
+      bar3: this.state.menu ? 'translateY(-3.5px) rotate(-45deg)' : 'none',
+      toggleMenu: () => this.setState({ menu: !this.state.menu }),
+      closeMenu: () => this.setState({ menu: false })
     };
     for (let n = 0; n < 7; n++) {
       const on = n === this.state.scene;
