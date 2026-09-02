@@ -1,0 +1,810 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet data-dc-atomics><meta name="design_doc_mode" content="canvas"><link href="https://fonts.googleapis.com/css2?family=Yomogi&family=Kalam:wght@300;400;700&display=swap" rel="stylesheet"><style>body{margin:0;background:#f0eee9;font-family:system-ui,sans-serif}.dv-turn{padding:40px 44px 32px;border-bottom:1px solid rgba(0,0,0,.08);scroll-margin-top:16px}.dv-thd{display:flex;align-items:baseline;gap:10px;margin:0 0 20px}.dv-tid{font:600 10px ui-monospace,Menlo,monospace;padding:3px 7px;background:#1a1a1a;color:#fff;border-radius:4px;text-decoration:none}.dv-tname{font:600 13px/1.2 system-ui,sans-serif;color:#1a1a1a}.dv-opts{display:flex;flex-wrap:wrap;gap:28px;align-items:flex-start}.dv-opt{flex:none;display:flex;flex-direction:column;gap:9px;scroll-margin-top:16px}.dv-oid{font:600 10.5px ui-monospace,Menlo,monospace;padding:3px 7px;background:rgba(0,0,0,.08);color:#1a1a1a;border-radius:5px;text-decoration:none}.dv-olabel{display:flex;align-items:baseline;gap:8px;font:400 11px/1.3 system-ui,sans-serif;color:rgba(0,0,0,.55)}.dv-card{max-width:100%;background:#fff;border:1px solid rgba(0,0,0,.08);border-radius:8px;box-shadow:0 1px 3px rgba(0,0,0,.06);overflow:hidden}.dv-opt:target .dv-oid{background:#2a78d6;color:#fff}.dv-next{margin:22px 0 0;font:12px/1.5 system-ui,sans-serif;color:rgba(0,0,0,.5)}a{color:#2a78d6}a:hover{color:#1a5aa8}</style></helmet>
+
+<section class="dv-turn" id="t3">
+<div class="dv-thd"><a class="dv-tid" href="#t3">3</a><span class="dv-tname">動くWF — スクロール連動の積み上がり ＋ 3D体験セクション（<a class="dv-oid" href="#2c">2c</a>の年表案を実装検証）</span></div>
+<div class="dv-opts">
+
+<div class="dv-opt" id="3a">
+<div class="dv-olabel"><a class="dv-oid" href="#3a">3a</a>スクロール検知で積み上がる（枠の中を実際にスクロールできます）</div>
+<div class="dv-card" style="width:700px;padding:24px;display:flex;gap:22px;background:#fbfaf7">
+
+<div style="flex:none;width:330px;display:flex;flex-direction:column;gap:10px">
+<div style="font:600 9.5px ui-monospace,monospace;letter-spacing:.1em;color:#9a9488">SP — sticky ステージ＋節目パネル（↓スクロール）</div>
+<div style="border:1.5px solid #2b2a27;border-radius:16px;background:#fff;overflow:hidden">
+<div style="height:14px;display:flex;justify-content:center;align-items:center"><div style="width:56px;height:5px;border-radius:3px;background:#e2ded5"></div></div>
+<div onScroll="{{ onScroll }}" style="height:560px;overflow-y:auto;position:relative">
+<div style="position:sticky;top:0;z-index:2;height:250px;background:linear-gradient(#faf8f4,#f3f0e9);border-bottom:1px solid #e2ded5">
+<div style="position:absolute;left:14px;top:12px;font:9px ui-monospace,monospace;color:#8a857a">STICKY STAGE</div>
+<div style="position:absolute;right:14px;top:12px;font:9px ui-monospace,monospace;color:#8a857a">{{ stepNo }}</div>
+<div style="position:absolute;left:0;right:0;bottom:34px;height:170px">
+<div style="position:absolute;left:50%;bottom:0px;width:104px;height:32px;border:1.5px solid #c9c3b6;border-radius:6px;background:#f7e2e0;transition:opacity .4s,transform .4s;opacity:{{ o0 }};transform:translateX(-50%) translateY({{ y0 }}px)"></div>
+<div style="position:absolute;left:50%;bottom:33px;width:104px;height:32px;border:1.5px solid #c9c3b6;border-radius:6px;background:#f7ecc8;transition:opacity .4s,transform .4s;opacity:{{ o1 }};transform:translateX(-50%) translateY({{ y1 }}px)"></div>
+<div style="position:absolute;left:50%;bottom:66px;width:104px;height:32px;border:1.5px solid #c9c3b6;border-radius:6px;background:#dfeadf;transition:opacity .4s,transform .4s;opacity:{{ o2 }};transform:translateX(-50%) translateY({{ y2 }}px)"></div>
+<div style="position:absolute;left:50%;bottom:99px;width:104px;height:32px;border:1.5px solid #c9c3b6;border-radius:6px;background:#dbe8f4;transition:opacity .4s,transform .4s;opacity:{{ o3 }};transform:translateX(-50%) translateY({{ y3 }}px)"></div>
+<div style="position:absolute;left:50%;bottom:132px;width:104px;height:32px;border:1.5px solid #c9c3b6;border-radius:6px;background:#fdfdfc;transition:opacity .4s,transform .4s;opacity:{{ o4 }};transform:translateX(-50%) translateY({{ y4 }}px)"></div>
+</div>
+<div style="position:absolute;left:0;right:0;bottom:8px;text-align:center;font:13px 'Yomogi',sans-serif;color:#2b2a27">{{ activeLabel }}</div>
+</div>
+<div style="padding:0 14px">
+<div style="min-height:200px;display:flex;flex-direction:column;justify-content:center;gap:8px;border-bottom:1px dashed #e2ded5"><div style="font:9px ui-monospace,monospace;color:#8a857a">01 誕生</div><div style="font:14px 'Yomogi',sans-serif;color:#2b2a27">はじめての声を、ひとつ目に。</div><div style="height:6px;width:92%;border-radius:3px;background:#e2ded5"></div><div style="height:6px;width:70%;border-radius:3px;background:#e2ded5"></div></div>
+<div style="min-height:200px;display:flex;flex-direction:column;justify-content:center;gap:8px;border-bottom:1px dashed #e2ded5"><div style="font:9px ui-monospace,monospace;color:#8a857a">02 1歳</div><div style="font:14px 'Yomogi',sans-serif;color:#2b2a27">1年後の声を、上に積む。</div><div style="height:6px;width:88%;border-radius:3px;background:#e2ded5"></div><div style="height:6px;width:64%;border-radius:3px;background:#e2ded5"></div></div>
+<div style="min-height:200px;display:flex;flex-direction:column;justify-content:center;gap:8px;border-bottom:1px dashed #e2ded5"><div style="font:9px ui-monospace,monospace;color:#8a857a">03 卒業</div><div style="font:14px 'Yomogi',sans-serif;color:#2b2a27">仲間の声も、この日のかたちに。</div><div style="height:6px;width:90%;border-radius:3px;background:#e2ded5"></div><div style="height:6px;width:58%;border-radius:3px;background:#e2ded5"></div></div>
+<div style="min-height:200px;display:flex;flex-direction:column;justify-content:center;gap:8px;border-bottom:1px dashed #e2ded5"><div style="font:9px ui-monospace,monospace;color:#8a857a">04 結婚</div><div style="font:14px 'Yomogi',sans-serif;color:#2b2a27">式の日の声を、その後も。</div><div style="height:6px;width:86%;border-radius:3px;background:#e2ded5"></div><div style="height:6px;width:66%;border-radius:3px;background:#e2ded5"></div></div>
+<div style="min-height:250px;display:flex;flex-direction:column;justify-content:center;gap:10px"><div style="font:9px ui-monospace,monospace;color:#8a857a">05 家族</div><div style="font:14px 'Yomogi',sans-serif;color:#2b2a27">積み上がった声が、家族の歴史になる。</div><div style="height:6px;width:92%;border-radius:3px;background:#e2ded5"></div><div style="border-radius:4px;background:#2b2a27;color:#fff;padding:10px;text-align:center;font:10px ui-monospace,monospace">発売通知を受け取る</div></div>
+</div>
+</div>
+</div>
+</div>
+
+<div style="flex:none;width:296px;display:flex;flex-direction:column;gap:12px">
+<div style="font:600 9.5px ui-monospace,monospace;letter-spacing:.1em;color:#9a9488">実装メモ</div>
+<div style="border:1.5px solid #2b2a27;border-radius:5px;background:#fff;padding:16px;display:flex;flex-direction:column;gap:10px;font:10.5px/1.7 ui-monospace,monospace;color:#6f6a60">
+<div>▸ ステージを position:sticky で固定し、下の節目パネル（各1画面弱）のスクロール量で表示するキューブ数を決める。</div>
+<div>▸ 積むのは 1個ずつ・下から上。増える瞬間に opacity と translateY のみを動かす（軽い）。</div>
+<div>▸ 逆スクロールで減る。IntersectionObserver でも同等に実装可。</div>
+<div>▸ PCは左sticky・右にパネル（<a href="#1d">1d</a> の構造）。SPはこの上下型。</div>
+<div>▸ 節目の数は5前後が上限。増やすとステージからはみ出る。</div>
+</div>
+<div style="border:1.5px solid #2b2a27;border-radius:5px;background:#f6f3ec;padding:16px;display:flex;flex-direction:column;gap:8px;font:10.5px/1.7 ui-monospace,monospace;color:#6f6a60">
+<div style="font:11px 'Yomogi',sans-serif;color:#2b2a27">検討事項</div>
+<div>・prefers-reduced-motion 時は静的な積み上がり画像に差し替え</div>
+<div>・本番は実写キューブ（切り抜きPNG）を重ねる想定。3Dで描くかは <a href="#3b">3b</a> と統合判断</div>
+</div>
+</div>
+
+</div>
+</div>
+
+<div class="dv-opt" id="3b">
+<div class="dv-olabel"><a class="dv-oid" href="#3b">3b</a>3D体験セクション（開く・分解・音・刻印を実際に触れます）</div>
+<div class="dv-card" style="width:1000px;padding:24px;display:flex;gap:22px;background:#fbfaf7">
+
+<div style="flex:none;width:660px;display:flex;flex-direction:column;gap:10px">
+<div style="font:600 9.5px ui-monospace,monospace;letter-spacing:.1em;color:#9a9488">PC — LP中盤に置く「触れる」セクション（実物の3Dを埋め込み）</div>
+<div style="border:1.5px solid #2b2a27;border-radius:5px;background:#fff;overflow:hidden">
+<div style="padding:16px 20px;border-bottom:1px solid #ddd9d0;display:flex;flex-direction:column;gap:6px">
+<div style="font:9.5px ui-monospace,monospace;letter-spacing:.08em;color:#8a857a">SECTION — 触れて、開けて、聞いてみる</div>
+<div style="font:19px 'Yomogi',sans-serif;color:#2b2a27">発売前に、手のなかの感触だけ先に。</div>
+<div style="font:10.5px/1.7 ui-monospace,monospace;color:#8a857a">▸ ドラッグで回転 ／ 本体タップで開閉 ／ 左パネルで色・刻印・分解表示・音</div>
+</div>
+<iframe src="assets/memorio-3d.html" title="MemoriO Congrats 3D" style="display:block;width:660px;height:440px;border:0;border-bottom:1px solid #ddd9d0"></iframe>
+<div style="padding:14px 20px;display:flex;align-items:center;justify-content:space-between">
+<div style="display:flex;gap:7px;flex-wrap:wrap;font:9.5px ui-monospace,monospace;color:#8a857a"><span style="border:1px solid #ddd9d0;border-radius:3px;padding:4px 8px">刻印を入れてみる</span><span style="border:1px solid #ddd9d0;border-radius:3px;padding:4px 8px">色を選ぶ</span><span style="border:1px solid #ddd9d0;border-radius:3px;padding:4px 8px">分解して見る</span><span style="border:1px solid #ddd9d0;border-radius:3px;padding:4px 8px">音を鳴らす</span></div>
+<div style="border-radius:4px;background:#2b2a27;color:#fff;padding:10px 16px;font:10.5px ui-monospace,monospace">この刻印で通知を受け取る</div>
+</div>
+</div>
+<div style="font:10.5px/1.6 ui-monospace,monospace;color:#8a857a">▸ 刻印に入れた日付・文言をそのまま登録フォームへ引き継ぐと、ティザーでも「作っている感覚」が生まれる（資料の購入体験の方針）。</div>
+</div>
+
+<div style="flex:none;width:290px;display:flex;flex-direction:column;gap:12px">
+<div style="font:600 9.5px ui-monospace,monospace;letter-spacing:.1em;color:#9a9488">SP — 高さを詰めて全画面ビューアへ</div>
+<div style="border:1.5px solid #2b2a27;border-radius:16px;background:#fff;padding:8px;display:flex;flex-direction:column;gap:8px">
+<div style="height:12px;display:flex;justify-content:center"><div style="width:56px;height:5px;border-radius:3px;background:#e2ded5"></div></div>
+<div style="padding:0 4px;display:flex;flex-direction:column;gap:6px"><div style="font:9px ui-monospace,monospace;color:#8a857a">SECTION</div><div style="font:15px 'Yomogi',sans-serif;color:#2b2a27">触れて、開けて、聞いてみる。</div></div>
+<div style="height:230px;border:1.5px dashed #b3ada0;border-radius:6px;background:repeating-linear-gradient(45deg,#f4f2ed 0 7px,#e9e6df 7px 14px);display:flex;align-items:center;justify-content:center;text-align:center;font:9.5px/1.7 ui-monospace,monospace;color:#8a857a">3Dビューア<br>（縦向き・操作は下にまとめる）</div>
+<div style="display:flex;gap:5px;flex-wrap:wrap"><span style="border:1px solid #c9c3b6;border-radius:14px;padding:5px 9px;font:8.5px ui-monospace,monospace;color:#8a857a">開閉</span><span style="border:1px solid #c9c3b6;border-radius:14px;padding:5px 9px;font:8.5px ui-monospace,monospace;color:#8a857a">分解</span><span style="border:1px solid #c9c3b6;border-radius:14px;padding:5px 9px;font:8.5px ui-monospace,monospace;color:#8a857a">音</span><span style="border:1px solid #c9c3b6;border-radius:14px;padding:5px 9px;font:8.5px ui-monospace,monospace;color:#8a857a">色</span></div>
+<div style="border:1px solid #ddd9d0;border-radius:4px;padding:9px;display:flex;flex-direction:column;gap:5px"><div style="font:9px ui-monospace,monospace;color:#8a857a">刻印を入れる</div><div style="border:1.5px solid #2b2a27;border-radius:4px;padding:7px;font:9px ui-monospace,monospace;color:#9a9488">2026.08.15</div><div style="border:1.5px solid #2b2a27;border-radius:4px;padding:7px;font:9px ui-monospace,monospace;color:#9a9488">1行目</div></div>
+<div style="border-radius:4px;background:#2b2a27;color:#fff;padding:10px;text-align:center;font:10px ui-monospace,monospace">この刻印で通知を受け取る</div>
+</div>
+<div style="border:1.5px solid #2b2a27;border-radius:5px;background:#f6f3ec;padding:14px;display:flex;flex-direction:column;gap:7px;font:10.5px/1.7 ui-monospace,monospace;color:#6f6a60">
+<div style="font:11px 'Yomogi',sans-serif;color:#2b2a27">注意点</div>
+<div>・3Dは重いので遅延読み込み（画面に入ってから初期化）</div>
+<div>・音は必ずユーザー操作起点で再生</div>
+<div>・SPは高さ260〜300pxに抑え、操作は下段に集約</div>
+<div>・非対応端末は静止画＋動画にフォールバック</div>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<p class="dv-next">試せること：「<a class="dv-oid" href="#3a">3a</a>をPC版（左sticky）でも作って」・「<a class="dv-oid" href="#3a">3a</a>と<a class="dv-oid" href="#3b">3b</a>を<a class="dv-oid" href="#2c">2c</a>に組み込んだ通しWFにして」・「積み上がる節目を7つに増やして」</p>
+</section>
+
+<section class="dv-turn" id="t2">
+<div class="dv-thd"><a class="dv-tid" href="#t2">2</a><span class="dv-tname">節目を限定しない方向（出産は7シーンのひとつとして扱う）</span></div>
+<div class="dv-opts">
+
+<div class="dv-opt" id="2a">
+<div class="dv-olabel"><a class="dv-oid" href="#2a">2a</a>「誰に、どの節目に贈りますか？」— シーンセレクターを主役に</div>
+<div class="dv-card" style="width:1000px;padding:24px;display:flex;gap:24px;background:#fbfaf7">
+
+<div style="flex:none;width:620px;display:flex;flex-direction:column;gap:12px">
+<div style="font:600 9.5px ui-monospace,monospace;letter-spacing:.1em;color:#9a9488">PC — 用途起点。シーンを選ぶとコピー／写真／刻印例が切替</div>
+
+<div style="border:1.5px solid #2b2a27;border-radius:5px;background:#fff;overflow:hidden">
+<div style="display:flex;align-items:center;justify-content:space-between;padding:9px 14px;border-bottom:1px solid #ddd9d0"><span style="font:15px 'Kalam',cursive;color:#2b2a27">MemoriO Congrats</span><span style="font:9.5px ui-monospace,monospace;color:#8a857a">発売通知を受け取る</span></div>
+<div style="min-height:250px;background:repeating-linear-gradient(45deg,#f7f5f0 0 8px,#eeebe4 8px 16px);padding:26px 30px;display:flex;flex-direction:column;gap:14px">
+<div style="font:26px/1.5 'Yomogi',sans-serif;color:#2b2a27">人生の節目に、<br>声を贈るという選択を。</div>
+<div style="height:7px;width:70%;border-radius:4px;background:#dcd7cc"></div>
+<div style="font:9.5px ui-monospace,monospace;color:#8a857a">▸ KV：資料「ブランドの世界観」の5色並びカット</div>
+</div>
+</div>
+
+<div style="border:1.5px solid #2b2a27;border-radius:5px;background:#fff;padding:20px 26px;display:flex;flex-direction:column;gap:14px">
+<div style="font:9.5px ui-monospace,monospace;letter-spacing:.08em;color:#8a857a">01 SCENE SELECTOR — この節目に、を選ぶ</div>
+<div style="display:flex;gap:7px;flex-wrap:wrap">
+<div style="border:1.5px solid #2b2a27;border-radius:20px;padding:7px 14px;font:11px ui-monospace,monospace;color:#2b2a27;background:#f2efe8">誕生・出産</div>
+<div style="border:1px solid #c9c3b6;border-radius:20px;padding:7px 14px;font:11px ui-monospace,monospace;color:#8a857a">誕生日</div>
+<div style="border:1px solid #c9c3b6;border-radius:20px;padding:7px 14px;font:11px ui-monospace,monospace;color:#8a857a">記念日・カップル</div>
+<div style="border:1px solid #c9c3b6;border-radius:20px;padding:7px 14px;font:11px ui-monospace,monospace;color:#8a857a">結婚</div>
+<div style="border:1px solid #c9c3b6;border-radius:20px;padding:7px 14px;font:11px ui-monospace,monospace;color:#8a857a">卒業・部活</div>
+<div style="border:1px solid #c9c3b6;border-radius:20px;padding:7px 14px;font:11px ui-monospace,monospace;color:#8a857a">家族・祖父母</div>
+<div style="border:1px solid #c9c3b6;border-radius:20px;padding:7px 14px;font:11px ui-monospace,monospace;color:#8a857a">送別・お世話になった人</div>
+</div>
+<div style="display:flex;gap:18px;border:1px solid #ddd9d0;border-radius:5px;padding:16px">
+<div style="flex:none;width:230px;height:160px;border:1.5px dashed #b3ada0;border-radius:4px;background:repeating-linear-gradient(45deg,#f4f2ed 0 7px,#e9e6df 7px 14px);display:flex;align-items:center;justify-content:center;font:9.5px/1.6 ui-monospace,monospace;color:#8a857a;text-align:center">選択シーンの写真<br>（資料のシーンカット）</div>
+<div style="flex:1;display:flex;flex-direction:column;gap:9px">
+<div style="font:15px 'Yomogi',sans-serif;color:#2b2a27">この日の声を、20年後に。</div>
+<div style="height:6px;width:94%;border-radius:3px;background:#e2ded5"></div>
+<div style="height:6px;width:78%;border-radius:3px;background:#e2ded5"></div>
+<div style="border:1px solid #ddd9d0;border-radius:4px;padding:9px;display:flex;flex-direction:column;gap:4px;background:#faf8f4"><span style="font:9px ui-monospace,monospace;color:#8a857a">刻印例</span><span style="font:11px 'Kalam',cursive;color:#2b2a27">MemoriO Congrats / 2026.08.15 / Welcome to the world.</span></div>
+<div style="font:9.5px ui-monospace,monospace;color:#8a857a">▸ シーンごとに 写真・コピー・刻印例・おすすめ色 が入れ替わる</div>
+</div>
+</div>
+</div>
+
+<div style="border:1.5px solid #2b2a27;border-radius:5px;background:#fff;padding:20px 26px;display:flex;flex-direction:column;gap:10px">
+<div style="font:9.5px ui-monospace,monospace;letter-spacing:.08em;color:#8a857a">02 VALUES — 3つの価値（資料と同構成）</div>
+<div style="display:grid;grid-template-columns:repeat(3,1fr);gap:14px">
+<div style="display:flex;flex-direction:column;gap:6px"><div style="width:30px;height:30px;border-radius:50%;border:1.5px solid #c9c3b6"></div><div style="font:13px 'Yomogi',sans-serif;color:#2b2a27">想いまで、贈る。</div><div style="height:5px;width:88%;border-radius:3px;background:#e2ded5"></div><div style="height:5px;width:66%;border-radius:3px;background:#e2ded5"></div></div>
+<div style="display:flex;flex-direction:column;gap:6px"><div style="width:30px;height:30px;border-radius:50%;border:1.5px solid #c9c3b6"></div><div style="font:13px 'Yomogi',sans-serif;color:#2b2a27">離れていても、そばに。</div><div style="height:5px;width:84%;border-radius:3px;background:#e2ded5"></div><div style="height:5px;width:72%;border-radius:3px;background:#e2ded5"></div></div>
+<div style="display:flex;flex-direction:column;gap:6px"><div style="width:30px;height:30px;border-radius:50%;border:1.5px solid #c9c3b6"></div><div style="font:13px 'Yomogi',sans-serif;color:#2b2a27">人生と一緒に、積み重なる。</div><div style="height:5px;width:90%;border-radius:3px;background:#e2ded5"></div><div style="height:5px;width:60%;border-radius:3px;background:#e2ded5"></div></div>
+</div>
+</div>
+
+<div style="border:1.5px solid #2b2a27;border-radius:5px;background:#fff;padding:20px 26px;display:flex;flex-direction:column;gap:10px">
+<div style="font:9.5px ui-monospace,monospace;letter-spacing:.08em;color:#8a857a">03 HOW — 声を集めて、開いて聞く（録音の仕組み）</div>
+<div style="display:grid;grid-template-columns:repeat(3,1fr);gap:14px">
+<div style="display:flex;flex-direction:column;gap:6px"><div style="font:20px 'Kalam',cursive;color:#c9c3b6">01</div><div style="font:12px 'Yomogi',sans-serif;color:#2b2a27">問いに答えて録音</div><div style="height:5px;width:88%;border-radius:3px;background:#e2ded5"></div></div>
+<div style="display:flex;flex-direction:column;gap:6px"><div style="font:20px 'Kalam',cursive;color:#c9c3b6">02</div><div style="font:12px 'Yomogi',sans-serif;color:#2b2a27">リンクで家族・友人からも集める</div><div style="height:5px;width:80%;border-radius:3px;background:#e2ded5"></div></div>
+<div style="display:flex;flex-direction:column;gap:6px"><div style="font:20px 'Kalam',cursive;color:#c9c3b6">03</div><div style="font:12px 'Yomogi',sans-serif;color:#2b2a27">蓋を開けるだけで再生</div><div style="height:5px;width:84%;border-radius:3px;background:#e2ded5"></div></div>
+</div>
+</div>
+
+<div style="border:1.5px solid #2b2a27;border-radius:5px;background:#fff;padding:20px 26px;display:flex;flex-direction:column;gap:10px">
+<div style="font:9.5px ui-monospace,monospace;letter-spacing:.08em;color:#8a857a">04 COLORS 5色 ／ 05 PRICE ／ 06 APP（声の年表）</div>
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:14px">
+<div style="border:1px solid #ddd9d0;border-radius:4px;padding:12px;display:flex;flex-direction:column;gap:8px"><div style="display:flex;gap:6px"><div style="width:26px;height:26px;border-radius:4px;border:1.5px solid #c9c3b6;background:#fff"></div><div style="width:26px;height:26px;border-radius:4px;border:1.5px solid #c9c3b6;background:#f7e2e0"></div><div style="width:26px;height:26px;border-radius:4px;border:1.5px solid #c9c3b6;background:#dbe8f4"></div><div style="width:26px;height:26px;border-radius:4px;border:1.5px solid #c9c3b6;background:#f7ecc8"></div><div style="width:26px;height:26px;border-radius:4px;border:1.5px solid #c9c3b6;background:#dfeadf"></div></div><div style="font:11px ui-monospace,monospace;color:#8a857a">全5色 ／ 価格 ¥--,---</div></div>
+<div style="border:1px solid #ddd9d0;border-radius:4px;padding:12px;display:flex;gap:10px;align-items:center"><div style="flex:none;width:56px;height:96px;border:1.5px dashed #b3ada0;border-radius:6px;background:repeating-linear-gradient(45deg,#f4f2ed 0 6px,#e9e6df 6px 12px)"></div><div style="flex:1;display:flex;flex-direction:column;gap:5px"><div style="font:11px 'Yomogi',sans-serif;color:#2b2a27">アプリで「声の年表」</div><div style="height:5px;width:90%;border-radius:3px;background:#e2ded5"></div><div style="height:5px;width:70%;border-radius:3px;background:#e2ded5"></div></div></div>
+</div>
+</div>
+
+<div style="border:1.5px solid #2b2a27;border-radius:5px;background:#f6f3ec;padding:24px;display:flex;flex-direction:column;align-items:center;gap:10px;text-align:center"><div style="font:9.5px ui-monospace,monospace;color:#8a857a">07 FORM — 気になる節目も一緒に登録（＝発売時の出し分けに使える）</div><div style="font:18px 'Yomogi',sans-serif;color:#2b2a27">発売のお知らせをお送りします</div><div style="display:flex;gap:8px;width:72%"><div style="flex:1;border:1.5px solid #2b2a27;border-radius:4px;background:#fff;padding:9px;font:10.5px ui-monospace,monospace;color:#9a9488">メールアドレス</div><div style="flex:none;border:1.5px solid #2b2a27;border-radius:4px;background:#fff;padding:9px 12px;font:10.5px ui-monospace,monospace;color:#9a9488">節目 ▾</div><div style="border-radius:4px;background:#2b2a27;color:#fff;padding:10px 14px;font:10.5px ui-monospace,monospace">登録</div></div><div style="font:9.5px ui-monospace,monospace;color:#8a857a">1,240人が登録中 ／ LINEでも受け取れる</div></div>
+
+<div style="border:1.5px solid #2b2a27;border-radius:5px;background:#fff;padding:16px 26px;display:flex;justify-content:space-between;font:10px ui-monospace,monospace;color:#8a857a"><span>08 FAQ ／ 09 FOOTER（ブランド資料・SNS・会社情報）</span><span>© MemoriO</span></div>
+</div>
+
+<div style="flex:none;width:300px;display:flex;flex-direction:column;gap:10px">
+<div style="font:600 9.5px ui-monospace,monospace;letter-spacing:.1em;color:#9a9488">SP — セレクターは横スワイプのチップ</div>
+<div style="border:1.5px solid #2b2a27;border-radius:16px;background:#fff;padding:8px;display:flex;flex-direction:column;gap:8px">
+<div style="height:12px;display:flex;justify-content:center"><div style="width:56px;height:5px;border-radius:3px;background:#e2ded5"></div></div>
+<div style="height:170px;border-radius:5px;background:repeating-linear-gradient(45deg,#f7f5f0 0 8px,#eeebe4 8px 16px);display:flex;align-items:flex-end;padding:12px"><div style="font:17px/1.5 'Yomogi',sans-serif;color:#2b2a27">人生の節目に、<br>声を贈るという選択を。</div></div>
+<div style="display:flex;gap:5px;overflow:hidden;padding:2px"><div style="flex:none;border:1.5px solid #2b2a27;border-radius:14px;padding:6px 10px;font:9px ui-monospace,monospace;color:#2b2a27;background:#f2efe8">誕生</div><div style="flex:none;border:1px solid #c9c3b6;border-radius:14px;padding:6px 10px;font:9px ui-monospace,monospace;color:#8a857a">誕生日</div><div style="flex:none;border:1px solid #c9c3b6;border-radius:14px;padding:6px 10px;font:9px ui-monospace,monospace;color:#8a857a">記念日</div><div style="flex:none;border:1px solid #c9c3b6;border-radius:14px;padding:6px 10px;font:9px ui-monospace,monospace;color:#8a857a">結婚</div></div>
+<div style="border:1px solid #ddd9d0;border-radius:4px;padding:10px;display:flex;flex-direction:column;gap:6px"><div style="height:100px;border:1.5px dashed #b3ada0;border-radius:4px;background:repeating-linear-gradient(45deg,#f4f2ed 0 6px,#e9e6df 6px 12px)"></div><div style="font:12px 'Yomogi',sans-serif;color:#2b2a27">この日の声を、20年後に。</div><div style="height:5px;width:90%;border-radius:3px;background:#e2ded5"></div><div style="font:9px ui-monospace,monospace;color:#8a857a">刻印例</div></div>
+<div style="border:1px solid #ddd9d0;border-radius:4px;padding:10px;font:9px ui-monospace,monospace;color:#8a857a">VALUES（縦3）／ HOW（縦3）</div>
+<div style="border:1px solid #ddd9d0;border-radius:4px;padding:10px;display:flex;gap:5px"><div style="width:20px;height:20px;border-radius:4px;border:1.5px solid #c9c3b6;background:#fff"></div><div style="width:20px;height:20px;border-radius:4px;border:1.5px solid #c9c3b6;background:#f7e2e0"></div><div style="width:20px;height:20px;border-radius:4px;border:1.5px solid #c9c3b6;background:#dbe8f4"></div><div style="width:20px;height:20px;border-radius:4px;border:1.5px solid #c9c3b6;background:#f7ecc8"></div><div style="width:20px;height:20px;border-radius:4px;border:1.5px solid #c9c3b6;background:#dfeadf"></div></div>
+<div style="border:1px solid #ddd9d0;border-radius:4px;background:#f6f3ec;padding:10px;display:flex;flex-direction:column;gap:6px"><div style="border:1.5px solid #2b2a27;border-radius:4px;background:#fff;padding:8px;font:9.5px ui-monospace,monospace;color:#9a9488">メールアドレス</div><div style="border:1.5px solid #2b2a27;border-radius:4px;background:#fff;padding:8px;font:9.5px ui-monospace,monospace;color:#9a9488">気になる節目 ▾</div><div style="border-radius:4px;background:#2b2a27;color:#fff;padding:9px;text-align:center;font:10px ui-monospace,monospace">登録する</div></div>
+<div style="border-top:1.5px dashed #b3ada0;padding:8px 10px;font:9px ui-monospace,monospace;color:#8a857a">sticky CTA</div>
+</div>
+<div style="font:10.5px/1.6 ui-monospace,monospace;color:#8a857a">狙い：来訪者が自分の節目を自分で選ぶ。出産に寄らず、登録時に興味シーンも取得できる。</div>
+</div>
+
+</div>
+</div>
+
+<div class="dv-opt" id="2b">
+<div class="dv-olabel"><a class="dv-oid" href="#2b">2b</a>節目を横断する縦長ストーリー（<a class="dv-oid" href="#1b">1b</a>の構成を節目非依存に）</div>
+<div class="dv-card" style="width:1000px;padding:24px;display:flex;gap:24px;background:#fbfaf7">
+
+<div style="flex:none;width:620px;display:flex;flex-direction:column;gap:12px">
+<div style="font:600 9.5px ui-monospace,monospace;letter-spacing:.1em;color:#9a9488">PC — 資料の章立てをそのままLPの読み順に</div>
+
+<div style="border:1.5px solid #2b2a27;border-radius:5px;background:#fff;overflow:hidden">
+<div style="padding:9px 14px;border-bottom:1px solid #ddd9d0;display:flex;justify-content:space-between"><span style="font:15px 'Kalam',cursive;color:#2b2a27">MemoriO Congrats</span><span style="font:9.5px ui-monospace,monospace;color:#8a857a">通知登録</span></div>
+<div style="height:270px;background:repeating-linear-gradient(45deg,#f7f5f0 0 8px,#eeebe4 8px 16px);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;text-align:center;padding:24px">
+<div style="font:30px/1.5 'Yomogi',sans-serif;color:#2b2a27">人生と共に積み上がる、<br>声のかたち。</div>
+<div style="height:7px;width:52%;border-radius:4px;background:#dcd7cc"></div>
+<div style="border-radius:4px;background:#2b2a27;color:#fff;padding:10px 18px;font:11px ui-monospace,monospace">発売通知を受け取る</div>
+</div>
+</div>
+
+<div style="border:1.5px solid #2b2a27;border-radius:5px;background:#fff;padding:22px 30px;display:flex;flex-direction:column;gap:10px;align-items:center;text-align:center">
+<div style="font:9.5px ui-monospace,monospace;letter-spacing:.08em;color:#8a857a">02 なぜ声か（ブランド誕生の背景）</div>
+<div style="font:17px/1.7 'Yomogi',sans-serif;color:#2b2a27">残しておきたいのは、記録ではなく、その人の声に宿る想い。</div>
+<div style="display:flex;flex-direction:column;gap:6px;width:100%;align-items:center"><div style="height:6px;width:88%;border-radius:3px;background:#e2ded5"></div><div style="height:6px;width:80%;border-radius:3px;background:#e2ded5"></div><div style="height:6px;width:58%;border-radius:3px;background:#e2ded5"></div></div>
+</div>
+
+<div style="border:1.5px solid #2b2a27;border-radius:5px;background:#fff;padding:20px 26px;display:flex;flex-direction:column;gap:12px">
+<div style="font:9.5px ui-monospace,monospace;letter-spacing:.08em;color:#8a857a">03 SCENES — 7つの節目（等価に並べる）</div>
+<div style="display:grid;grid-template-columns:repeat(4,1fr);gap:10px">
+<div style="border:1px solid #ddd9d0;border-radius:4px;overflow:hidden"><div style="height:64px;background:repeating-linear-gradient(45deg,#f4f2ed 0 6px,#e9e6df 6px 12px)"></div><div style="padding:8px;font:11px 'Yomogi',sans-serif;color:#2b2a27">誕生・出産</div></div>
+<div style="border:1px solid #ddd9d0;border-radius:4px;overflow:hidden"><div style="height:64px;background:repeating-linear-gradient(45deg,#f4f2ed 0 6px,#e9e6df 6px 12px)"></div><div style="padding:8px;font:11px 'Yomogi',sans-serif;color:#2b2a27">誕生日</div></div>
+<div style="border:1px solid #ddd9d0;border-radius:4px;overflow:hidden"><div style="height:64px;background:repeating-linear-gradient(45deg,#f4f2ed 0 6px,#e9e6df 6px 12px)"></div><div style="padding:8px;font:11px 'Yomogi',sans-serif;color:#2b2a27">記念日</div></div>
+<div style="border:1px solid #ddd9d0;border-radius:4px;overflow:hidden"><div style="height:64px;background:repeating-linear-gradient(45deg,#f4f2ed 0 6px,#e9e6df 6px 12px)"></div><div style="padding:8px;font:11px 'Yomogi',sans-serif;color:#2b2a27">結婚</div></div>
+<div style="border:1px solid #ddd9d0;border-radius:4px;overflow:hidden"><div style="height:64px;background:repeating-linear-gradient(45deg,#f4f2ed 0 6px,#e9e6df 6px 12px)"></div><div style="padding:8px;font:11px 'Yomogi',sans-serif;color:#2b2a27">卒業・部活</div></div>
+<div style="border:1px solid #ddd9d0;border-radius:4px;overflow:hidden"><div style="height:64px;background:repeating-linear-gradient(45deg,#f4f2ed 0 6px,#e9e6df 6px 12px)"></div><div style="padding:8px;font:11px 'Yomogi',sans-serif;color:#2b2a27">祖父母・家族</div></div>
+<div style="border:1px solid #ddd9d0;border-radius:4px;overflow:hidden"><div style="height:64px;background:repeating-linear-gradient(45deg,#f4f2ed 0 6px,#e9e6df 6px 12px)"></div><div style="padding:8px;font:11px 'Yomogi',sans-serif;color:#2b2a27">送別</div></div>
+<div style="border:1px dashed #b3ada0;border-radius:4px;display:flex;align-items:center;justify-content:center;font:9.5px/1.5 ui-monospace,monospace;color:#8a857a;text-align:center;padding:8px">各カード<br>タップで詳細</div>
+</div>
+<div style="font:9.5px ui-monospace,monospace;color:#8a857a">▸ 写真は資料のシーンカットを流用。1シーン＝1行のコピー</div>
+</div>
+
+<div style="border:1.5px solid #2b2a27;border-radius:5px;background:#fff;padding:20px 26px;display:flex;flex-direction:column;gap:12px">
+<div style="font:9.5px ui-monospace,monospace;letter-spacing:.08em;color:#8a857a">04 JOURNEY — 誰かを想う → 声を残す → 贈る → 再会する → 積み重ねる</div>
+<div style="display:flex;align-items:center;gap:6px">
+<div style="flex:1;display:flex;flex-direction:column;gap:5px;align-items:center"><div style="width:44px;height:44px;border-radius:50%;border:1.5px dashed #b3ada0"></div><span style="font:9px ui-monospace,monospace;color:#8a857a">想う</span></div>
+<span style="font:10px ui-monospace,monospace;color:#c9c3b6">›</span>
+<div style="flex:1;display:flex;flex-direction:column;gap:5px;align-items:center"><div style="width:44px;height:44px;border-radius:50%;border:1.5px dashed #b3ada0"></div><span style="font:9px ui-monospace,monospace;color:#8a857a">残す</span></div>
+<span style="font:10px ui-monospace,monospace;color:#c9c3b6">›</span>
+<div style="flex:1;display:flex;flex-direction:column;gap:5px;align-items:center"><div style="width:44px;height:44px;border-radius:50%;border:1.5px dashed #b3ada0"></div><span style="font:9px ui-monospace,monospace;color:#8a857a">贈る</span></div>
+<span style="font:10px ui-monospace,monospace;color:#c9c3b6">›</span>
+<div style="flex:1;display:flex;flex-direction:column;gap:5px;align-items:center"><div style="width:44px;height:44px;border-radius:50%;border:1.5px dashed #b3ada0"></div><span style="font:9px ui-monospace,monospace;color:#8a857a">再会</span></div>
+<span style="font:10px ui-monospace,monospace;color:#c9c3b6">›</span>
+<div style="flex:1;display:flex;flex-direction:column;gap:5px;align-items:center"><div style="width:44px;height:44px;border-radius:50%;border:1.5px dashed #b3ada0"></div><span style="font:9px ui-monospace,monospace;color:#8a857a">そばに</span></div>
+<span style="font:10px ui-monospace,monospace;color:#c9c3b6">›</span>
+<div style="flex:1;display:flex;flex-direction:column;gap:5px;align-items:center"><div style="width:44px;height:44px;border-radius:50%;border:1.5px dashed #b3ada0"></div><span style="font:9px ui-monospace,monospace;color:#8a857a">積む</span></div>
+</div>
+</div>
+
+<div style="border:1.5px solid #2b2a27;border-radius:5px;background:#fff;padding:20px 26px;display:flex;flex-direction:column;gap:12px">
+<div style="font:9.5px ui-monospace,monospace;letter-spacing:.08em;color:#8a857a">05 PRODUCT — 開く・刻む・積む</div>
+<div style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px">
+<div style="display:flex;flex-direction:column;gap:6px"><div style="height:110px;border:1.5px dashed #b3ada0;border-radius:4px;background:repeating-linear-gradient(45deg,#f4f2ed 0 6px,#e9e6df 6px 12px);display:flex;align-items:center;justify-content:center;font:9px ui-monospace,monospace;color:#8a857a">開いた本体</div><div style="font:12px 'Yomogi',sans-serif;color:#2b2a27">蓋を開けるだけ</div></div>
+<div style="display:flex;flex-direction:column;gap:6px"><div style="height:110px;border:1.5px dashed #b3ada0;border-radius:4px;background:repeating-linear-gradient(45deg,#f4f2ed 0 6px,#e9e6df 6px 12px);display:flex;align-items:center;justify-content:center;font:9px ui-monospace,monospace;color:#8a857a">刻印面の寄り</div><div style="font:12px 'Yomogi',sans-serif;color:#2b2a27">日付とメッセージを刻む</div></div>
+<div style="display:flex;flex-direction:column;gap:6px"><div style="height:110px;border:1.5px dashed #b3ada0;border-radius:4px;background:repeating-linear-gradient(45deg,#f4f2ed 0 6px,#e9e6df 6px 12px);display:flex;align-items:center;justify-content:center;font:9px ui-monospace,monospace;color:#8a857a">積んだ状態</div><div style="font:12px 'Yomogi',sans-serif;color:#2b2a27">節目ごとに積み上がる</div></div>
+</div>
+</div>
+
+<div style="border:1.5px solid #2b2a27;border-radius:5px;background:#fff;padding:20px 26px;display:flex;flex-direction:column;gap:10px">
+<div style="font:9.5px ui-monospace,monospace;letter-spacing:.08em;color:#8a857a">06 COLORS 5色（色名＋意味づけ）／ 07 PRICE ／ 08 APP</div>
+<div style="display:grid;grid-template-columns:repeat(5,1fr);gap:10px">
+<div style="display:flex;flex-direction:column;gap:5px"><div style="height:74px;border:1.5px solid #c9c3b6;border-radius:4px;background:#fdfdfc"></div><div style="font:10.5px 'Yomogi',sans-serif;color:#2b2a27">White</div></div>
+<div style="display:flex;flex-direction:column;gap:5px"><div style="height:74px;border:1.5px solid #c9c3b6;border-radius:4px;background:#f7e2e0"></div><div style="font:10.5px 'Yomogi',sans-serif;color:#2b2a27">Pink</div></div>
+<div style="display:flex;flex-direction:column;gap:5px"><div style="height:74px;border:1.5px solid #c9c3b6;border-radius:4px;background:#dbe8f4"></div><div style="font:10.5px 'Yomogi',sans-serif;color:#2b2a27">Blue</div></div>
+<div style="display:flex;flex-direction:column;gap:5px"><div style="height:74px;border:1.5px solid #c9c3b6;border-radius:4px;background:#f7ecc8"></div><div style="font:10.5px 'Yomogi',sans-serif;color:#2b2a27">Yellow</div></div>
+<div style="display:flex;flex-direction:column;gap:5px"><div style="height:74px;border:1.5px solid #c9c3b6;border-radius:4px;background:#dfeadf"></div><div style="font:10.5px 'Yomogi',sans-serif;color:#2b2a27">Green</div></div>
+</div>
+<div style="display:flex;gap:12px"><div style="flex:1;border:1px solid #ddd9d0;border-radius:4px;padding:12px;font:11px ui-monospace,monospace;color:#6f6a60">価格 ¥--,--- ／ 発売 2026年予定</div><div style="flex:1;border:1px solid #ddd9d0;border-radius:4px;padding:12px;font:11px ui-monospace,monospace;color:#6f6a60">アプリ：声の年表（縦に積み上がる）</div></div>
+</div>
+
+<div style="border:1.5px solid #2b2a27;border-radius:5px;background:#f6f3ec;padding:24px;display:flex;flex-direction:column;align-items:center;gap:10px;text-align:center"><div style="font:9.5px ui-monospace,monospace;color:#8a857a">09 FORM 再掲 ／ 10 FAQ ／ 11 FOOTER</div><div style="font:18px 'Yomogi',sans-serif;color:#2b2a27">最初の声を、あなたの節目に。</div><div style="display:flex;gap:8px;width:66%"><div style="flex:1;border:1.5px solid #2b2a27;border-radius:4px;background:#fff;padding:9px;font:10.5px ui-monospace,monospace;color:#9a9488">メールアドレス</div><div style="border-radius:4px;background:#2b2a27;color:#fff;padding:10px 14px;font:10.5px ui-monospace,monospace">登録</div></div></div>
+</div>
+
+<div style="flex:none;width:300px;display:flex;flex-direction:column;gap:10px">
+<div style="font:600 9.5px ui-monospace,monospace;letter-spacing:.1em;color:#9a9488">SP</div>
+<div style="border:1.5px solid #2b2a27;border-radius:16px;background:#fff;padding:8px;display:flex;flex-direction:column;gap:8px">
+<div style="height:12px;display:flex;justify-content:center"><div style="width:56px;height:5px;border-radius:3px;background:#e2ded5"></div></div>
+<div style="height:190px;border-radius:5px;background:repeating-linear-gradient(45deg,#f7f5f0 0 8px,#eeebe4 8px 16px);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;text-align:center;padding:12px"><div style="font:18px/1.6 'Yomogi',sans-serif;color:#2b2a27">人生と共に<br>積み上がる、<br>声のかたち。</div><div style="border-radius:4px;background:#2b2a27;color:#fff;padding:8px 14px;font:9.5px ui-monospace,monospace">通知を受け取る</div></div>
+<div style="border:1px solid #ddd9d0;border-radius:4px;padding:10px;display:flex;flex-direction:column;gap:5px"><div style="font:9px ui-monospace,monospace;color:#8a857a">02 なぜ声か</div><div style="font:12px 'Yomogi',sans-serif;color:#2b2a27">記録ではなく、声に宿る想い。</div><div style="height:5px;width:92%;border-radius:3px;background:#e2ded5"></div></div>
+<div style="border:1px solid #ddd9d0;border-radius:4px;padding:10px;display:flex;flex-direction:column;gap:6px"><div style="font:9px ui-monospace,monospace;color:#8a857a">03 SCENES（2列グリッド）</div><div style="display:grid;grid-template-columns:1fr 1fr;gap:6px"><div style="height:52px;border:1px dashed #b3ada0;border-radius:4px"></div><div style="height:52px;border:1px dashed #b3ada0;border-radius:4px"></div><div style="height:52px;border:1px dashed #b3ada0;border-radius:4px"></div><div style="height:52px;border:1px dashed #b3ada0;border-radius:4px"></div></div></div>
+<div style="border:1px solid #ddd9d0;border-radius:4px;padding:10px;display:flex;flex-direction:column;gap:6px"><div style="font:9px ui-monospace,monospace;color:#8a857a">04 JOURNEY（縦タイムライン）</div><div style="display:flex;gap:8px;align-items:center"><div style="width:22px;height:22px;border-radius:50%;border:1.5px dashed #b3ada0"></div><div style="flex:1;height:5px;border-radius:3px;background:#e2ded5"></div></div><div style="display:flex;gap:8px;align-items:center"><div style="width:22px;height:22px;border-radius:50%;border:1.5px dashed #b3ada0"></div><div style="flex:1;height:5px;border-radius:3px;background:#e2ded5"></div></div><div style="display:flex;gap:8px;align-items:center"><div style="width:22px;height:22px;border-radius:50%;border:1.5px dashed #b3ada0"></div><div style="flex:1;height:5px;border-radius:3px;background:#e2ded5"></div></div></div>
+<div style="border:1px solid #ddd9d0;border-radius:4px;padding:10px;font:9px ui-monospace,monospace;color:#8a857a">05 PRODUCT ／ 06 COLORS ／ 07 PRICE ／ 08 APP</div>
+<div style="border:1px solid #ddd9d0;border-radius:4px;background:#f6f3ec;padding:10px;display:flex;flex-direction:column;gap:6px"><div style="border:1.5px solid #2b2a27;border-radius:4px;background:#fff;padding:8px;font:9.5px ui-monospace,monospace;color:#9a9488">メールアドレス</div><div style="border-radius:4px;background:#2b2a27;color:#fff;padding:9px;text-align:center;font:10px ui-monospace,monospace">登録する</div></div>
+<div style="border-top:1.5px dashed #b3ada0;padding:8px 10px;font:9px ui-monospace,monospace;color:#8a857a">FAQ ／ FOOTER ／ sticky CTA</div>
+</div>
+<div style="font:10.5px/1.6 ui-monospace,monospace;color:#8a857a">狙い：ブランドとして理解させる。7シーンを等価に並べ、特定用途に寄らない。</div>
+</div>
+
+</div>
+</div>
+
+<div class="dv-opt" id="2c">
+<div class="dv-olabel"><a class="dv-oid" href="#2c">2c</a>「声の年表」を主役に — 人生の時間軸を横スクロール</div>
+<div class="dv-card" style="width:1000px;padding:24px;display:flex;gap:24px;background:#fbfaf7">
+
+<div style="flex:none;width:620px;display:flex;flex-direction:column;gap:12px">
+<div style="font:600 9.5px ui-monospace,monospace;letter-spacing:.1em;color:#9a9488">PC — 0歳から先の節目までを1本の線で見せる</div>
+
+<div style="border:1.5px solid #2b2a27;border-radius:5px;background:#fff;overflow:hidden">
+<div style="padding:9px 14px;border-bottom:1px solid #ddd9d0;font:15px 'Kalam',cursive;color:#2b2a27">MemoriO Congrats</div>
+<div style="padding:26px 30px;display:flex;flex-direction:column;gap:16px;background:repeating-linear-gradient(45deg,#f7f5f0 0 8px,#eeebe4 8px 16px)">
+<div style="font:26px/1.5 'Yomogi',sans-serif;color:#2b2a27">節目のたびに、ひとつ増えていく。</div>
+<div style="display:flex;align-items:flex-end;gap:0;border-bottom:1.5px solid #c9c3b6;padding-bottom:0">
+<div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:6px;padding-bottom:8px"><div style="width:48px;height:48px;border:1.5px solid #c9c3b6;border-radius:5px;background:#f7e2e0"></div><span style="font:9px ui-monospace,monospace;color:#8a857a">誕生</span></div>
+<div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:6px;padding-bottom:8px"><div style="width:48px;height:48px;border:1.5px solid #c9c3b6;border-radius:5px;background:#f7ecc8"></div><span style="font:9px ui-monospace,monospace;color:#8a857a">1歳</span></div>
+<div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:6px;padding-bottom:8px"><div style="width:48px;height:48px;border:1.5px solid #c9c3b6;border-radius:5px;background:#dfeadf"></div><span style="font:9px ui-monospace,monospace;color:#8a857a">卒業</span></div>
+<div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:6px;padding-bottom:8px"><div style="width:48px;height:48px;border:1.5px solid #c9c3b6;border-radius:5px;background:#dbe8f4"></div><span style="font:9px ui-monospace,monospace;color:#8a857a">記念日</span></div>
+<div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:6px;padding-bottom:8px"><div style="width:48px;height:48px;border:1.5px solid #c9c3b6;border-radius:5px;background:#fdfdfc"></div><span style="font:9px ui-monospace,monospace;color:#8a857a">結婚</span></div>
+<div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:6px;padding-bottom:8px"><div style="width:48px;height:48px;border:1.5px dashed #b3ada0;border-radius:5px"></div><span style="font:9px ui-monospace,monospace;color:#8a857a">これから</span></div>
+</div>
+<div style="display:flex;justify-content:space-between;align-items:center"><div style="font:9.5px ui-monospace,monospace;color:#8a857a">▸ 横ドラッグ／スクロールで時間が進む。各点をクリックで下にシーン詳細</div><div style="border-radius:4px;background:#2b2a27;color:#fff;padding:9px 16px;font:10.5px ui-monospace,monospace">発売通知を受け取る</div></div>
+</div>
+</div>
+
+<div style="border:1.5px solid #2b2a27;border-radius:5px;background:#fff;padding:20px 26px;display:flex;gap:18px">
+<div style="flex:none;width:240px;height:170px;border:1.5px dashed #b3ada0;border-radius:4px;background:repeating-linear-gradient(45deg,#f4f2ed 0 7px,#e9e6df 7px 14px);display:flex;align-items:center;justify-content:center;font:9.5px/1.6 ui-monospace,monospace;color:#8a857a;text-align:center">選択した節目の<br>シーン写真</div>
+<div style="flex:1;display:flex;flex-direction:column;gap:9px">
+<div style="font:9.5px ui-monospace,monospace;letter-spacing:.08em;color:#8a857a">選択中：卒業・部活</div>
+<div style="font:16px 'Yomogi',sans-serif;color:#2b2a27">卒業しても、この時間を残したい。</div>
+<div style="height:6px;width:94%;border-radius:3px;background:#e2ded5"></div>
+<div style="height:6px;width:76%;border-radius:3px;background:#e2ded5"></div>
+<div style="display:flex;gap:8px;font:9px ui-monospace,monospace;color:#8a857a"><span style="border:1px solid #ddd9d0;border-radius:3px;padding:3px 7px">仲間の声を集める</span><span style="border:1px solid #ddd9d0;border-radius:3px;padding:3px 7px">グループ購入</span></div>
+</div>
+</div>
+
+<div style="border:1.5px solid #2b2a27;border-radius:5px;background:#fff;padding:20px 26px;display:flex;flex-direction:column;gap:12px">
+<div style="font:9.5px ui-monospace,monospace;letter-spacing:.08em;color:#8a857a">物理とデジタル、同じ積み重なり</div>
+<div style="display:flex;gap:20px;align-items:center">
+<div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:3px"><div style="width:60px;height:60px;border:1.5px solid #c9c3b6;border-radius:5px;background:#dfeadf"></div><div style="width:60px;height:60px;border:1.5px solid #c9c3b6;border-radius:5px;background:#dbe8f4"></div><div style="width:60px;height:60px;border:1.5px solid #c9c3b6;border-radius:5px;background:#f7e2e0"></div><span style="font:9px ui-monospace,monospace;color:#8a857a">棚のキューブ</span></div>
+<span style="font:14px ui-monospace,monospace;color:#c9c3b6">＝</span>
+<div style="flex:1;display:flex;flex-direction:column;gap:6px;align-items:center"><div style="width:86px;height:150px;border:1.5px dashed #b3ada0;border-radius:8px;background:repeating-linear-gradient(45deg,#f4f2ed 0 6px,#e9e6df 6px 12px);display:flex;align-items:center;justify-content:center;font:8.5px/1.5 ui-monospace,monospace;color:#8a857a;text-align:center">アプリ<br>声の年表</div><span style="font:9px ui-monospace,monospace;color:#8a857a">デジタルの年表</span></div>
+<div style="flex:1.4;display:flex;flex-direction:column;gap:6px"><div style="font:14px 'Yomogi',sans-serif;color:#2b2a27">開けば聞ける。スマホがなくても。</div><div style="height:6px;width:92%;border-radius:3px;background:#e2ded5"></div><div style="height:6px;width:70%;border-radius:3px;background:#e2ded5"></div><div style="font:9.5px ui-monospace,monospace;color:#8a857a">▸ 録音の仕組みはここに集約（リンク共有／ブラウザ録音）</div></div>
+</div>
+</div>
+
+<div style="border:1.5px solid #2b2a27;border-radius:5px;background:#fff;padding:20px 26px;display:flex;gap:16px;align-items:center">
+<div style="flex:none;width:200px;height:130px;border:1.5px dashed #b3ada0;border-radius:4px;background:repeating-linear-gradient(45deg,#f4f2ed 0 7px,#e9e6df 7px 14px);display:flex;align-items:center;justify-content:center;font:9px ui-monospace,monospace;color:#8a857a">選択中の色の本体</div>
+<div style="flex:1;display:flex;flex-direction:column;gap:10px"><div style="font:9.5px ui-monospace,monospace;color:#8a857a">COLORS ／ PRICE</div><div style="display:flex;gap:8px"><div style="width:28px;height:28px;border-radius:5px;border:1.5px solid #2b2a27;background:#fff"></div><div style="width:28px;height:28px;border-radius:5px;border:1.5px solid #c9c3b6;background:#f7e2e0"></div><div style="width:28px;height:28px;border-radius:5px;border:1.5px solid #c9c3b6;background:#dbe8f4"></div><div style="width:28px;height:28px;border-radius:5px;border:1.5px solid #c9c3b6;background:#f7ecc8"></div><div style="width:28px;height:28px;border-radius:5px;border:1.5px solid #c9c3b6;background:#dfeadf"></div></div><div style="font:14px 'Yomogi',sans-serif;color:#2b2a27">¥--,--- ／ 2026年 発売予定</div></div>
+</div>
+
+<div style="border:1.5px solid #2b2a27;border-radius:5px;background:#2b2a27;padding:24px;display:flex;align-items:center;justify-content:space-between"><div style="display:flex;flex-direction:column;gap:6px"><div style="font:17px 'Yomogi',sans-serif;color:#fff">ひとつ目を、あなたの節目から。</div><div style="font:9.5px ui-monospace,monospace;color:#b8b2a6">FORM 再掲 ／ FAQ ／ FOOTER</div></div><div style="border-radius:4px;background:#fff;color:#2b2a27;padding:11px 18px;font:11px ui-monospace,monospace">発売通知を受け取る</div></div>
+</div>
+
+<div style="flex:none;width:300px;display:flex;flex-direction:column;gap:10px">
+<div style="font:600 9.5px ui-monospace,monospace;letter-spacing:.1em;color:#9a9488">SP — 年表は縦。下に進むほど節目が増える</div>
+<div style="border:1.5px solid #2b2a27;border-radius:16px;background:#fff;padding:8px;display:flex;flex-direction:column;gap:8px">
+<div style="height:12px;display:flex;justify-content:center"><div style="width:56px;height:5px;border-radius:3px;background:#e2ded5"></div></div>
+<div style="border-radius:5px;background:repeating-linear-gradient(45deg,#f7f5f0 0 8px,#eeebe4 8px 16px);padding:12px;display:flex;flex-direction:column;gap:10px"><div style="font:17px/1.5 'Yomogi',sans-serif;color:#2b2a27">節目のたびに、<br>ひとつ増えていく。</div>
+<div style="display:flex;flex-direction:column;gap:8px;border-left:1.5px solid #c9c3b6;padding-left:12px">
+<div style="display:flex;gap:8px;align-items:center"><div style="width:34px;height:34px;border:1.5px solid #c9c3b6;border-radius:4px;background:#f7e2e0"></div><span style="font:9.5px ui-monospace,monospace;color:#8a857a">誕生</span></div>
+<div style="display:flex;gap:8px;align-items:center"><div style="width:34px;height:34px;border:1.5px solid #c9c3b6;border-radius:4px;background:#f7ecc8"></div><span style="font:9.5px ui-monospace,monospace;color:#8a857a">1歳</span></div>
+<div style="display:flex;gap:8px;align-items:center"><div style="width:34px;height:34px;border:1.5px solid #c9c3b6;border-radius:4px;background:#dfeadf"></div><span style="font:9.5px ui-monospace,monospace;color:#8a857a">卒業</span></div>
+<div style="display:flex;gap:8px;align-items:center"><div style="width:34px;height:34px;border:1.5px dashed #b3ada0;border-radius:4px"></div><span style="font:9.5px ui-monospace,monospace;color:#8a857a">これから</span></div>
+</div>
+</div>
+<div style="border:1px solid #ddd9d0;border-radius:4px;padding:10px;display:flex;flex-direction:column;gap:6px"><div style="font:9px ui-monospace,monospace;color:#8a857a">選択した節目の詳細</div><div style="height:96px;border:1.5px dashed #b3ada0;border-radius:4px;background:repeating-linear-gradient(45deg,#f4f2ed 0 6px,#e9e6df 6px 12px)"></div><div style="height:5px;width:88%;border-radius:3px;background:#e2ded5"></div></div>
+<div style="border:1px solid #ddd9d0;border-radius:4px;padding:10px;font:9px ui-monospace,monospace;color:#8a857a">物理＝デジタル ／ 録音の仕組み ／ COLORS ／ PRICE</div>
+<div style="border:1px solid #ddd9d0;border-radius:4px;background:#2b2a27;padding:12px;display:flex;flex-direction:column;gap:6px"><div style="font:12px 'Yomogi',sans-serif;color:#fff">ひとつ目を、あなたの節目から。</div><div style="border-radius:4px;background:#fff;color:#2b2a27;padding:9px;text-align:center;font:10px ui-monospace,monospace">発売通知を受け取る</div></div>
+<div style="border-top:1.5px dashed #b3ada0;padding:8px 10px;font:9px ui-monospace,monospace;color:#8a857a">FAQ ／ FOOTER ／ sticky CTA</div>
+</div>
+<div style="font:10.5px/1.6 ui-monospace,monospace;color:#8a857a">狙い：Stack思想＝ブランドの核を主構造に。特定の節目でなく「人生全体」を売る。</div>
+</div>
+
+</div>
+</div>
+
+<div class="dv-opt" id="2d">
+<div class="dv-olabel"><a class="dv-oid" href="#2d">2d</a>超ミニマル1画面＋節目タブ（<a class="dv-oid" href="#1a">1a</a>の節目非依存版）</div>
+<div class="dv-card" style="width:1000px;padding:24px;display:flex;gap:24px;background:#fbfaf7">
+
+<div style="flex:none;width:620px;display:flex;flex-direction:column;gap:10px">
+<div style="font:600 9.5px ui-monospace,monospace;letter-spacing:.1em;color:#9a9488">PC — 1画面。コピーは節目に触れず、タブで用途だけ示す</div>
+<div style="border:1.5px solid #2b2a27;border-radius:5px;background:#fff;overflow:hidden">
+<div style="display:flex;align-items:center;justify-content:space-between;padding:10px 14px;border-bottom:1px solid #ddd9d0"><span style="font:16px 'Kalam',cursive;color:#2b2a27">MemoriO</span><span style="font:10px ui-monospace,monospace;color:#8a857a">2026年 発売予定</span></div>
+<div style="display:flex;gap:24px;padding:28px 30px;align-items:center;min-height:290px">
+<div style="flex:1;display:flex;flex-direction:column;gap:14px">
+<div style="font:27px/1.5 'Yomogi',sans-serif;color:#2b2a27">声が、贈り物になる。</div>
+<div style="display:flex;flex-direction:column;gap:6px"><div style="height:7px;width:90%;border-radius:4px;background:#e2ded5"></div><div style="height:7px;width:64%;border-radius:4px;background:#e2ded5"></div></div>
+<div style="display:flex;gap:6px;flex-wrap:wrap"><span style="border:1px solid #c9c3b6;border-radius:16px;padding:5px 11px;font:9.5px ui-monospace,monospace;color:#8a857a">誕生</span><span style="border:1px solid #c9c3b6;border-radius:16px;padding:5px 11px;font:9.5px ui-monospace,monospace;color:#8a857a">誕生日</span><span style="border:1px solid #c9c3b6;border-radius:16px;padding:5px 11px;font:9.5px ui-monospace,monospace;color:#8a857a">記念日</span><span style="border:1px solid #c9c3b6;border-radius:16px;padding:5px 11px;font:9.5px ui-monospace,monospace;color:#8a857a">結婚</span><span style="border:1px solid #c9c3b6;border-radius:16px;padding:5px 11px;font:9.5px ui-monospace,monospace;color:#8a857a">卒業</span><span style="border:1px solid #c9c3b6;border-radius:16px;padding:5px 11px;font:9.5px ui-monospace,monospace;color:#8a857a">家族</span></div>
+<div style="display:flex;gap:8px;margin-top:2px"><div style="flex:1;border:1.5px solid #2b2a27;border-radius:4px;padding:9px 10px;font:11px ui-monospace,monospace;color:#9a9488">メールアドレス</div><div style="border-radius:4px;background:#2b2a27;color:#fff;padding:9px 14px;font:11px ui-monospace,monospace">登録</div></div>
+<div style="font:10px ui-monospace,monospace;color:#8a857a">▸ 1,240人が発売を待っています</div>
+</div>
+<div style="flex:none;width:280px;height:240px;border:1.5px dashed #b3ada0;border-radius:5px;background:repeating-linear-gradient(45deg,#f4f2ed 0 7px,#e9e6df 7px 14px);display:flex;align-items:center;justify-content:center;text-align:center;font:10px/1.6 ui-monospace,monospace;color:#8a857a">5色並びのKV</div>
+</div>
+<div style="border-top:1px solid #ddd9d0;padding:16px 30px;display:grid;grid-template-columns:repeat(4,1fr);gap:14px">
+<div style="display:flex;flex-direction:column;gap:5px"><div style="font:9px ui-monospace,monospace;color:#8a857a">開くだけ</div><div style="height:5px;width:80%;border-radius:3px;background:#e2ded5"></div></div>
+<div style="display:flex;flex-direction:column;gap:5px"><div style="font:9px ui-monospace,monospace;color:#8a857a">刻印できる</div><div style="height:5px;width:74%;border-radius:3px;background:#e2ded5"></div></div>
+<div style="display:flex;flex-direction:column;gap:5px"><div style="font:9px ui-monospace,monospace;color:#8a857a">全5色</div><div style="display:flex;gap:4px"><div style="width:15px;height:15px;border-radius:3px;border:1px solid #c9c3b6;background:#fff"></div><div style="width:15px;height:15px;border-radius:3px;border:1px solid #c9c3b6;background:#f7e2e0"></div><div style="width:15px;height:15px;border-radius:3px;border:1px solid #c9c3b6;background:#dbe8f4"></div><div style="width:15px;height:15px;border-radius:3px;border:1px solid #c9c3b6;background:#f7ecc8"></div><div style="width:15px;height:15px;border-radius:3px;border:1px solid #c9c3b6;background:#dfeadf"></div></div></div>
+<div style="display:flex;flex-direction:column;gap:5px"><div style="font:9px ui-monospace,monospace;color:#8a857a">価格</div><div style="font:12px 'Yomogi',sans-serif;color:#2b2a27">¥--,---</div></div>
+</div>
+<div style="border-top:1px solid #ddd9d0;padding:12px 30px;display:flex;justify-content:space-between;font:10px ui-monospace,monospace;color:#8a857a"><span>ブランド資料を見る</span><span>© MemoriO</span></div>
+</div>
+<div style="font:10.5px/1.6 ui-monospace,monospace;color:#8a857a">狙い：ティザーとして最短。節目はタブの列挙だけで示し、詳細は発売時のLPへ。</div>
+</div>
+
+<div style="flex:none;width:300px;display:flex;flex-direction:column;gap:10px">
+<div style="font:600 9.5px ui-monospace,monospace;letter-spacing:.1em;color:#9a9488">SP — 1スクロール</div>
+<div style="border:1.5px solid #2b2a27;border-radius:16px;background:#fff;padding:8px 8px 10px;display:flex;flex-direction:column;gap:11px">
+<div style="height:12px;display:flex;justify-content:center"><div style="width:56px;height:5px;border-radius:3px;background:#e2ded5"></div></div>
+<div style="height:160px;border:1.5px dashed #b3ada0;border-radius:5px;background:repeating-linear-gradient(45deg,#f4f2ed 0 7px,#e9e6df 7px 14px);display:flex;align-items:center;justify-content:center;font:9.5px ui-monospace,monospace;color:#8a857a">KV</div>
+<div style="padding:0 4px;display:flex;flex-direction:column;gap:10px">
+<div style="font:20px 'Yomogi',sans-serif;color:#2b2a27">声が、贈り物になる。</div>
+<div style="display:flex;flex-direction:column;gap:5px"><div style="height:6px;width:94%;border-radius:3px;background:#e2ded5"></div><div style="height:6px;width:68%;border-radius:3px;background:#e2ded5"></div></div>
+<div style="display:flex;gap:4px;flex-wrap:wrap"><span style="border:1px solid #c9c3b6;border-radius:14px;padding:4px 9px;font:8.5px ui-monospace,monospace;color:#8a857a">誕生</span><span style="border:1px solid #c9c3b6;border-radius:14px;padding:4px 9px;font:8.5px ui-monospace,monospace;color:#8a857a">誕生日</span><span style="border:1px solid #c9c3b6;border-radius:14px;padding:4px 9px;font:8.5px ui-monospace,monospace;color:#8a857a">記念日</span><span style="border:1px solid #c9c3b6;border-radius:14px;padding:4px 9px;font:8.5px ui-monospace,monospace;color:#8a857a">結婚</span><span style="border:1px solid #c9c3b6;border-radius:14px;padding:4px 9px;font:8.5px ui-monospace,monospace;color:#8a857a">卒業</span><span style="border:1px solid #c9c3b6;border-radius:14px;padding:4px 9px;font:8.5px ui-monospace,monospace;color:#8a857a">家族</span></div>
+<div style="display:flex;flex-direction:column;gap:6px"><div style="border:1.5px solid #2b2a27;border-radius:4px;padding:9px;font:10px ui-monospace,monospace;color:#9a9488">メールアドレス</div><div style="border-radius:4px;background:#2b2a27;color:#fff;padding:10px;text-align:center;font:10px ui-monospace,monospace">発売通知を受け取る</div></div>
+<div style="border-top:1px solid #ddd9d0;padding-top:10px;display:flex;justify-content:space-between;font:9px ui-monospace,monospace;color:#8a857a"><span>全5色</span><span>¥--,---</span><span>2026年</span></div>
+<div style="font:9px ui-monospace,monospace;color:#8a857a">footer（資料 / SNS）</div>
+</div>
+</div>
+<div style="font:10.5px/1.6 ui-monospace,monospace;color:#8a857a">▸ 実装が最も軽い。SNS流入の受け皿に向く</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<p class="dv-next">試せること：「<a class="dv-oid" href="#2a">2a</a>で進めて、シーンを7つ全部描いて」・「<a class="dv-oid" href="#2c">2c</a>の年表演出を詳しく」・「<a class="dv-oid" href="#2b">2b</a>に<a class="dv-oid" href="#2a">2a</a>のセレクターを足して」</p>
+</section>
+
+<section class="dv-turn" id="t1">
+<div class="dv-thd"><a class="dv-tid" href="#t1">1</a><span class="dv-tname">MemoriO Congrats ティザーLP ／ 4方向のWF（SP＋PC）</span></div>
+<div class="dv-opts">
+
+<div class="dv-opt" id="1a">
+<div class="dv-olabel"><a class="dv-oid" href="#1a">1a</a>超ミニマル・1画面完結／コピー主役</div>
+<div class="dv-card" style="width:1000px;padding:24px;display:flex;gap:24px;background:#fbfaf7">
+
+<div style="flex:none;width:620px;display:flex;flex-direction:column;gap:10px">
+<div style="font:600 9.5px ui-monospace,monospace;letter-spacing:.1em;color:#9a9488">PC — 1440 / 1画面＋1スクロール</div>
+<div style="border:1.5px solid #2b2a27;border-radius:5px;background:#fff;overflow:hidden">
+<div style="display:flex;align-items:center;justify-content:space-between;padding:10px 14px;border-bottom:1px solid #ddd9d0"><span style="font:16px 'Kalam',cursive;color:#2b2a27">MemoriO</span><span style="font:10px ui-monospace,monospace;color:#8a857a">発売通知を受け取る →</span></div>
+<div style="padding:26px 30px;display:flex;gap:24px;align-items:center;min-height:300px">
+<div style="flex:1;display:flex;flex-direction:column;gap:14px">
+<div style="font:10px ui-monospace,monospace;color:#8a857a">2026年 発売予定</div>
+<div style="font:26px/1.45 'Yomogi',sans-serif;color:#2b2a27">はじめての声を、<br>ずっとそばに。</div>
+<div style="display:flex;flex-direction:column;gap:6px"><div style="height:7px;width:92%;border-radius:4px;background:#e2ded5"></div><div style="height:7px;width:78%;border-radius:4px;background:#e2ded5"></div></div>
+<div style="display:flex;gap:8px;margin-top:4px"><div style="flex:1;border:1.5px solid #2b2a27;border-radius:4px;padding:9px 10px;font:11px ui-monospace,monospace;color:#9a9488">メールアドレス</div><div style="border:1.5px solid #2b2a27;border-radius:4px;background:#2b2a27;color:#fff;padding:9px 14px;font:11px ui-monospace,monospace">登録</div></div>
+<div style="font:10px ui-monospace,monospace;color:#8a857a">▸ すでに 1,240 人が発売を待っています</div>
+</div>
+<div style="flex:none;width:290px;height:250px;border:1.5px dashed #b3ada0;border-radius:5px;background:repeating-linear-gradient(45deg,#f4f2ed 0 7px,#e9e6df 7px 14px);display:flex;align-items:center;justify-content:center;text-align:center;font:10px/1.6 ui-monospace,monospace;color:#8a857a">main_visual.png<br>（5色／開いた本体）</div>
+</div>
+<div style="border-top:1px solid #ddd9d0;padding:18px 30px;display:grid;grid-template-columns:repeat(3,1fr);gap:16px">
+<div style="display:flex;flex-direction:column;gap:6px"><div style="font:10px ui-monospace,monospace;color:#8a857a">01 CARE</div><div style="font:13px 'Yomogi',sans-serif;color:#2b2a27">蓋を開けるだけ</div><div style="height:6px;width:80%;border-radius:3px;background:#e2ded5"></div></div>
+<div style="display:flex;flex-direction:column;gap:6px"><div style="font:10px ui-monospace,monospace;color:#8a857a">02 COLOR</div><div style="display:flex;gap:5px">
+<div style="width:20px;height:20px;border-radius:4px;border:1.5px solid #c9c3b6;background:#fff"></div><div style="width:20px;height:20px;border-radius:4px;border:1.5px solid #c9c3b6;background:#f4d9d7"></div><div style="width:20px;height:20px;border-radius:4px;border:1.5px solid #c9c3b6;background:#d3e2f0"></div><div style="width:20px;height:20px;border-radius:4px;border:1.5px solid #c9c3b6;background:#f4e6bd"></div><div style="width:20px;height:20px;border-radius:4px;border:1.5px solid #c9c3b6;background:#d6e5d6"></div></div><div style="font:10px ui-monospace,monospace;color:#8a857a">全5色</div></div>
+<div style="display:flex;flex-direction:column;gap:6px"><div style="font:10px ui-monospace,monospace;color:#8a857a">03 PRICE</div><div style="font:13px 'Yomogi',sans-serif;color:#2b2a27">¥--,--- （税込）</div><div style="font:10px ui-monospace,monospace;color:#8a857a">価格のみ先出し</div></div>
+</div>
+<div style="border-top:1px solid #ddd9d0;padding:12px 30px;display:flex;justify-content:space-between;font:10px ui-monospace,monospace;color:#8a857a"><span>ブランド資料を見る（Canva）</span><span>© MemoriO</span></div>
+</div>
+<div style="font:10.5px/1.6 ui-monospace,monospace;color:#8a857a">狙い：登録が主目的。説明を捨て、KVとコピーだけで「声を贈る」を伝える。<br>離脱前に価格・色・発売時期だけ答える。</div>
+</div>
+
+<div style="flex:none;width:300px;display:flex;flex-direction:column;gap:10px">
+<div style="font:600 9.5px ui-monospace,monospace;letter-spacing:.1em;color:#9a9488">SP — 375</div>
+<div style="border:1.5px solid #2b2a27;border-radius:16px;background:#fff;overflow:hidden;padding:8px 8px 10px">
+<div style="height:14px;display:flex;justify-content:center"><div style="width:60px;height:5px;border-radius:3px;background:#e2ded5"></div></div>
+<div style="padding:0 10px;display:flex;flex-direction:column;gap:12px">
+<div style="display:flex;justify-content:space-between;align-items:center"><span style="font:14px 'Kalam',cursive;color:#2b2a27">MemoriO</span><span style="font:9px ui-monospace,monospace;color:#8a857a">≡</span></div>
+<div style="height:170px;border:1.5px dashed #b3ada0;border-radius:5px;background:repeating-linear-gradient(45deg,#f4f2ed 0 7px,#e9e6df 7px 14px);display:flex;align-items:center;justify-content:center;font:9.5px ui-monospace,monospace;color:#8a857a">KV（縦トリミング）</div>
+<div style="font:19px/1.5 'Yomogi',sans-serif;color:#2b2a27">はじめての声を、<br>ずっとそばに。</div>
+<div style="display:flex;flex-direction:column;gap:5px"><div style="height:6px;width:96%;border-radius:3px;background:#e2ded5"></div><div style="height:6px;width:70%;border-radius:3px;background:#e2ded5"></div></div>
+<div style="display:flex;flex-direction:column;gap:6px"><div style="border:1.5px solid #2b2a27;border-radius:4px;padding:9px;font:10px ui-monospace,monospace;color:#9a9488">メールアドレス</div><div style="border-radius:4px;background:#2b2a27;color:#fff;padding:10px;text-align:center;font:10px ui-monospace,monospace">発売通知を受け取る</div><div style="font:9px ui-monospace,monospace;color:#8a857a;text-align:center">1,240人が登録済み</div></div>
+<div style="border-top:1px solid #ddd9d0;padding-top:10px;display:flex;flex-direction:column;gap:8px">
+<div style="font:9.5px ui-monospace,monospace;color:#8a857a">色 / 価格 / 発売時期（3行）</div>
+<div style="display:flex;gap:4px"><div style="width:16px;height:16px;border-radius:3px;border:1.5px solid #c9c3b6;background:#fff"></div><div style="width:16px;height:16px;border-radius:3px;border:1.5px solid #c9c3b6;background:#f4d9d7"></div><div style="width:16px;height:16px;border-radius:3px;border:1.5px solid #c9c3b6;background:#d3e2f0"></div><div style="width:16px;height:16px;border-radius:3px;border:1.5px solid #c9c3b6;background:#f4e6bd"></div><div style="width:16px;height:16px;border-radius:3px;border:1.5px solid #c9c3b6;background:#d6e5d6"></div></div>
+<div style="height:6px;width:60%;border-radius:3px;background:#e2ded5"></div>
+</div>
+<div style="border-top:1px solid #ddd9d0;padding-top:8px;font:9px ui-monospace,monospace;color:#8a857a">footer（資料リンク／SNS）</div>
+</div>
+</div>
+<div style="font:10.5px/1.6 ui-monospace,monospace;color:#8a857a">▸ 固定CTA：SPは下部にsticky（44px以上）</div>
+</div>
+
+</div>
+</div>
+
+<div class="dv-opt" id="1b">
+<div class="dv-olabel"><a class="dv-oid" href="#1b">1b</a>縦長ストーリー／家族の物語で訴求・大型KV</div>
+<div class="dv-card" style="width:1000px;padding:24px;display:flex;gap:24px;background:#fbfaf7">
+
+<div style="flex:none;width:620px;display:flex;flex-direction:column;gap:12px">
+<div style="font:600 9.5px ui-monospace,monospace;letter-spacing:.1em;color:#9a9488">PC — 全11セクション</div>
+
+<div style="border:1.5px solid #2b2a27;border-radius:5px;background:#fff;overflow:hidden">
+<div style="display:flex;align-items:center;justify-content:space-between;padding:9px 14px;border-bottom:1px solid #ddd9d0"><span style="font:15px 'Kalam',cursive;color:#2b2a27">MemoriO Congrats</span><span style="font:9.5px ui-monospace,monospace;color:#8a857a">通知登録</span></div>
+<div style="height:290px;border-bottom:1.5px solid #2b2a27;background:repeating-linear-gradient(45deg,#f4f2ed 0 7px,#e9e6df 7px 14px);position:relative;display:flex;align-items:center;padding:0 34px">
+<div style="display:flex;flex-direction:column;gap:12px;max-width:300px">
+<div style="font:32px/1.4 'Yomogi',sans-serif;color:#2b2a27">この声を、<br>20年後の宝物に。</div>
+<div style="height:7px;width:88%;border-radius:4px;background:#d8d3c8"></div>
+<div style="height:7px;width:64%;border-radius:4px;background:#d8d3c8"></div>
+<div style="border-radius:4px;background:#2b2a27;color:#fff;padding:10px 16px;font:11px ui-monospace,monospace;width:fit-content">発売通知を受け取る</div>
+</div>
+<div style="position:absolute;right:20px;bottom:14px;font:9.5px ui-monospace,monospace;color:#8a857a">full-bleed KV（main_visual）</div>
+</div>
+</div>
+
+<div style="border:1.5px solid #2b2a27;border-radius:5px;background:#fff;padding:20px 26px;display:flex;flex-direction:column;gap:10px">
+<div style="font:9.5px ui-monospace,monospace;letter-spacing:.08em;color:#8a857a">02 CONCEPT / STORY</div>
+<div style="font:18px/1.6 'Yomogi',sans-serif;color:#2b2a27">人生と共に積み上がる、声のかたち。</div>
+<div style="display:flex;flex-direction:column;gap:6px"><div style="height:7px;width:100%;border-radius:4px;background:#e2ded5"></div><div style="height:7px;width:96%;border-radius:4px;background:#e2ded5"></div><div style="height:7px;width:72%;border-radius:4px;background:#e2ded5"></div></div>
+<div style="font:9.5px ui-monospace,monospace;color:#8a857a">▸ 資料のメインメッセージを3段落に圧縮。中央寄せ・余白多め</div>
+</div>
+
+<div style="border:1.5px solid #2b2a27;border-radius:5px;background:#fff;padding:20px 26px;display:flex;flex-direction:column;gap:12px">
+<div style="font:9.5px ui-monospace,monospace;letter-spacing:.08em;color:#8a857a">03 EXPERIENCE — 産声を残す流れ</div>
+<div style="display:grid;grid-template-columns:repeat(4,1fr);gap:12px">
+<div style="display:flex;flex-direction:column;gap:6px"><div style="height:72px;border:1.5px dashed #b3ada0;border-radius:4px;background:repeating-linear-gradient(45deg,#f4f2ed 0 6px,#e9e6df 6px 12px);display:flex;align-items:center;justify-content:center;font:9px ui-monospace,monospace;color:#8a857a">図01</div><div style="font:12px 'Yomogi',sans-serif;color:#2b2a27">問いに答える</div><div style="height:6px;width:80%;border-radius:3px;background:#e2ded5"></div></div>
+<div style="display:flex;flex-direction:column;gap:6px"><div style="height:72px;border:1.5px dashed #b3ada0;border-radius:4px;background:repeating-linear-gradient(45deg,#f4f2ed 0 6px,#e9e6df 6px 12px);display:flex;align-items:center;justify-content:center;font:9px ui-monospace,monospace;color:#8a857a">図02</div><div style="font:12px 'Yomogi',sans-serif;color:#2b2a27">家族の声を集める</div><div style="height:6px;width:88%;border-radius:3px;background:#e2ded5"></div></div>
+<div style="display:flex;flex-direction:column;gap:6px"><div style="height:72px;border:1.5px dashed #b3ada0;border-radius:4px;background:repeating-linear-gradient(45deg,#f4f2ed 0 6px,#e9e6df 6px 12px);display:flex;align-items:center;justify-content:center;font:9px ui-monospace,monospace;color:#8a857a">図03</div><div style="font:12px 'Yomogi',sans-serif;color:#2b2a27">産声を保存</div><div style="height:6px;width:70%;border-radius:3px;background:#e2ded5"></div></div>
+<div style="display:flex;flex-direction:column;gap:6px"><div style="height:72px;border:1.5px dashed #b3ada0;border-radius:4px;background:repeating-linear-gradient(45deg,#f4f2ed 0 6px,#e9e6df 6px 12px);display:flex;align-items:center;justify-content:center;font:9px ui-monospace,monospace;color:#8a857a">図04</div><div style="font:12px 'Yomogi',sans-serif;color:#2b2a27">蓋を開けて出会う</div><div style="height:6px;width:84%;border-radius:3px;background:#e2ded5"></div></div>
+</div>
+<div style="font:9.5px ui-monospace,monospace;color:#8a857a">▸ 録音の仕組み（アプリ不要のブラウザ録音）はここで注記</div>
+</div>
+
+<div style="border:1.5px solid #2b2a27;border-radius:5px;background:#fff;padding:20px 26px;display:flex;flex-direction:column;gap:12px">
+<div style="font:9.5px ui-monospace,monospace;letter-spacing:.08em;color:#8a857a">04 COLORS — 全5色</div>
+<div style="display:grid;grid-template-columns:repeat(5,1fr);gap:10px">
+<div style="display:flex;flex-direction:column;gap:5px"><div style="height:88px;border:1.5px solid #c9c3b6;border-radius:4px;background:#fdfdfc;display:flex;align-items:flex-end;justify-content:center;padding-bottom:6px;font:9px ui-monospace,monospace;color:#8a857a">白</div><div style="font:11px 'Yomogi',sans-serif;color:#2b2a27">White</div><div style="height:5px;width:90%;border-radius:3px;background:#e2ded5"></div></div>
+<div style="display:flex;flex-direction:column;gap:5px"><div style="height:88px;border:1.5px solid #c9c3b6;border-radius:4px;background:#f7e2e0;display:flex;align-items:flex-end;justify-content:center;padding-bottom:6px;font:9px ui-monospace,monospace;color:#8a857a">桃</div><div style="font:11px 'Yomogi',sans-serif;color:#2b2a27">Pink</div><div style="height:5px;width:90%;border-radius:3px;background:#e2ded5"></div></div>
+<div style="display:flex;flex-direction:column;gap:5px"><div style="height:88px;border:1.5px solid #c9c3b6;border-radius:4px;background:#dbe8f4;display:flex;align-items:flex-end;justify-content:center;padding-bottom:6px;font:9px ui-monospace,monospace;color:#8a857a">青</div><div style="font:11px 'Yomogi',sans-serif;color:#2b2a27">Blue</div><div style="height:5px;width:90%;border-radius:3px;background:#e2ded5"></div></div>
+<div style="display:flex;flex-direction:column;gap:5px"><div style="height:88px;border:1.5px solid #c9c3b6;border-radius:4px;background:#f7ecc8;display:flex;align-items:flex-end;justify-content:center;padding-bottom:6px;font:9px ui-monospace,monospace;color:#8a857a">黄</div><div style="font:11px 'Yomogi',sans-serif;color:#2b2a27">Yellow</div><div style="height:5px;width:90%;border-radius:3px;background:#e2ded5"></div></div>
+<div style="display:flex;flex-direction:column;gap:5px"><div style="height:88px;border:1.5px solid #c9c3b6;border-radius:4px;background:#dfeadf;display:flex;align-items:flex-end;justify-content:center;padding-bottom:6px;font:9px ui-monospace,monospace;color:#8a857a">緑</div><div style="font:11px 'Yomogi',sans-serif;color:#2b2a27">Green</div><div style="height:5px;width:90%;border-radius:3px;background:#e2ded5"></div></div>
+</div>
+<div style="font:9.5px ui-monospace,monospace;color:#8a857a">▸ 製品画像_各色.png を使用。色名＋一行の意味づけ（資料の文言）</div>
+</div>
+
+<div style="border:1.5px solid #2b2a27;border-radius:5px;background:#fff;padding:20px 26px;display:flex;gap:20px;align-items:center">
+<div style="flex:none;width:210px;height:150px;border:1.5px dashed #b3ada0;border-radius:4px;background:repeating-linear-gradient(45deg,#f4f2ed 0 7px,#e9e6df 7px 14px);display:flex;align-items:center;justify-content:center;font:9.5px/1.6 ui-monospace,monospace;color:#8a857a;text-align:center">開いた本体<br>（オルゴール機構）</div>
+<div style="flex:1;display:flex;flex-direction:column;gap:8px">
+<div style="font:9.5px ui-monospace,monospace;letter-spacing:.08em;color:#8a857a">05 PRODUCT DETAIL</div>
+<div style="font:16px 'Yomogi',sans-serif;color:#2b2a27">スマホがなくても、開けば声に出会える。</div>
+<div style="display:flex;flex-direction:column;gap:5px"><div style="height:6px;width:96%;border-radius:3px;background:#e2ded5"></div><div style="height:6px;width:84%;border-radius:3px;background:#e2ded5"></div></div>
+<div style="display:flex;gap:8px;font:9px ui-monospace,monospace;color:#8a857a"><span style="border:1px solid #ddd9d0;border-radius:3px;padding:3px 6px">蓋裏スピーカー</span><span style="border:1px solid #ddd9d0;border-radius:3px;padding:3px 6px">4スタッド</span><span style="border:1px solid #ddd9d0;border-radius:3px;padding:3px 6px">刻印</span></div>
+</div>
+</div>
+
+<div style="border:1.5px solid #2b2a27;border-radius:5px;background:#fff;padding:20px 26px;display:flex;flex-direction:column;gap:12px">
+<div style="font:9.5px ui-monospace,monospace;letter-spacing:.08em;color:#8a857a">06 STACK — 節目ごとに積み重なる</div>
+<div style="display:flex;gap:22px;align-items:flex-end">
+<div style="display:flex;flex-direction:column;align-items:center;gap:4px"><div style="width:64px;height:64px;border:1.5px solid #c9c3b6;border-radius:5px;background:#f7e2e0"></div><span style="font:9px ui-monospace,monospace;color:#8a857a">Birth</span></div>
+<div style="display:flex;flex-direction:column;align-items:center;gap:4px"><div style="width:64px;height:64px;border:1.5px solid #c9c3b6;border-radius:5px;background:#dbe8f4"></div><div style="width:64px;height:64px;border:1.5px solid #c9c3b6;border-radius:5px;background:#f7e2e0"></div><span style="font:9px ui-monospace,monospace;color:#8a857a">1st Birthday</span></div>
+<div style="display:flex;flex-direction:column;align-items:center;gap:4px"><div style="width:64px;height:64px;border:1.5px solid #c9c3b6;border-radius:5px;background:#dfeadf"></div><div style="width:64px;height:64px;border:1.5px solid #c9c3b6;border-radius:5px;background:#dbe8f4"></div><div style="width:64px;height:64px;border:1.5px solid #c9c3b6;border-radius:5px;background:#f7e2e0"></div><span style="font:9px ui-monospace,monospace;color:#8a857a">入園・七五三…</span></div>
+<div style="flex:1;display:flex;flex-direction:column;gap:6px;padding-bottom:20px"><div style="font:9.5px ui-monospace,monospace;color:#8a857a">右：アプリ「声の年表」</div><div style="height:120px;border:1.5px dashed #b3ada0;border-radius:4px;background:repeating-linear-gradient(45deg,#f4f2ed 0 6px,#e9e6df 6px 12px);display:flex;align-items:center;justify-content:center;font:9px ui-monospace,monospace;color:#8a857a">アプリ画面（縦の年表）</div></div>
+</div>
+</div>
+
+<div style="border:1.5px solid #2b2a27;border-radius:5px;background:#fff;padding:20px 26px;display:flex;flex-direction:column;gap:10px">
+<div style="font:9.5px ui-monospace,monospace;letter-spacing:.08em;color:#8a857a">07 SCENE — 誰に、どんな声を</div>
+<div style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px">
+<div style="border:1px solid #ddd9d0;border-radius:4px;padding:12px;display:flex;flex-direction:column;gap:6px"><div style="font:12px 'Yomogi',sans-serif;color:#2b2a27">生まれた子へ</div><div style="height:5px;width:88%;border-radius:3px;background:#e2ded5"></div><div style="height:5px;width:66%;border-radius:3px;background:#e2ded5"></div></div>
+<div style="border:1px solid #ddd9d0;border-radius:4px;padding:12px;display:flex;flex-direction:column;gap:6px"><div style="font:12px 'Yomogi',sans-serif;color:#2b2a27">祖父母へ贈る</div><div style="height:5px;width:80%;border-radius:3px;background:#e2ded5"></div><div style="height:5px;width:72%;border-radius:3px;background:#e2ded5"></div></div>
+<div style="border:1px solid #ddd9d0;border-radius:4px;padding:12px;display:flex;flex-direction:column;gap:6px"><div style="font:12px 'Yomogi',sans-serif;color:#2b2a27">出産祝いとして</div><div style="height:5px;width:86%;border-radius:3px;background:#e2ded5"></div><div style="height:5px;width:60%;border-radius:3px;background:#e2ded5"></div></div>
+</div>
+</div>
+
+<div style="border:1.5px solid #2b2a27;border-radius:5px;background:#fff;padding:20px 26px;display:flex;gap:18px;align-items:center">
+<div style="flex:1;display:flex;flex-direction:column;gap:6px"><div style="font:9.5px ui-monospace,monospace;letter-spacing:.08em;color:#8a857a">08 PRICE</div><div style="font:20px 'Yomogi',sans-serif;color:#2b2a27">¥--,--- （税込・送料込）</div><div style="font:9.5px ui-monospace,monospace;color:#8a857a">本体＋クラウド保存の内訳を1行で</div></div>
+<div style="flex:none;border:1.5px solid #2b2a27;border-radius:4px;padding:9px 14px;font:11px ui-monospace,monospace;color:#2b2a27">先行予約リストに入る</div>
+</div>
+
+<div style="border:1.5px solid #2b2a27;border-radius:5px;background:#fff;padding:20px 26px;display:flex;flex-direction:column;gap:8px">
+<div style="font:9.5px ui-monospace,monospace;letter-spacing:.08em;color:#8a857a">09 FAQ（5〜7件 / アコーディオン）</div>
+<div style="display:flex;flex-direction:column;gap:7px">
+<div style="display:flex;justify-content:space-between;border-bottom:1px solid #ddd9d0;padding-bottom:7px;font:11px ui-monospace,monospace;color:#6f6a60"><span>声はあとから追加できますか？</span><span>＋</span></div>
+<div style="display:flex;justify-content:space-between;border-bottom:1px solid #ddd9d0;padding-bottom:7px;font:11px ui-monospace,monospace;color:#6f6a60"><span>スマホがなくても使えますか？</span><span>＋</span></div>
+<div style="display:flex;justify-content:space-between;border-bottom:1px solid #ddd9d0;padding-bottom:7px;font:11px ui-monospace,monospace;color:#6f6a60"><span>音声データはどこに保存されますか？</span><span>＋</span></div>
+<div style="display:flex;justify-content:space-between;font:11px ui-monospace,monospace;color:#6f6a60"><span>出産前に注文できますか？</span><span>＋</span></div>
+</div>
+</div>
+
+<div style="border:1.5px solid #2b2a27;border-radius:5px;background:#f6f3ec;padding:26px;display:flex;flex-direction:column;gap:12px;align-items:center;text-align:center">
+<div style="font:9.5px ui-monospace,monospace;letter-spacing:.08em;color:#8a857a">10 FORM 再掲</div>
+<div style="font:19px 'Yomogi',sans-serif;color:#2b2a27">発売のお知らせをお送りします</div>
+<div style="display:flex;gap:8px;width:70%"><div style="flex:1;border:1.5px solid #2b2a27;border-radius:4px;background:#fff;padding:9px;font:11px ui-monospace,monospace;color:#9a9488">メールアドレス</div><div style="border-radius:4px;background:#2b2a27;color:#fff;padding:10px 14px;font:11px ui-monospace,monospace">登録</div></div>
+<div style="font:9.5px ui-monospace,monospace;color:#8a857a">LINE登録も併設 ／ 現在 1,240 人</div>
+</div>
+
+<div style="border:1.5px solid #2b2a27;border-radius:5px;background:#fff;padding:16px 26px;display:flex;justify-content:space-between;font:10px ui-monospace,monospace;color:#8a857a"><span>11 FOOTER — ブランド資料 / SNS / 会社情報 / プライバシー</span><span>© MemoriO</span></div>
+
+</div>
+
+<div style="flex:none;width:300px;display:flex;flex-direction:column;gap:10px">
+<div style="font:600 9.5px ui-monospace,monospace;letter-spacing:.1em;color:#9a9488">SP — セクション順序</div>
+<div style="border:1.5px solid #2b2a27;border-radius:16px;background:#fff;padding:8px;display:flex;flex-direction:column;gap:8px">
+<div style="height:12px;display:flex;justify-content:center"><div style="width:56px;height:5px;border-radius:3px;background:#e2ded5"></div></div>
+<div style="height:210px;border:1.5px dashed #b3ada0;border-radius:5px;background:repeating-linear-gradient(45deg,#f4f2ed 0 7px,#e9e6df 7px 14px);display:flex;flex-direction:column;justify-content:flex-end;padding:12px;gap:8px"><div style="font:18px/1.45 'Yomogi',sans-serif;color:#2b2a27">この声を、<br>20年後の宝物に。</div><div style="border-radius:4px;background:#2b2a27;color:#fff;padding:8px;text-align:center;font:9.5px ui-monospace,monospace">発売通知を受け取る</div></div>
+<div style="border:1px solid #ddd9d0;border-radius:4px;padding:10px;display:flex;flex-direction:column;gap:5px"><div style="font:9px ui-monospace,monospace;color:#8a857a">02 CONCEPT</div><div style="font:12px 'Yomogi',sans-serif;color:#2b2a27">人生と共に積み上がる、声のかたち。</div><div style="height:5px;width:94%;border-radius:3px;background:#e2ded5"></div><div style="height:5px;width:76%;border-radius:3px;background:#e2ded5"></div></div>
+<div style="border:1px solid #ddd9d0;border-radius:4px;padding:10px;display:flex;flex-direction:column;gap:6px"><div style="font:9px ui-monospace,monospace;color:#8a857a">03 EXPERIENCE（縦4ステップ）</div><div style="display:flex;gap:6px;align-items:center"><div style="width:34px;height:34px;border:1.5px dashed #b3ada0;border-radius:4px"></div><div style="flex:1;height:5px;border-radius:3px;background:#e2ded5"></div></div><div style="display:flex;gap:6px;align-items:center"><div style="width:34px;height:34px;border:1.5px dashed #b3ada0;border-radius:4px"></div><div style="flex:1;height:5px;border-radius:3px;background:#e2ded5"></div></div><div style="display:flex;gap:6px;align-items:center"><div style="width:34px;height:34px;border:1.5px dashed #b3ada0;border-radius:4px"></div><div style="flex:1;height:5px;border-radius:3px;background:#e2ded5"></div></div><div style="display:flex;gap:6px;align-items:center"><div style="width:34px;height:34px;border:1.5px dashed #b3ada0;border-radius:4px"></div><div style="flex:1;height:5px;border-radius:3px;background:#e2ded5"></div></div></div>
+<div style="border:1px solid #ddd9d0;border-radius:4px;padding:10px;display:flex;flex-direction:column;gap:6px"><div style="font:9px ui-monospace,monospace;color:#8a857a">04 COLORS（横スワイプ）</div><div style="display:flex;gap:6px;overflow:hidden"><div style="flex:none;width:62px;height:62px;border:1.5px solid #c9c3b6;border-radius:4px;background:#fdfdfc"></div><div style="flex:none;width:62px;height:62px;border:1.5px solid #c9c3b6;border-radius:4px;background:#f7e2e0"></div><div style="flex:none;width:62px;height:62px;border:1.5px solid #c9c3b6;border-radius:4px;background:#dbe8f4"></div><div style="flex:none;width:62px;height:62px;border:1.5px solid #c9c3b6;border-radius:4px;background:#f7ecc8"></div></div></div>
+<div style="border:1px solid #ddd9d0;border-radius:4px;padding:10px;display:flex;flex-direction:column;gap:5px"><div style="font:9px ui-monospace,monospace;color:#8a857a">05 PRODUCT DETAIL</div><div style="height:96px;border:1.5px dashed #b3ada0;border-radius:4px;background:repeating-linear-gradient(45deg,#f4f2ed 0 6px,#e9e6df 6px 12px)"></div><div style="height:5px;width:88%;border-radius:3px;background:#e2ded5"></div></div>
+<div style="border:1px solid #ddd9d0;border-radius:4px;padding:10px;display:flex;flex-direction:column;gap:6px"><div style="font:9px ui-monospace,monospace;color:#8a857a">06 STACK</div><div style="display:flex;flex-direction:column;align-items:center;gap:3px"><div style="width:48px;height:48px;border:1.5px solid #c9c3b6;border-radius:4px;background:#dfeadf"></div><div style="width:48px;height:48px;border:1.5px solid #c9c3b6;border-radius:4px;background:#dbe8f4"></div><div style="width:48px;height:48px;border:1.5px solid #c9c3b6;border-radius:4px;background:#f7e2e0"></div></div></div>
+<div style="border:1px solid #ddd9d0;border-radius:4px;padding:10px;display:flex;flex-direction:column;gap:5px"><div style="font:9px ui-monospace,monospace;color:#8a857a">07 SCENE（3枚縦積み）</div><div style="height:5px;width:90%;border-radius:3px;background:#e2ded5"></div><div style="height:5px;width:78%;border-radius:3px;background:#e2ded5"></div></div>
+<div style="border:1px solid #ddd9d0;border-radius:4px;padding:10px;display:flex;flex-direction:column;gap:4px"><div style="font:9px ui-monospace,monospace;color:#8a857a">08 PRICE</div><div style="font:14px 'Yomogi',sans-serif;color:#2b2a27">¥--,---</div></div>
+<div style="border:1px solid #ddd9d0;border-radius:4px;padding:10px;display:flex;flex-direction:column;gap:6px"><div style="font:9px ui-monospace,monospace;color:#8a857a">09 FAQ</div><div style="display:flex;justify-content:space-between;font:9.5px ui-monospace,monospace;color:#6f6a60"><span>声は追加できますか？</span><span>＋</span></div><div style="display:flex;justify-content:space-between;font:9.5px ui-monospace,monospace;color:#6f6a60"><span>スマホなしでも？</span><span>＋</span></div></div>
+<div style="border:1px solid #ddd9d0;border-radius:4px;background:#f6f3ec;padding:10px;display:flex;flex-direction:column;gap:6px"><div style="font:9px ui-monospace,monospace;color:#8a857a">10 FORM 再掲</div><div style="border:1.5px solid #2b2a27;border-radius:4px;background:#fff;padding:8px;font:9.5px ui-monospace,monospace;color:#9a9488">メールアドレス</div><div style="border-radius:4px;background:#2b2a27;color:#fff;padding:8px;text-align:center;font:9.5px ui-monospace,monospace">登録する</div></div>
+<div style="padding:8px 10px;font:9px ui-monospace,monospace;color:#8a857a">11 FOOTER</div>
+<div style="border-top:1.5px dashed #b3ada0;padding:8px 10px;font:9px ui-monospace,monospace;color:#8a857a">sticky CTA（常時表示）</div>
+</div>
+<div style="font:10.5px/1.6 ui-monospace,monospace;color:#8a857a">狙い：世界観の理解を最優先。読み物として成立させ、登録は各節目で複数回置く。</div>
+</div>
+
+</div>
+</div>
+
+<div class="dv-opt" id="1c">
+<div class="dv-olabel"><a class="dv-oid" href="#1c">1c</a>登録フォーム前面／ギフト訴求・ウェイティングリスト主役</div>
+<div class="dv-card" style="width:1000px;padding:24px;display:flex;gap:24px;background:#fbfaf7">
+
+<div style="flex:none;width:620px;display:flex;flex-direction:column;gap:12px">
+<div style="font:600 9.5px ui-monospace,monospace;letter-spacing:.1em;color:#9a9488">PC — フォームがヒーロー内で完結</div>
+
+<div style="border:1.5px solid #2b2a27;border-radius:5px;background:#fff;overflow:hidden">
+<div style="display:flex;align-items:center;justify-content:space-between;padding:9px 14px;border-bottom:1px solid #ddd9d0"><span style="font:15px 'Kalam',cursive;color:#2b2a27">MemoriO Congrats</span><span style="font:9.5px ui-monospace,monospace;color:#8a857a">1,240人が登録中</span></div>
+<div style="display:flex;min-height:330px">
+<div style="flex:1;background:repeating-linear-gradient(45deg,#f4f2ed 0 7px,#e9e6df 7px 14px);display:flex;align-items:flex-end;padding:14px;font:9.5px ui-monospace,monospace;color:#8a857a">KV（左半分・全面）</div>
+<div style="flex:none;width:290px;border-left:1.5px solid #2b2a27;padding:20px;display:flex;flex-direction:column;gap:12px">
+<div style="font:10px ui-monospace,monospace;color:#8a857a">先行予約ウェイティングリスト</div>
+<div style="font:21px/1.5 'Yomogi',sans-serif;color:#2b2a27">出産祝いに、<br>声という贈り物を。</div>
+<div style="height:6px;width:92%;border-radius:3px;background:#e2ded5"></div>
+<div style="display:flex;flex-direction:column;gap:7px">
+<div style="border:1.5px solid #2b2a27;border-radius:4px;padding:9px;font:10.5px ui-monospace,monospace;color:#9a9488">お名前</div>
+<div style="border:1.5px solid #2b2a27;border-radius:4px;padding:9px;font:10.5px ui-monospace,monospace;color:#9a9488">メールアドレス</div>
+<div style="border:1.5px solid #2b2a27;border-radius:4px;padding:9px;display:flex;justify-content:space-between;font:10.5px ui-monospace,monospace;color:#9a9488"><span>気になる色</span><span>▾</span></div>
+<div style="border-radius:4px;background:#2b2a27;color:#fff;padding:11px;text-align:center;font:11px ui-monospace,monospace">リストに登録する</div>
+<div style="text-align:center;font:9.5px ui-monospace,monospace;color:#8a857a">またはLINEで受け取る</div>
+</div>
+<div style="border-top:1px solid #ddd9d0;padding-top:10px;font:9.5px/1.6 ui-monospace,monospace;color:#8a857a">▸ 登録特典（先行案内・数量優先）を明記</div>
+</div>
+</div>
+</div>
+
+<div style="border:1.5px solid #2b2a27;border-radius:5px;background:#fff;padding:18px 24px;display:flex;gap:14px">
+<div style="flex:1;display:flex;flex-direction:column;gap:5px;border-right:1px solid #ddd9d0;padding-right:14px"><div style="font:9px ui-monospace,monospace;color:#8a857a">価格</div><div style="font:15px 'Yomogi',sans-serif;color:#2b2a27">¥--,---</div></div>
+<div style="flex:1;display:flex;flex-direction:column;gap:5px;border-right:1px solid #ddd9d0;padding-right:14px"><div style="font:9px ui-monospace,monospace;color:#8a857a">カラー</div><div style="display:flex;gap:4px"><div style="width:17px;height:17px;border-radius:3px;border:1.5px solid #c9c3b6;background:#fff"></div><div style="width:17px;height:17px;border-radius:3px;border:1.5px solid #c9c3b6;background:#f7e2e0"></div><div style="width:17px;height:17px;border-radius:3px;border:1.5px solid #c9c3b6;background:#dbe8f4"></div><div style="width:17px;height:17px;border-radius:3px;border:1.5px solid #c9c3b6;background:#f7ecc8"></div><div style="width:17px;height:17px;border-radius:3px;border:1.5px solid #c9c3b6;background:#dfeadf"></div></div></div>
+<div style="flex:1;display:flex;flex-direction:column;gap:5px"><div style="font:9px ui-monospace,monospace;color:#8a857a">発売</div><div style="font:15px 'Yomogi',sans-serif;color:#2b2a27">2026年 予定</div></div>
+</div>
+
+<div style="border:1.5px solid #2b2a27;border-radius:5px;background:#fff;padding:20px 26px;display:flex;flex-direction:column;gap:12px">
+<div style="font:9.5px ui-monospace,monospace;letter-spacing:.08em;color:#8a857a">GIFT — 誰に贈るかから選ぶ</div>
+<div style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px">
+<div style="border:1px solid #ddd9d0;border-radius:4px;overflow:hidden"><div style="height:82px;background:repeating-linear-gradient(45deg,#f4f2ed 0 6px,#e9e6df 6px 12px)"></div><div style="padding:10px;display:flex;flex-direction:column;gap:5px"><div style="font:12px 'Yomogi',sans-serif;color:#2b2a27">友人の出産祝いに</div><div style="height:5px;width:84%;border-radius:3px;background:#e2ded5"></div></div></div>
+<div style="border:1px solid #ddd9d0;border-radius:4px;overflow:hidden"><div style="height:82px;background:repeating-linear-gradient(45deg,#f4f2ed 0 6px,#e9e6df 6px 12px)"></div><div style="padding:10px;display:flex;flex-direction:column;gap:5px"><div style="font:12px 'Yomogi',sans-serif;color:#2b2a27">祖父母へ孫の声を</div><div style="height:5px;width:76%;border-radius:3px;background:#e2ded5"></div></div></div>
+<div style="border:1px solid #ddd9d0;border-radius:4px;overflow:hidden"><div style="height:82px;background:repeating-linear-gradient(45deg,#f4f2ed 0 6px,#e9e6df 6px 12px)"></div><div style="padding:10px;display:flex;flex-direction:column;gap:5px"><div style="font:12px 'Yomogi',sans-serif;color:#2b2a27">自分の子へ残す</div><div style="height:5px;width:88%;border-radius:3px;background:#e2ded5"></div></div></div>
+</div>
+</div>
+
+<div style="border:1.5px solid #2b2a27;border-radius:5px;background:#fff;padding:20px 26px;display:flex;flex-direction:column;gap:10px">
+<div style="font:9.5px ui-monospace,monospace;letter-spacing:.08em;color:#8a857a">HOW IT WORKS — 3ステップ横並び（録音の仕組み）</div>
+<div style="display:grid;grid-template-columns:repeat(3,1fr);gap:14px">
+<div style="display:flex;flex-direction:column;gap:6px"><div style="font:22px 'Kalam',cursive;color:#c9c3b6">01</div><div style="font:12px 'Yomogi',sans-serif;color:#2b2a27">リンクを送って声を集める</div><div style="height:5px;width:90%;border-radius:3px;background:#e2ded5"></div></div>
+<div style="display:flex;flex-direction:column;gap:6px"><div style="font:22px 'Kalam',cursive;color:#c9c3b6">02</div><div style="font:12px 'Yomogi',sans-serif;color:#2b2a27">産声とメッセージを保存</div><div style="height:5px;width:82%;border-radius:3px;background:#e2ded5"></div></div>
+<div style="display:flex;flex-direction:column;gap:6px"><div style="font:22px 'Kalam',cursive;color:#c9c3b6">03</div><div style="font:12px 'Yomogi',sans-serif;color:#2b2a27">蓋を開けるだけで再生</div><div style="height:5px;width:86%;border-radius:3px;background:#e2ded5"></div></div>
+</div>
+<div style="font:9.5px ui-monospace,monospace;color:#8a857a">▸ アプリ／声の年表はここに1枚だけ添える（詳細は発売時）</div>
+</div>
+
+<div style="border:1.5px solid #2b2a27;border-radius:5px;background:#fff;padding:18px 26px;display:flex;flex-direction:column;gap:8px">
+<div style="font:9.5px ui-monospace,monospace;letter-spacing:.08em;color:#8a857a">FAQ（購入前の不安に限定・4件）</div>
+<div style="display:flex;flex-direction:column;gap:7px"><div style="display:flex;justify-content:space-between;border-bottom:1px solid #ddd9d0;padding-bottom:7px;font:11px ui-monospace,monospace;color:#6f6a60"><span>登録すると必ず買えますか？</span><span>＋</span></div><div style="display:flex;justify-content:space-between;border-bottom:1px solid #ddd9d0;padding-bottom:7px;font:11px ui-monospace,monospace;color:#6f6a60"><span>出産前に予約できますか？</span><span>＋</span></div><div style="display:flex;justify-content:space-between;font:11px ui-monospace,monospace;color:#6f6a60"><span>刻印の内容は変更できますか？</span><span>＋</span></div></div>
+</div>
+
+<div style="border:1.5px solid #2b2a27;border-radius:5px;background:#2b2a27;padding:24px;display:flex;align-items:center;justify-content:space-between">
+<div style="display:flex;flex-direction:column;gap:6px"><div style="font:17px 'Yomogi',sans-serif;color:#fff">発売はメールでお知らせします</div><div style="font:9.5px ui-monospace,monospace;color:#b8b2a6">FORM 再掲（フルワイド・反転）</div></div>
+<div style="border-radius:4px;background:#fff;color:#2b2a27;padding:11px 18px;font:11px ui-monospace,monospace">リストに登録する</div>
+</div>
+
+<div style="border:1.5px solid #2b2a27;border-radius:5px;background:#fff;padding:16px 26px;display:flex;justify-content:space-between;font:10px ui-monospace,monospace;color:#8a857a"><span>FOOTER — 資料 / SNS / 特商法 / プライバシー</span><span>© MemoriO</span></div>
+</div>
+
+<div style="flex:none;width:300px;display:flex;flex-direction:column;gap:10px">
+<div style="font:600 9.5px ui-monospace,monospace;letter-spacing:.1em;color:#9a9488">SP — フォームは2画面目に即出し</div>
+<div style="border:1.5px solid #2b2a27;border-radius:16px;background:#fff;padding:8px;display:flex;flex-direction:column;gap:8px">
+<div style="height:12px;display:flex;justify-content:center"><div style="width:56px;height:5px;border-radius:3px;background:#e2ded5"></div></div>
+<div style="height:150px;border:1.5px dashed #b3ada0;border-radius:5px;background:repeating-linear-gradient(45deg,#f4f2ed 0 7px,#e9e6df 7px 14px);display:flex;align-items:center;justify-content:center;font:9.5px ui-monospace,monospace;color:#8a857a">KV</div>
+<div style="display:flex;flex-direction:column;gap:8px;padding:0 2px"><div style="font:17px/1.5 'Yomogi',sans-serif;color:#2b2a27">出産祝いに、<br>声という贈り物を。</div><div style="font:9px ui-monospace,monospace;color:#8a857a">1,240人が登録中</div>
+<div style="border:1.5px solid #2b2a27;border-radius:4px;padding:8px;font:9.5px ui-monospace,monospace;color:#9a9488">お名前</div>
+<div style="border:1.5px solid #2b2a27;border-radius:4px;padding:8px;font:9.5px ui-monospace,monospace;color:#9a9488">メールアドレス</div>
+<div style="border-radius:4px;background:#2b2a27;color:#fff;padding:9px;text-align:center;font:10px ui-monospace,monospace">リストに登録する</div></div>
+<div style="border:1px solid #ddd9d0;border-radius:4px;padding:10px;display:flex;justify-content:space-between;font:9px ui-monospace,monospace;color:#8a857a"><span>価格</span><span>色5</span><span>発売時期</span></div>
+<div style="border:1px solid #ddd9d0;border-radius:4px;padding:10px;display:flex;flex-direction:column;gap:6px"><div style="font:9px ui-monospace,monospace;color:#8a857a">GIFT（3枚縦）</div><div style="height:56px;border:1.5px dashed #b3ada0;border-radius:4px"></div><div style="height:56px;border:1.5px dashed #b3ada0;border-radius:4px"></div></div>
+<div style="border:1px solid #ddd9d0;border-radius:4px;padding:10px;display:flex;flex-direction:column;gap:6px"><div style="font:9px ui-monospace,monospace;color:#8a857a">HOW IT WORKS（縦3）</div><div style="height:5px;width:88%;border-radius:3px;background:#e2ded5"></div><div style="height:5px;width:70%;border-radius:3px;background:#e2ded5"></div></div>
+<div style="border:1px solid #ddd9d0;border-radius:4px;padding:10px;font:9px ui-monospace,monospace;color:#8a857a">FAQ ／ FORM再掲 ／ FOOTER</div>
+<div style="border-top:1.5px dashed #b3ada0;padding:8px 10px;font:9px ui-monospace,monospace;color:#8a857a">sticky CTA「リストに登録」</div>
+</div>
+<div style="font:10.5px/1.6 ui-monospace,monospace;color:#8a857a">狙い：登録数の最大化。世界観は最小限、意思決定に必要な情報を先出し。</div>
+</div>
+
+</div>
+</div>
+
+<div class="dv-opt" id="1d">
+<div class="dv-olabel"><a class="dv-oid" href="#1d">1d</a>スクロールでキューブが積み上がる演出／プロダクト性能訴求</div>
+<div class="dv-card" style="width:1000px;padding:24px;display:flex;gap:24px;background:#fbfaf7">
+
+<div style="flex:none;width:620px;display:flex;flex-direction:column;gap:12px">
+<div style="font:600 9.5px ui-monospace,monospace;letter-spacing:.1em;color:#9a9488">PC — sticky左カラム＋右スクロール</div>
+
+<div style="border:1.5px solid #2b2a27;border-radius:5px;background:#fff;overflow:hidden">
+<div style="padding:9px 14px;border-bottom:1px solid #ddd9d0;font:15px 'Kalam',cursive;color:#2b2a27">MemoriO Congrats</div>
+<div style="min-height:280px;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:12px;background:repeating-linear-gradient(45deg,#f7f5f0 0 8px,#eeebe4 8px 16px);padding:24px;text-align:center">
+<div style="font:28px/1.45 'Yomogi',sans-serif;color:#2b2a27">ひとつ目の声は、<br>産声から。</div>
+<div style="font:10px ui-monospace,monospace;color:#8a857a">▸ 中央にキューブ1個。スクロールで下から積まれていく</div>
+<div style="width:76px;height:76px;border:1.5px solid #c9c3b6;border-radius:6px;background:#f7e2e0"></div>
+<div style="border-radius:4px;background:#2b2a27;color:#fff;padding:9px 16px;font:10.5px ui-monospace,monospace">発売通知を受け取る</div>
+</div>
+</div>
+
+<div style="border:1.5px solid #2b2a27;border-radius:5px;background:#fff;display:flex;overflow:hidden">
+<div style="flex:none;width:250px;border-right:1.5px dashed #b3ada0;padding:18px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;background:#f8f6f1">
+<div style="font:9px ui-monospace,monospace;color:#8a857a">sticky（position:sticky）</div>
+<div style="display:flex;flex-direction:column;align-items:center;gap:3px">
+<div style="width:70px;height:70px;border:1.5px solid #c9c3b6;border-radius:6px;background:#dfeadf"></div>
+<div style="width:70px;height:70px;border:1.5px solid #c9c3b6;border-radius:6px;background:#dbe8f4"></div>
+<div style="width:70px;height:70px;border:1.5px solid #c9c3b6;border-radius:6px;background:#f7e2e0"></div>
+</div>
+<div style="font:9px/1.6 ui-monospace,monospace;color:#8a857a;text-align:center">右のスクロールに同期して<br>1個ずつ増える</div>
+</div>
+<div style="flex:1;display:flex;flex-direction:column">
+<div style="padding:18px;border-bottom:1px solid #ddd9d0;display:flex;flex-direction:column;gap:7px"><div style="font:9px ui-monospace,monospace;color:#8a857a">STEP 01 — 産声を残す</div><div style="font:15px 'Yomogi',sans-serif;color:#2b2a27">生まれたその日の声を保存</div><div style="height:6px;width:92%;border-radius:3px;background:#e2ded5"></div><div style="height:6px;width:70%;border-radius:3px;background:#e2ded5"></div></div>
+<div style="padding:18px;border-bottom:1px solid #ddd9d0;display:flex;flex-direction:column;gap:7px"><div style="font:9px ui-monospace,monospace;color:#8a857a">STEP 02 — 家族の声を集める</div><div style="font:15px 'Yomogi',sans-serif;color:#2b2a27">アプリ不要のブラウザ録音</div><div style="height:6px;width:88%;border-radius:3px;background:#e2ded5"></div></div>
+<div style="padding:18px;border-bottom:1px solid #ddd9d0;display:flex;flex-direction:column;gap:7px"><div style="font:9px ui-monospace,monospace;color:#8a857a">STEP 03 — 蓋を開けて再生</div><div style="font:15px 'Yomogi',sans-serif;color:#2b2a27">スマホなしで、開けば聞ける</div><div style="height:6px;width:80%;border-radius:3px;background:#e2ded5"></div></div>
+<div style="padding:18px;display:flex;flex-direction:column;gap:7px"><div style="font:9px ui-monospace,monospace;color:#8a857a">STEP 04 — 次の節目で積む</div><div style="font:15px 'Yomogi',sans-serif;color:#2b2a27">1歳、入園、成人。声の年表へ</div><div style="height:6px;width:86%;border-radius:3px;background:#e2ded5"></div></div>
+</div>
+</div>
+
+<div style="border:1.5px solid #2b2a27;border-radius:5px;background:#fff;padding:20px 26px;display:flex;flex-direction:column;gap:12px">
+<div style="font:9.5px ui-monospace,monospace;letter-spacing:.08em;color:#8a857a">SPEC / DETAIL — 断面と機構</div>
+<div style="display:grid;grid-template-columns:1.3fr 1fr;gap:16px">
+<div style="height:170px;border:1.5px dashed #b3ada0;border-radius:4px;background:repeating-linear-gradient(45deg,#f4f2ed 0 7px,#e9e6df 7px 14px);display:flex;align-items:center;justify-content:center;font:9.5px/1.6 ui-monospace,monospace;color:#8a857a;text-align:center">開いた本体の拡大<br>（要：追加撮影）</div>
+<div style="display:flex;flex-direction:column;gap:8px">
+<div style="display:flex;justify-content:space-between;border-bottom:1px solid #ddd9d0;padding-bottom:6px;font:10.5px ui-monospace,monospace;color:#6f6a60"><span>サイズ</span><span>-- mm</span></div>
+<div style="display:flex;justify-content:space-between;border-bottom:1px solid #ddd9d0;padding-bottom:6px;font:10.5px ui-monospace,monospace;color:#6f6a60"><span>電源</span><span>--</span></div>
+<div style="display:flex;justify-content:space-between;border-bottom:1px solid #ddd9d0;padding-bottom:6px;font:10.5px ui-monospace,monospace;color:#6f6a60"><span>録音時間</span><span>-- 秒 ×--</span></div>
+<div style="display:flex;justify-content:space-between;border-bottom:1px solid #ddd9d0;padding-bottom:6px;font:10.5px ui-monospace,monospace;color:#6f6a60"><span>保存</span><span>クラウド</span></div>
+<div style="display:flex;justify-content:space-between;font:10.5px ui-monospace,monospace;color:#6f6a60"><span>価格</span><span>¥--,---</span></div>
+</div>
+</div>
+</div>
+
+<div style="border:1.5px solid #2b2a27;border-radius:5px;background:#fff;padding:20px 26px;display:flex;flex-direction:column;gap:10px">
+<div style="font:9.5px ui-monospace,monospace;letter-spacing:.08em;color:#8a857a">COLORS — 5色（クリックで本体画像切替）</div>
+<div style="display:flex;gap:16px;align-items:center">
+<div style="flex:none;width:190px;height:130px;border:1.5px dashed #b3ada0;border-radius:4px;background:repeating-linear-gradient(45deg,#f4f2ed 0 7px,#e9e6df 7px 14px);display:flex;align-items:center;justify-content:center;font:9px ui-monospace,monospace;color:#8a857a">選択中の色</div>
+<div style="display:flex;gap:8px"><div style="width:30px;height:30px;border-radius:5px;border:1.5px solid #2b2a27;background:#fff"></div><div style="width:30px;height:30px;border-radius:5px;border:1.5px solid #c9c3b6;background:#f7e2e0"></div><div style="width:30px;height:30px;border-radius:5px;border:1.5px solid #c9c3b6;background:#dbe8f4"></div><div style="width:30px;height:30px;border-radius:5px;border:1.5px solid #c9c3b6;background:#f7ecc8"></div><div style="width:30px;height:30px;border-radius:5px;border:1.5px solid #c9c3b6;background:#dfeadf"></div></div>
+</div>
+</div>
+
+<div style="border:1.5px solid #2b2a27;border-radius:5px;background:#fff;padding:18px 26px;display:flex;flex-direction:column;gap:8px"><div style="font:9.5px ui-monospace,monospace;letter-spacing:.08em;color:#8a857a">SCENE ／ FAQ（各コンパクト）</div><div style="display:flex;gap:10px"><div style="flex:1;height:52px;border:1px solid #ddd9d0;border-radius:4px"></div><div style="flex:1;height:52px;border:1px solid #ddd9d0;border-radius:4px"></div><div style="flex:1;height:52px;border:1px solid #ddd9d0;border-radius:4px"></div></div><div style="display:flex;justify-content:space-between;font:10.5px ui-monospace,monospace;color:#6f6a60"><span>FAQ 4件（アコーディオン）</span><span>＋</span></div></div>
+
+<div style="border:1.5px solid #2b2a27;border-radius:5px;background:#f6f3ec;padding:24px;display:flex;flex-direction:column;align-items:center;gap:10px;text-align:center"><div style="font:9.5px ui-monospace,monospace;color:#8a857a">FORM 再掲 — 積み上がったキューブと並置</div><div style="font:18px 'Yomogi',sans-serif;color:#2b2a27">ひとつ目を、一緒に。</div><div style="display:flex;gap:8px;width:66%"><div style="flex:1;border:1.5px solid #2b2a27;border-radius:4px;background:#fff;padding:9px;font:10.5px ui-monospace,monospace;color:#9a9488">メールアドレス</div><div style="border-radius:4px;background:#2b2a27;color:#fff;padding:10px 14px;font:10.5px ui-monospace,monospace">登録</div></div></div>
+
+<div style="border:1.5px solid #2b2a27;border-radius:5px;background:#fff;padding:16px 26px;display:flex;justify-content:space-between;font:10px ui-monospace,monospace;color:#8a857a"><span>FOOTER</span><span>© MemoriO</span></div>
+</div>
+
+<div style="flex:none;width:300px;display:flex;flex-direction:column;gap:10px">
+<div style="font:600 9.5px ui-monospace,monospace;letter-spacing:.1em;color:#9a9488">SP — 積み上がりは画面下端に固定</div>
+<div style="border:1.5px solid #2b2a27;border-radius:16px;background:#fff;padding:8px;display:flex;flex-direction:column;gap:8px">
+<div style="height:12px;display:flex;justify-content:center"><div style="width:56px;height:5px;border-radius:3px;background:#e2ded5"></div></div>
+<div style="height:180px;border-radius:5px;background:repeating-linear-gradient(45deg,#f7f5f0 0 8px,#eeebe4 8px 16px);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;padding:12px;text-align:center"><div style="font:17px/1.5 'Yomogi',sans-serif;color:#2b2a27">ひとつ目の声は、<br>産声から。</div><div style="width:52px;height:52px;border:1.5px solid #c9c3b6;border-radius:5px;background:#f7e2e0"></div></div>
+<div style="border:1px solid #ddd9d0;border-radius:4px;padding:10px;display:flex;flex-direction:column;gap:6px"><div style="font:9px ui-monospace,monospace;color:#8a857a">STEP 01–04（1画面1ステップ）</div><div style="height:5px;width:92%;border-radius:3px;background:#e2ded5"></div><div style="height:5px;width:74%;border-radius:3px;background:#e2ded5"></div><div style="height:5px;width:84%;border-radius:3px;background:#e2ded5"></div></div>
+<div style="border:1px solid #ddd9d0;border-radius:4px;padding:10px;display:flex;flex-direction:column;gap:6px"><div style="font:9px ui-monospace,monospace;color:#8a857a">SPEC 表</div><div style="display:flex;justify-content:space-between;font:9px ui-monospace,monospace;color:#6f6a60"><span>サイズ</span><span>-- mm</span></div><div style="display:flex;justify-content:space-between;font:9px ui-monospace,monospace;color:#6f6a60"><span>価格</span><span>¥--,---</span></div></div>
+<div style="border:1px solid #ddd9d0;border-radius:4px;padding:10px;display:flex;flex-direction:column;gap:6px"><div style="font:9px ui-monospace,monospace;color:#8a857a">COLORS（タブ切替）</div><div style="height:80px;border:1.5px dashed #b3ada0;border-radius:4px"></div><div style="display:flex;gap:5px"><div style="width:22px;height:22px;border-radius:4px;border:1.5px solid #2b2a27;background:#fff"></div><div style="width:22px;height:22px;border-radius:4px;border:1.5px solid #c9c3b6;background:#f7e2e0"></div><div style="width:22px;height:22px;border-radius:4px;border:1.5px solid #c9c3b6;background:#dbe8f4"></div><div style="width:22px;height:22px;border-radius:4px;border:1.5px solid #c9c3b6;background:#f7ecc8"></div><div style="width:22px;height:22px;border-radius:4px;border:1.5px solid #c9c3b6;background:#dfeadf"></div></div></div>
+<div style="border:1px solid #ddd9d0;border-radius:4px;padding:10px;font:9px ui-monospace,monospace;color:#8a857a">SCENE ／ FAQ ／ FORM再掲 ／ FOOTER</div>
+<div style="border-top:1.5px dashed #b3ada0;padding:8px 10px;display:flex;justify-content:space-between;align-items:center"><div style="display:flex;gap:3px"><div style="width:13px;height:13px;border-radius:2px;border:1px solid #c9c3b6;background:#f7e2e0"></div><div style="width:13px;height:13px;border-radius:2px;border:1px solid #c9c3b6;background:#dbe8f4"></div></div><span style="font:9px ui-monospace,monospace;color:#8a857a">積み上がり＋CTA</span></div>
+</div>
+<div style="font:10.5px/1.6 ui-monospace,monospace;color:#8a857a">狙い：Stack思想を体験として伝える。実装コストは最も高い。</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<p class="dv-next">試せること：「<a class="dv-oid" href="#1b">1b</a>のストーリーに<a class="dv-oid" href="#1c">1c</a>のヒーローを合わせて」・「<a class="dv-oid" href="#1d">1d</a>の積み上がり演出をもっと詳しく」・「<a class="dv-oid" href="#1a">1a</a>を軸に、あと2案ちがう方向で」</p>
+</section>
+
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  state = { i: 0 };
+  onScroll = (e) => {
+    const el = e.currentTarget;
+    const i = Math.max(0, Math.min(4, Math.floor(el.scrollTop / 200)));
+    if (i !== this.state.i) this.setState({ i });
+  };
+  renderVals() {
+    const i = this.state.i, v = {};
+    for (let n = 0; n < 5; n++) {
+      const on = n <= i;
+      v['o' + n] = on ? 1 : 0;
+      v['y' + n] = on ? 0 : 20;
+    }
+    v.onScroll = this.onScroll;
+    v.activeLabel = ['誕生', '1歳', '卒業', '結婚', '家族'][i];
+    v.stepNo = String(i + 1) + ' / 5';
+    return v;
+  }
+}
+</script>
+</body>
+</html>
