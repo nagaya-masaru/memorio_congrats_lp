@@ -76,7 +76,7 @@
 <button style="padding:14px 26px;border:none;border-radius:2px;background:#4e5348;color:#fbf7f1;font-family:inherit;font-size:13.5px;letter-spacing:.1em;cursor:pointer" style-hover="background:#3c4038">登録する</button>
 </div>
 <div style="display:flex;flex-wrap:wrap;align-items:center;gap:14px">
-<a href="#regist" style="display:inline-flex;align-items:center;gap:8px;padding:11px 18px;border:1px solid #ddd2c0;border-radius:2px;background:#fffdfa;font-size:13px;letter-spacing:.06em;color:#6f6a5d">LINEで受け取る</a>
+<a href="{{ lineUrl }}" target="_blank" rel="noopener noreferrer" style="display:inline-flex;align-items:center;gap:8px;padding:11px 18px;border:1px solid #ddd2c0;border-radius:2px;background:#fffdfa;font-size:13px;letter-spacing:.06em;color:#6f6a5d">LINEで受け取る</a>
 <span style="font-size:12px;letter-spacing:.06em;color:#a2998a">現在 {{ waitlist }} 人が発売を待っています</span>
 </div>
 </div>
@@ -525,7 +525,7 @@
 <option>送別・退職</option>
 </select>
 <button style="width:100%;padding:16px;border:none;border-radius:2px;background:#4e5348;color:#fbf7f1;font-family:inherit;font-size:14px;letter-spacing:.12em;cursor:pointer">メールで通知を受け取る</button>
-<button style="width:100%;padding:15px;border:1px solid #ddd2c0;border-radius:2px;background:#fffdfa;font-family:inherit;font-size:13.5px;letter-spacing:.1em;color:#6f6a5d;cursor:pointer">LINEで通知を受け取る</button>
+<a href="{{ lineUrl }}" target="_blank" rel="noopener noreferrer" style="display:block;width:100%;padding:15px;border:1px solid #ddd2c0;border-radius:2px;background:#fffdfa;font-size:13.5px;letter-spacing:.1em;color:#6f6a5d;text-align:center">LINEで通知を受け取る</a>
 </div>
 <span style="font-size:12px;letter-spacing:.06em;color:#a2998a">現在 {{ waitlist }} 人が発売を待っています ／ 登録は無料、いつでも解除できます</span>
 </div>
@@ -543,6 +543,7 @@
 <a href="#touch" style="font-size:12.5px;letter-spacing:.06em;color:#8a8578">3Dで見る</a>
 <a href="#colors" style="font-size:12.5px;letter-spacing:.06em;color:#8a8578">カラー</a>
 <a href="#regist" style="font-size:12.5px;letter-spacing:.06em;color:#8a8578">発売通知</a>
+<a href="{{ lineUrl }}" target="_blank" rel="noopener noreferrer" style="font-size:12.5px;letter-spacing:.06em;color:#8a8578">LINEで友だち追加</a>
 <a href="#" style="font-size:12.5px;letter-spacing:.06em;color:#8a8578">ブランド資料</a>
 <a href="#" style="font-size:12.5px;letter-spacing:.06em;color:#8a8578">プライバシーポリシー</a>
 </div>
@@ -566,6 +567,8 @@ class Component extends DCLogic {
     ['家族・祖父母', 'Family', 'スマホがなくても、開けば聞ける。', '離れて暮らす相手へ。孫の声や何気ない会話を、日常のそばに置ける形で贈ります。次の誕生日に声を足して、変化を聞き比べられます。', ['2026.09.19', 'Your voice, forever with us.', ''], '敬老の日・帰省の前', '孫・子・きょうだい', '贈る相手が呼ばれている名前を刻印に入れて注文する。', '日常の会話や、名前を呼ぶ声をそのまま録音する。', '帰省のときに手渡して、置き場所を一緒に決める。次の帰省で声を足す。'],
     ['送別・退職', 'Farewell', '最後に、声で伝える。', '送別や退職の日。寄せ書きでは伝わらない温度を、声のまま渡します。チームで一人ずつのメッセージを集める使い方に向いています。', ['2026.03.31', 'Thank you for everything.', ''], '最終出勤日の2週間前', '同僚・チーム・関わりのあった人', '幹事が注文し、在籍期間と一言を刻印に決める。', '関わりのあった人に録音リンクを回し、一人30秒の声を集める。', '送別会で渡す。次の職場の机に置いて、必要なときに開いてもらう。']
   ];
+
+  lineUrl = 'https://lin.ee/pl7X0GAM';
 
   labels = ['Birth', 'Birthday', 'Graduation', 'Wedding', 'Family'];
 
@@ -604,6 +607,7 @@ class Component extends DCLogic {
     const openFirst = this.props.faqOpenFirst !== false;
     const v = {
       waitlist: (this.props.waitlistCount ?? 1240).toLocaleString('en-US'),
+      lineUrl: this.lineUrl,
       sceneName: s[0], sceneEn: s[1], sceneTitle: s[2], sceneCopy: s[3], sceneEngrave: s[4],
       sceneWhen: s[5], sceneWho: s[6], sceneStep1: s[7], sceneStep2: s[8], sceneStep3: s[9],
       sceneDate: s[4][0], sceneL1: s[4][1], sceneL2: s[4][2],
