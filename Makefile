@@ -75,7 +75,7 @@ weigh: ## 重い参照アセットを一覧し、軽量化コマンドを提示
 
 ## -------------------------------------------------------------- 本番化 ---
 
-ship: build ## 検証・コミット・push して本番反映  例: make ship m="修正内容"
+ship: build ## 検証・コミット・push して本番反映  例: make ship m="修正内容" [trailer="..."]
 	@if [ -z "$(m)" ]; then \
 		echo -e "$(C_NG)コミットメッセージが必要です$(C_END)"; \
 		echo '  make ship m="変更内容"'; exit 1; fi
@@ -84,7 +84,7 @@ ship: build ## 検証・コミット・push して本番反映  例: make ship m
 	@git branch --show-current | grep -qx $(BRANCH) \
 		|| { echo -e "$(C_NG)$(BRANCH) ブランチではありません$(C_END)"; exit 1; }
 	git add -A
-	git commit -m "$(m)"
+	git commit -m "$(m)" $(if $(trailer),-m "$(trailer)",)
 	git push origin $(BRANCH)
 	@echo ""
 	@echo -e "$(C_OK)push 完了$(C_END) 1〜2分で $(SITE) に反映されます"

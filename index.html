@@ -441,7 +441,8 @@
 <a href="#" style="display:inline-block"><img src="assets/badge-googleplay.png" alt="Google Playで手に入れよう" style="display:block;height:44px;width:auto"></img></a>
 </div>
 -->
-<span style="font-size:11.5px;line-height:1.9;letter-spacing:.04em;color:#a2998a">アプリは無料。2027年春の発売にあわせて公開予定です。声を送る側のダウンロードは不要です。</span>
+<span style="font-size:11.5px;line-height:1.9;letter-spacing:.04em;color:#a2998a">アプリは無料。2027年春の発売にあわせて公開予定です。声を贈る側はアプリで年表を管理します。受け取る側は蓋を開けるだけで、ダウンロードは不要です。</span>
+<a href="{{ lineUrl }}" target="_blank" rel="noopener noreferrer" style="align-self:flex-start;margin-top:6px;display:inline-flex;align-items:center;gap:8px;padding:12px 22px;border:1px solid #ddd2c0;border-radius:2px;background:#fffdfa;font-size:13px;letter-spacing:.08em;color:#4e5348">アプリの公開情報をLINEで受け取る</a>
 </div>
 </div>
 </div>
@@ -507,20 +508,24 @@
 </section>
 
 <section id="regist" style="background:linear-gradient(160deg,#f7eee1,#f3e7d8);border-bottom:1px solid #ece3d5;scroll-margin-top:78px">
-<div style="max-width:720px;margin:0 auto;padding:96px 28px;display:flex;flex-direction:column;gap:26px;align-items:center;text-align:center">
+<div style="max-width:900px;margin:0 auto;padding:96px 28px;display:flex;flex-direction:column;gap:40px">
+<div style="display:flex;flex-direction:column;gap:16px;align-items:center;text-align:center">
 <span style="font-size:11px;letter-spacing:.28em;color:#b3925f">WAITING LIST</span>
 <h2 style="margin:0;font-size:clamp(22px,2.6vw,32px);line-height:1.75;font-weight:500;letter-spacing:.05em;color:#454a40">ひとつ目を、あなたの節目から。</h2>
-<p style="margin:0;font-size:14.5px;line-height:2.05;letter-spacing:.05em;color:#6f6a5d;max-width:30em;text-wrap:pretty">発売日と先行予約の開始を、いちばん早くお知らせします。公式LINEを友だち追加するだけで登録は完了します。</p>
-<div style="width:100%;max-width:460px;display:flex;flex-direction:column;gap:22px;align-items:center">
-<a href="{{ lineUrl }}" target="_blank" rel="noopener noreferrer" style="display:block;width:100%;padding:17px;border:none;border-radius:2px;background:#4e5348;color:#fbf7f1;font-size:14px;letter-spacing:.12em;text-align:center">LINEで通知を受け取る</a>
-<div style="display:flex;flex-direction:column;align-items:center;gap:10px">
+</div>
+<div style="display:flex;flex-wrap:wrap;gap:44px;align-items:center;justify-content:center">
+<div style="flex:1 1 300px;min-width:0;display:flex;flex-direction:column;gap:16px">
+<p style="margin:0;font-size:14.5px;line-height:2.05;letter-spacing:.05em;color:#6f6a5d;max-width:26em;text-wrap:pretty">発売日と先行予約の開始を、いちばん早くお知らせします。公式LINEを友だち追加するだけで登録は完了します。</p>
+<span style="font-size:12px;line-height:1.95;letter-spacing:.06em;color:#a2998a">現在 {{ waitlist }} 人が発売を待っています<br>登録は無料、いつでも解除できます</span>
+</div>
+<div style="flex:0 1 240px;display:flex;flex-direction:column;gap:16px;align-items:center">
 <a href="{{ lineUrl }}" target="_blank" rel="noopener noreferrer" style="display:block;padding:12px;border:1px solid #ddd2c0;border-radius:3px;background:#fffdfa;line-height:0">
-<img src="https://qr-official.line.me/gs/M_442kiuxo_BW.png?oat_content=qr" alt="MemoriO Congrats 公式LINE 友だち追加用QRコード" width="140" height="140" loading="lazy" style="display:block;width:140px;height:140px"></img>
+<img src="https://qr-official.line.me/gs/M_442kiuxo_BW.png?oat_content=qr" alt="MemoriO Congrats 公式LINE 友だち追加用QRコード" width="160" height="160" loading="lazy" style="display:block;width:160px;height:160px"></img>
 </a>
+<a href="{{ lineUrl }}" target="_blank" rel="noopener noreferrer" style="display:block;width:100%;max-width:240px;padding:16px;border:none;border-radius:2px;background:#4e5348;color:#fbf7f1;font-size:14px;letter-spacing:.1em;text-align:center">LINEで通知を受け取る</a>
 <span style="font-size:11.5px;letter-spacing:.06em;color:#a2998a">QRコードを読み取って友だち追加</span>
 </div>
 </div>
-<span style="font-size:12px;letter-spacing:.06em;color:#a2998a">現在 {{ waitlist }} 人が発売を待っています ／ 登録は無料、いつでも解除できます</span>
 </div>
 </section>
 
