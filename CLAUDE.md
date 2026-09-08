@@ -38,6 +38,9 @@ make deck-qr    # サイト・3DのQRを作り直す（URL変更時のみ。segn
 資料PDFはヘッドレスChromeの印刷機能で書き出す（`@page{size:297mm 210mm}`）。
 原本（`docs/deck.html`・`docs/deck-assets/`）は `.vercelignore` で除外、**PDFだけ `assets/` に置いて配信**している。
 `.vercelignore` は親ディレクトリを除外すると中のファイルを再包含できないため、PDFの置き場所は `docs/` ではなく `assets/`。
+PDFは差し替える前提なので、`vercel.json` で `/assets/(.*)` の1年 immutable から除外し、`max-age=600, must-revalidate` にしている
+（総称ルール側を `/assets/:path((?!MemoriO-Congrats-brand-deck\.pdf).*)` にして、ヘッダーの優先順位に依存しない形にした）。
+**PDFのファイル名を変えると配信URLとフッターのリンクが変わる**ので、名前は固定のまま中身だけ差し替える。
 `make check` の WARN は11件（すべてアセットの重さ。PDF 4MB を含む）。
 
 `make check` の WARN は現状11件（すべてアセットの重さ）。NG が出たら本番化しない。
