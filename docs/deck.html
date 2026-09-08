@@ -1,0 +1,1060 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<title>MemoriO Congrats｜ブランド資料</title>
+<meta name="description" content="MemoriO Congrats のブランド資料（A4横・20ページ）。LPの各セクションを資料化したもの。">
+<link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@400;500;600&family=Cormorant+Garamond:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+@page { size: 297mm 210mm; margin: 0; }
+
+* { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; }
+body {
+  background: #ded6c8;
+  color: #454a40;
+  font-family: "Shippori Mincho", "Hiragino Mincho ProN", "Yu Mincho", serif;
+  -webkit-font-smoothing: antialiased;
+  -webkit-print-color-adjust: exact;
+  print-color-adjust: exact;
+}
+.en { font-family: "Cormorant Garamond", "Hiragino Mincho ProN", serif; }
+
+.slide {
+  position: relative;
+  width: 297mm; height: 209.6mm;
+  overflow: hidden;
+  background: #fbf7f1;
+  page-break-after: always; break-after: page;
+  page-break-inside: avoid; break-inside: avoid;
+}
+.slide:last-child { page-break-after: auto; break-after: auto; }
+
+@media screen {
+  body { padding: 26px 0; }
+  .slide { margin: 0 auto 26px; box-shadow: 0 10px 34px -14px rgba(50,48,42,.5); }
+}
+
+/* --- 面の骨格 ------------------------------------------------------- */
+.pad { position: absolute; inset: 0; padding: 15mm; display: flex; flex-direction: column; }
+.shead { display: flex; align-items: flex-end; justify-content: space-between;
+         padding-bottom: 9px; border-bottom: 1px solid #ece3d5; margin-bottom: 22px; }
+.eyebrow { font-size: 9.5px; letter-spacing: .3em; color: #b3925f; }
+.shead .ja { font-size: 10.5px; letter-spacing: .16em; color: #a2998a; }
+.foot { position: absolute; left: 15mm; right: 15mm; bottom: 7mm;
+        display: flex; align-items: center; justify-content: space-between;
+        font-size: 8.5px; letter-spacing: .14em; color: #b6ac9c; }
+.foot .en { font-size: 10px; letter-spacing: .16em; }
+.body { flex: 1; display: flex; flex-direction: column; justify-content: center; min-height: 0; }
+
+h1, h2, h3, h4 { margin: 0; font-weight: 500; }
+h2.title { font-size: 28px; line-height: 1.72; letter-spacing: .05em; color: #454a40; }
+h3.title { font-size: 23px; line-height: 1.7; letter-spacing: .05em; color: #454a40; }
+p { margin: 0; }
+.lead { font-size: 12.5px; line-height: 2.05; letter-spacing: .05em; color: #6f6a5d; }
+.sub { font-size: 11px; line-height: 1.98; letter-spacing: .04em; color: #8a8578; }
+.note { font-size: 9.5px; line-height: 1.88; letter-spacing: .04em; color: #a2998a; }
+
+.card { border: 1px solid #ece3d5; border-radius: 3px; background: #fdfaf5; }
+.pill { display: inline-block; padding: 5px 11px; border: 1px solid #e5dbc9; border-radius: 999px;
+        font-size: 9.5px; letter-spacing: .06em; color: #8a8578; background: #fdfaf5; }
+.num { display: flex; align-items: center; justify-content: center;
+       width: 19px; height: 19px; border-radius: 999px; background: #4e5348; color: #fbf7f1;
+       font-size: 10px; flex: 0 0 auto; }
+.mark { padding: 13px 15px; border: 1px solid #ece3d5; border-radius: 3px; background: #f9f4ec; }
+.mark .d { font-size: 11px; letter-spacing: .12em; color: #8a7f6c; }
+.mark .l { font-size: 15px; line-height: 1.5; letter-spacing: .05em; color: #7a6a4d; }
+
+/* --- 表紙 / 裏面 ---------------------------------------------------- */
+.cover-bg { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.veil { position: absolute; inset: 0;
+        background: linear-gradient(100deg, rgba(253,250,245,.95) 0%, rgba(251,247,241,.88) 36%,
+                    rgba(247,238,225,.44) 64%, rgba(243,231,216,.10) 100%); }
+
+.qr { display: flex; align-items: center; gap: 14px; padding: 13px 16px;
+      border: 1px solid #e5dbc9; border-radius: 3px; background: rgba(253,250,245,.94); }
+.qr img { display: block; }
+.cta { display: inline-block; padding: 11px 22px; border-radius: 2px;
+       background: #4e5348; color: #fbf7f1; font-size: 11.5px; letter-spacing: .1em; }
+
+/* --- 部品 ----------------------------------------------------------- */
+.grid3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+.grid5 { display: grid; grid-template-columns: repeat(5, 1fr); gap: 14px; }
+.grid7 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px;
+         grid-auto-rows: min-content; }
+.cube { border-radius: 4px; display: flex; flex-direction: column; align-items: center;
+        justify-content: center; gap: 3px; text-align: center; }
+.cube .b { font-size: 12px; letter-spacing: .05em; color: #6f6352; }
+.cube .d { font-size: 10.5px; letter-spacing: .12em; color: #8a7f6c; }
+.cube .p { font-size: 10px; letter-spacing: .05em; color: #9a917f; }
+.swatch { width: 100%; aspect-ratio: 4/5; border: 1px solid #ece3d5; border-radius: 3px;
+          background: #fdfaf5; display: block; object-fit: contain; }
+</style>
+</head>
+<body>
+<!-- このファイルが資料の原本。PDF化は `make pdf`（Chrome のヘッドレス印刷） -->
+
+<section class="slide">
+  <img class="cover-bg" src="deck-assets/main-visual.jpg" alt="MemoriO Congrats 本体5色と開いた1台">
+  <div class="veil"></div>
+  <div class="pad" style="padding:15mm">
+    <div style="display:flex;align-items:center;gap:11px">
+      <img src="deck-assets/logo.png" alt="MemoriO" style="width:34px;height:34px;object-fit:contain">
+      <span style="display:flex;flex-direction:column;gap:2px">
+        <span class="en" style="font-size:19px;letter-spacing:.05em;color:#4e5348">MemoriO Congrats</span>
+        <span style="font-size:8.5px;letter-spacing:.22em;color:#a2998a">MODULAR MUSIC CUBE</span>
+      </span>
+    </div>
+    <div style="flex:1;display:flex;flex-direction:column;justify-content:center;gap:22px;max-width:560px">
+      <span class="eyebrow">2027年春 発売予定</span>
+      <h1 style="font-size:39px;line-height:1.62;letter-spacing:.04em;color:#454a40">人生の節目に、<br>声を贈るという選択を。</h1>
+      <p class="lead" style="max-width:29em">MemoriOは、人生の節目に生まれる大切な声をひとつずつ残し、積み重ねていくブランドです。喜びも、励ましも、遠く離れた誰かへの想いも、未来の自分や家族を支える「声の記憶」として形にしていきます。</p>
+      <div style="display:flex;align-items:center;gap:26px">
+        <span style="display:flex;flex-direction:column;gap:4px">
+          <span class="eyebrow">PRICE</span>
+          <span class="en" style="font-size:26px;letter-spacing:.04em;color:#454a40">¥16,500<span style="font-size:11px;letter-spacing:.1em;color:#8a8578">　（税込）</span></span>
+        </span>
+        <span style="width:1px;height:38px;background:#ddd2c0"></span>
+        <span class="sub">全5色／65 × 65 × 73 mm<br>本体・刻印・クラウド保存を含む</span>
+      </div>
+    </div>
+    <div style="display:flex;align-items:flex-end;justify-content:space-between">
+      <span class="sub" style="letter-spacing:.1em">ブランド資料　2026年9月版　https://www.memorio.gift</span>
+      <span class="qr">
+        <img src="deck-assets/line-qr.png" width="76" height="76" alt="LINE友だち追加QRコード">
+        <span style="display:flex;flex-direction:column;gap:5px">
+          <span style="font-size:11px;letter-spacing:.08em;color:#454a40">発売通知を受け取る</span>
+          <span class="note">QRコードを読み取って<br>LINEで友だち追加</span>
+        </span>
+      </span>
+    </div>
+  </div>
+</section>
+
+<section class="slide">
+  <div class="pad">
+    <div class="shead"><span class="eyebrow">CONTENTS</span><span class="ja">目次</span></div>
+    <div class="body">
+  <div style="border-top:1px solid #efe6d8"><div style="display:flex;align-items:baseline;gap:26px;padding:14px 4px;border-bottom:1px solid #efe6d8">
+      <span class="en" style="flex:0 0 76px;font-size:19px;letter-spacing:.1em;color:#b3925f">03</span>
+      <span class="en" style="flex:0 0 250px;font-size:17px;letter-spacing:.16em;color:#454a40">WHY VOICE</span>
+      <span style="flex:1;font-size:12.5px;line-height:1.9;letter-spacing:.05em;color:#8a8578">残しておきたいのは、記録ではなく、その人の声に宿る想い。</span>
+    </div><div style="display:flex;align-items:baseline;gap:26px;padding:14px 4px;border-bottom:1px solid #efe6d8">
+      <span class="en" style="flex:0 0 76px;font-size:19px;letter-spacing:.1em;color:#b3925f">04</span>
+      <span class="en" style="flex:0 0 250px;font-size:17px;letter-spacing:.16em;color:#454a40">SCENES</span>
+      <span style="flex:1;font-size:12.5px;line-height:1.9;letter-spacing:.05em;color:#8a8578">7つの節目 ─ どの節目に、誰の声を残すか。</span>
+    </div><div style="display:flex;align-items:baseline;gap:26px;padding:14px 4px;border-bottom:1px solid #efe6d8">
+      <span class="en" style="flex:0 0 76px;font-size:19px;letter-spacing:.1em;color:#b3925f">05–11</span>
+      <span class="en" style="flex:0 0 250px;font-size:17px;letter-spacing:.16em;color:#454a40">SCENES / DETAIL</span>
+      <span style="flex:1;font-size:12.5px;line-height:1.9;letter-spacing:.05em;color:#8a8578">節目ごとの贈り方・集める声・刻印の例。</span>
+    </div><div style="display:flex;align-items:baseline;gap:26px;padding:14px 4px;border-bottom:1px solid #efe6d8">
+      <span class="en" style="flex:0 0 76px;font-size:19px;letter-spacing:.1em;color:#b3925f">12–13</span>
+      <span class="en" style="flex:0 0 250px;font-size:17px;letter-spacing:.16em;color:#454a40">STACK</span>
+      <span style="flex:1;font-size:12.5px;line-height:1.9;letter-spacing:.05em;color:#8a8578">積み上がった声が、歴史になる。</span>
+    </div><div style="display:flex;align-items:baseline;gap:26px;padding:14px 4px;border-bottom:1px solid #efe6d8">
+      <span class="en" style="flex:0 0 76px;font-size:19px;letter-spacing:.1em;color:#b3925f">14</span>
+      <span class="en" style="flex:0 0 250px;font-size:17px;letter-spacing:.16em;color:#454a40">TOUCH</span>
+      <span style="flex:1;font-size:12.5px;line-height:1.9;letter-spacing:.05em;color:#8a8578">3Dビューアで、手のなかの感触を先に。</span>
+    </div><div style="display:flex;align-items:baseline;gap:26px;padding:14px 4px;border-bottom:1px solid #efe6d8">
+      <span class="en" style="flex:0 0 76px;font-size:19px;letter-spacing:.1em;color:#b3925f">15–16</span>
+      <span class="en" style="flex:0 0 250px;font-size:17px;letter-spacing:.16em;color:#454a40">COLORWAY</span>
+      <span style="flex:1;font-size:12.5px;line-height:1.9;letter-spacing:.05em;color:#8a8578">やさしい5色。</span>
+    </div><div style="display:flex;align-items:baseline;gap:26px;padding:14px 4px;border-bottom:1px solid #efe6d8">
+      <span class="en" style="flex:0 0 76px;font-size:19px;letter-spacing:.1em;color:#b3925f">17</span>
+      <span class="en" style="flex:0 0 250px;font-size:17px;letter-spacing:.16em;color:#454a40">HOW IT WORKS</span>
+      <span style="flex:1;font-size:12.5px;line-height:1.9;letter-spacing:.05em;color:#8a8578">声を集めて、開くだけ。</span>
+    </div><div style="display:flex;align-items:baseline;gap:26px;padding:14px 4px;border-bottom:1px solid #efe6d8">
+      <span class="en" style="flex:0 0 76px;font-size:19px;letter-spacing:.1em;color:#b3925f">18</span>
+      <span class="en" style="flex:0 0 250px;font-size:17px;letter-spacing:.16em;color:#454a40">APP</span>
+      <span style="flex:1;font-size:12.5px;line-height:1.9;letter-spacing:.05em;color:#8a8578">棚のキューブと同じ順で積み重なる「声の年表」。</span>
+    </div><div style="display:flex;align-items:baseline;gap:26px;padding:14px 4px;border-bottom:1px solid #efe6d8">
+      <span class="en" style="flex:0 0 76px;font-size:19px;letter-spacing:.1em;color:#b3925f">19</span>
+      <span class="en" style="flex:0 0 250px;font-size:17px;letter-spacing:.16em;color:#454a40">PRODUCT & PRICE</span>
+      <span style="flex:1;font-size:12.5px;line-height:1.9;letter-spacing:.05em;color:#8a8578">仕様と価格 ─ ¥16,500（税込）／2027年春 発売予定。</span>
+    </div><div style="display:flex;align-items:baseline;gap:26px;padding:14px 4px;border-bottom:1px solid #efe6d8">
+      <span class="en" style="flex:0 0 76px;font-size:19px;letter-spacing:.1em;color:#b3925f">20</span>
+      <span class="en" style="flex:0 0 250px;font-size:17px;letter-spacing:.16em;color:#454a40">FAQ</span>
+      <span style="flex:1;font-size:12.5px;line-height:1.9;letter-spacing:.05em;color:#8a8578">よくあるご質問。</span>
+    </div><div style="display:flex;align-items:baseline;gap:26px;padding:14px 4px;border-bottom:1px solid #efe6d8">
+      <span class="en" style="flex:0 0 76px;font-size:19px;letter-spacing:.1em;color:#b3925f">21</span>
+      <span class="en" style="flex:0 0 250px;font-size:17px;letter-spacing:.16em;color:#454a40">CONTACT</span>
+      <span style="flex:1;font-size:12.5px;line-height:1.9;letter-spacing:.05em;color:#8a8578">発売通知の登録（LINE）。</span>
+    </div></div></div>
+  </div>
+  <div class="foot"><span>MemoriO Congrats　人生の節目に、声を贈る</span><span class="en">02 / 21</span></div>
+</section>
+
+<section class="slide">
+  <div class="pad">
+    <div class="shead"><span class="eyebrow">WHY VOICE</span><span class="ja">なぜ、声なのか</span></div>
+    <div class="body">
+  <div style="max-width:760px;margin:0 auto;text-align:center;display:flex;flex-direction:column;gap:22px">
+    <h2 class="title">残しておきたいのは、記録ではなく、<br>その人の声に宿る想い。</h2>
+    <p class="lead">写真や動画は、今や簡単に残せる時代。けれど、声や話した想いは、記録して残さなければいつかそっと消えてしまいます。声には、その人の温度や感情、その瞬間の空気まで宿っています。MemoriOは、かけがえのない声をカタチにして残し、人生の節目に贈り、何度でも聴き返せる宝物として届けます。</p>
+  </div>
+  <div class="grid3" style="margin-top:40px"><div class="card" style="padding:28px 24px;display:flex;flex-direction:column;gap:11px">
+      <span class="en" style="font-size:12.5px;letter-spacing:.16em;color:#b3925f">Value 01</span>
+      <span style="font-size:16.5px;letter-spacing:.05em;color:#454a40">想いまで、贈る。</span>
+      <span class="sub">声に込められた想いも一緒に届けることで、心に残る特別なギフトになります。</span>
+    </div><div class="card" style="padding:28px 24px;display:flex;flex-direction:column;gap:11px">
+      <span class="en" style="font-size:12.5px;letter-spacing:.16em;color:#b3925f">Value 02</span>
+      <span style="font-size:16.5px;letter-spacing:.05em;color:#454a40">離れていても、そばに。</span>
+      <span class="sub">どこにいても、大切な声がそっと寄り添い、つながりを感じられます。</span>
+    </div><div class="card" style="padding:28px 24px;display:flex;flex-direction:column;gap:11px">
+      <span class="en" style="font-size:12.5px;letter-spacing:.16em;color:#b3925f">Value 03</span>
+      <span style="font-size:16.5px;letter-spacing:.05em;color:#454a40">人生と一緒に、積み重なる。</span>
+      <span class="sub">声の記録が人生の節目ごとに増えていき、かけがえのない思い出が重なっていきます。</span>
+    </div></div></div>
+  </div>
+  <div class="foot"><span>MemoriO Congrats　人生の節目に、声を贈る</span><span class="en">03 / 21</span></div>
+</section>
+
+<section class="slide">
+  <div class="pad">
+    <div class="shead"><span class="eyebrow">SCENES</span><span class="ja">7つの節目</span></div>
+    <div class="body">
+  <div style="display:flex;align-items:flex-end;justify-content:space-between;gap:30px;margin-bottom:22px">
+    <h2 class="title">どの節目に、誰の声を残しますか。</h2>
+    <p class="sub" style="max-width:24em;text-align:right">節目ごとに、集める声・贈る時期・刻印の例が変わります。次のページから1節目ずつご紹介します。</p>
+  </div>
+  <div class="grid7"><div class="card" style="padding:18px 17px;display:flex;flex-direction:column;gap:8px;min-height:186px">
+      <span class="en" style="font-size:11.5px;letter-spacing:.16em;color:#b3925f">01　Birth</span>
+      <span style="font-size:15px;letter-spacing:.05em;color:#454a40">誕生・出産</span>
+      <span class="sub">はじまりの声を、ひとつ目に。</span>
+      <span class="note" style="margin-top:auto;padding-top:9px;border-top:1px solid #f0e8db">贈る時期　出産予定日の1〜2か月前<br>集める声　父・母・祖父母・きょうだい</span>
+    </div><div class="card" style="padding:18px 17px;display:flex;flex-direction:column;gap:8px;min-height:186px">
+      <span class="en" style="font-size:11.5px;letter-spacing:.16em;color:#b3925f">02　Birthday</span>
+      <span style="font-size:15px;letter-spacing:.05em;color:#454a40">誕生日</span>
+      <span class="sub">一年ごとの声を、聞き比べられるように。</span>
+      <span class="note" style="margin-top:auto;padding-top:9px;border-top:1px solid #f0e8db">贈る時期　誕生日の2週間前<br>集める声　同居する人・離れて暮らす親族</span>
+    </div><div class="card" style="padding:18px 17px;display:flex;flex-direction:column;gap:8px;min-height:186px">
+      <span class="en" style="font-size:11.5px;letter-spacing:.16em;color:#b3925f">03　Anniversary</span>
+      <span style="font-size:15px;letter-spacing:.05em;color:#454a40">記念日・カップル</span>
+      <span class="sub">普段言わないことを、声で。</span>
+      <span class="note" style="margin-top:auto;padding-top:9px;border-top:1px solid #f0e8db">贈る時期　記念日の1か月前<br>集める声　本人・パートナー・付き合いの長い友人</span>
+    </div><div class="card" style="padding:18px 17px;display:flex;flex-direction:column;gap:8px;min-height:186px">
+      <span class="en" style="font-size:11.5px;letter-spacing:.16em;color:#b3925f">04　Wedding</span>
+      <span style="font-size:15px;letter-spacing:.05em;color:#454a40">結婚</span>
+      <span class="sub">その日の空気ごと、残す。</span>
+      <span class="note" style="margin-top:auto;padding-top:9px;border-top:1px solid #f0e8db">贈る時期　式の3か月前から<br>集める声　新郎新婦・両親・ゲスト</span>
+    </div><div class="card" style="padding:18px 17px;display:flex;flex-direction:column;gap:8px;min-height:186px">
+      <span class="en" style="font-size:11.5px;letter-spacing:.16em;color:#b3925f">05　Graduation</span>
+      <span style="font-size:15px;letter-spacing:.05em;color:#454a40">卒業・部活</span>
+      <span class="sub">今しかない声を、みんなで。</span>
+      <span class="note" style="margin-top:auto;padding-top:9px;border-top:1px solid #f0e8db">贈る時期　卒業式・引退試合の1か月前<br>集める声　同級生・後輩・顧問</span>
+    </div><div class="card" style="padding:18px 17px;display:flex;flex-direction:column;gap:8px;min-height:186px">
+      <span class="en" style="font-size:11.5px;letter-spacing:.16em;color:#b3925f">06　Family</span>
+      <span style="font-size:15px;letter-spacing:.05em;color:#454a40">家族・祖父母</span>
+      <span class="sub">スマホがなくても、開けば聞ける。</span>
+      <span class="note" style="margin-top:auto;padding-top:9px;border-top:1px solid #f0e8db">贈る時期　敬老の日・帰省の前<br>集める声　孫・子・きょうだい</span>
+    </div><div class="card" style="padding:18px 17px;display:flex;flex-direction:column;gap:8px;min-height:186px">
+      <span class="en" style="font-size:11.5px;letter-spacing:.16em;color:#b3925f">07　Farewell</span>
+      <span style="font-size:15px;letter-spacing:.05em;color:#454a40">送別・退職</span>
+      <span class="sub">最後に、声で伝える。</span>
+      <span class="note" style="margin-top:auto;padding-top:9px;border-top:1px solid #f0e8db">贈る時期　最終出勤日の2週間前<br>集める声　同僚・チーム・関わりのあった人</span>
+    </div>
+    <div style="padding:18px 17px;border:1px solid #e5dbc9;border-radius:3px;background:#f9f2e8;display:flex;flex-direction:column;justify-content:center;gap:9px;min-height:186px">
+      <span class="eyebrow">POINT</span>
+      <span class="sub">7つの節目はすべて等価に扱っています。どの節目からでも「ひとつ目」を始められ、次の節目でひとつ増やしていけます。</span>
+    </div>
+  </div></div>
+  </div>
+  <div class="foot"><span>MemoriO Congrats　人生の節目に、声を贈る</span><span class="en">04 / 21</span></div>
+</section>
+
+<section class="slide">
+  <div class="pad">
+    <div class="shead"><span class="eyebrow">SCENES　01 / 07</span><span class="ja">誕生・出産</span></div>
+    <div class="body">
+  <div style="display:flex;gap:32px;align-items:stretch">
+    <div style="flex:0 0 470px;display:flex;flex-direction:column;gap:15px">
+      <img src="deck-assets/scene-birth.jpg" alt="誕生・出産"
+           style="display:block;width:100%;aspect-ratio:4/3;object-fit:cover;border-radius:3px">
+      <div class="mark" style="display:flex;flex-direction:column;gap:6px">
+        <span style="font-size:8.5px;letter-spacing:.2em;color:#a2998a">刻印の例</span>
+        <span class="en d">2026.08.15</span>
+        <span class="en l" style="margin-top:4px">Welcome to the world.</span>
+        <span class="en l">You are our treasure.</span>
+      </div>
+    </div>
+    <div style="flex:1;display:flex;flex-direction:column;gap:18px">
+      <span class="en" style="font-size:12.5px;letter-spacing:.16em;color:#b3925f">Birth</span>
+      <h3 class="title">はじまりの声を、ひとつ目に。</h3>
+      <p class="lead">産声、初めて名前を呼んだ声、贈られた言葉。人生の最初の声を、その人の1ブロック目として残します。生まれる前から声を集めておくこともできます。</p>
+      <div style="display:flex;flex-wrap:wrap;gap:8px">
+        <span class="pill">贈る時期　出産予定日の1〜2か月前</span>
+        <span class="pill">集める声　父・母・祖父母・きょうだい</span>
+      </div>
+      <div style="margin-top:6px;padding:22px 24px;border:1px solid #ece3d5;border-radius:3px;background:#fdfaf5">
+        <span class="eyebrow" style="display:block;margin-bottom:16px">HOW TO GIFT</span>
+        <div style="display:flex;gap:11px;align-items:flex-start;padding-bottom:14px">
+          <span class="num en">1</span>
+          <span class="sub" style="flex:1;color:#5f6357">予定日と刻印の文言を決めて注文する。届いたら本体を手元に置いておく。</span>
+        </div><div style="display:flex;gap:11px;align-items:flex-start;padding-bottom:14px">
+          <span class="num en">2</span>
+          <span class="sub" style="flex:1;color:#5f6357">入院前に録音リンクを共有し、待っている人たちの声を先に集めておく。</span>
+        </div><div style="display:flex;gap:11px;align-items:flex-start;padding-bottom:0px">
+          <span class="num en">3</span>
+          <span class="sub" style="flex:1;color:#5f6357">退院後に産声を追加して完成。棚に置いた1つ目が、その人の記録のはじまりになる。</span>
+        </div>
+      </div>
+    </div>
+  </div></div>
+  </div>
+  <div class="foot"><span>MemoriO Congrats　人生の節目に、声を贈る</span><span class="en">05 / 21</span></div>
+</section>
+<section class="slide">
+  <div class="pad">
+    <div class="shead"><span class="eyebrow">SCENES　02 / 07</span><span class="ja">誕生日</span></div>
+    <div class="body">
+  <div style="display:flex;gap:32px;align-items:stretch">
+    <div style="flex:0 0 470px;display:flex;flex-direction:column;gap:15px">
+      <img src="deck-assets/scene-birthday.jpg" alt="誕生日"
+           style="display:block;width:100%;aspect-ratio:4/3;object-fit:cover;border-radius:3px">
+      <div class="mark" style="display:flex;flex-direction:column;gap:6px">
+        <span style="font-size:8.5px;letter-spacing:.2em;color:#a2998a">刻印の例</span>
+        <span class="en d">2027.08.15</span>
+        <span class="en l" style="margin-top:4px">Happy Birthday.</span>
+        <span class="en l">Your voice, forever with us.</span>
+      </div>
+    </div>
+    <div style="flex:1;display:flex;flex-direction:column;gap:18px">
+      <span class="en" style="font-size:12.5px;letter-spacing:.16em;color:#b3925f">Birthday</span>
+      <h3 class="title">一年ごとの声を、聞き比べられるように。</h3>
+      <p class="lead">去年の声と、今年の声。並べて聞くと、成長も声のほうに残っています。毎年ひとつ増やしていく使い方に向いています。</p>
+      <div style="display:flex;flex-wrap:wrap;gap:8px">
+        <span class="pill">贈る時期　誕生日の2週間前</span>
+        <span class="pill">集める声　同居する人・離れて暮らす親族</span>
+      </div>
+      <div style="margin-top:6px;padding:22px 24px;border:1px solid #ece3d5;border-radius:3px;background:#fdfaf5">
+        <span class="eyebrow" style="display:block;margin-bottom:16px">HOW TO GIFT</span>
+        <div style="display:flex;gap:11px;align-items:flex-start;padding-bottom:14px">
+          <span class="num en">1</span>
+          <span class="sub" style="flex:1;color:#5f6357">前の年のMemoriOを聞き返して、今年どんな声を残すかを決める。</span>
+        </div><div style="display:flex;gap:11px;align-items:flex-start;padding-bottom:14px">
+          <span class="num en">2</span>
+          <span class="sub" style="flex:1;color:#5f6357">離れている人にも録音リンクを送り、当日までに声を集める。</span>
+        </div><div style="display:flex;gap:11px;align-items:flex-start;padding-bottom:0px">
+          <span class="num en">3</span>
+          <span class="sub" style="flex:1;color:#5f6357">誕生日に開いて一緒に聞く。翌年また新しいひとつを重ねる。</span>
+        </div>
+      </div>
+    </div>
+  </div></div>
+  </div>
+  <div class="foot"><span>MemoriO Congrats　人生の節目に、声を贈る</span><span class="en">06 / 21</span></div>
+</section>
+<section class="slide">
+  <div class="pad">
+    <div class="shead"><span class="eyebrow">SCENES　03 / 07</span><span class="ja">記念日・カップル</span></div>
+    <div class="body">
+  <div style="display:flex;gap:32px;align-items:stretch">
+    <div style="flex:0 0 470px;display:flex;flex-direction:column;gap:15px">
+      <img src="deck-assets/scene-anniversary.jpg" alt="記念日・カップル"
+           style="display:block;width:100%;aspect-ratio:4/3;object-fit:cover;border-radius:3px">
+      <div class="mark" style="display:flex;flex-direction:column;gap:6px">
+        <span style="font-size:8.5px;letter-spacing:.2em;color:#a2998a">刻印の例</span>
+        <span class="en d">2026.08.15</span>
+        <span class="en l" style="margin-top:4px">Thank you for being with me.</span>
+        
+      </div>
+    </div>
+    <div style="flex:1;display:flex;flex-direction:column;gap:18px">
+      <span class="en" style="font-size:12.5px;letter-spacing:.16em;color:#b3925f">Anniversary</span>
+      <h3 class="title">普段言わないことを、声で。</h3>
+      <p class="lead">記念日、遠距離、プロポーズ。言葉にできていなかった気持ちを、2人の記録として残します。「何年後に一緒に聞きたいか」から考える贈り方です。</p>
+      <div style="display:flex;flex-wrap:wrap;gap:8px">
+        <span class="pill">贈る時期　記念日の1か月前</span>
+        <span class="pill">集める声　本人・パートナー・付き合いの長い友人</span>
+      </div>
+      <div style="margin-top:6px;padding:22px 24px;border:1px solid #ece3d5;border-radius:3px;background:#fdfaf5">
+        <span class="eyebrow" style="display:block;margin-bottom:16px">HOW TO GIFT</span>
+        <div style="display:flex;gap:11px;align-items:flex-start;padding-bottom:14px">
+          <span class="num en">1</span>
+          <span class="sub" style="flex:1;color:#5f6357">何年後に一緒に聞き返したいかを決め、その日付を刻印にする。</span>
+        </div><div style="display:flex;gap:11px;align-items:flex-start;padding-bottom:14px">
+          <span class="num en">2</span>
+          <span class="sub" style="flex:1;color:#5f6357">面と向かって言えていない言葉を、ひとりで録音する。</span>
+        </div><div style="display:flex;gap:11px;align-items:flex-start;padding-bottom:0px">
+          <span class="num en">3</span>
+          <span class="sub" style="flex:1;color:#5f6357">記念日に手渡し、その場で開けてもらう。次の記念日に声を足す。</span>
+        </div>
+      </div>
+    </div>
+  </div></div>
+  </div>
+  <div class="foot"><span>MemoriO Congrats　人生の節目に、声を贈る</span><span class="en">07 / 21</span></div>
+</section>
+<section class="slide">
+  <div class="pad">
+    <div class="shead"><span class="eyebrow">SCENES　04 / 07</span><span class="ja">結婚</span></div>
+    <div class="body">
+  <div style="display:flex;gap:32px;align-items:stretch">
+    <div style="flex:0 0 470px;display:flex;flex-direction:column;gap:15px">
+      <img src="deck-assets/scene-wedding.jpg" alt="結婚"
+           style="display:block;width:100%;aspect-ratio:4/3;object-fit:cover;border-radius:3px">
+      <div class="mark" style="display:flex;flex-direction:column;gap:6px">
+        <span style="font-size:8.5px;letter-spacing:.2em;color:#a2998a">刻印の例</span>
+        <span class="en d">2026.06.01</span>
+        <span class="en l" style="margin-top:4px">Your voice, forever with us.</span>
+        
+      </div>
+    </div>
+    <div style="flex:1;display:flex;flex-direction:column;gap:18px">
+      <span class="en" style="font-size:12.5px;letter-spacing:.16em;color:#b3925f">Wedding</span>
+      <h3 class="title">その日の空気ごと、残す。</h3>
+      <p class="lead">新郎新婦、両親、ゲスト。式の日に集まった声を、式のあとも何度でも開ける記憶にします。会場で30秒の声を集めるVoice Guestbookとしても使えます。</p>
+      <div style="display:flex;flex-wrap:wrap;gap:8px">
+        <span class="pill">贈る時期　式の3か月前から</span>
+        <span class="pill">集める声　新郎新婦・両親・ゲスト</span>
+      </div>
+      <div style="margin-top:6px;padding:22px 24px;border:1px solid #ece3d5;border-radius:3px;background:#fdfaf5">
+        <span class="eyebrow" style="display:block;margin-bottom:16px">HOW TO GIFT</span>
+        <div style="display:flex;gap:11px;align-items:flex-start;padding-bottom:14px">
+          <span class="num en">1</span>
+          <span class="sub" style="flex:1;color:#5f6357">式の日付と誓いの一文を刻印に決めて注文する。</span>
+        </div><div style="display:flex;gap:11px;align-items:flex-start;padding-bottom:14px">
+          <span class="num en">2</span>
+          <span class="sub" style="flex:1;color:#5f6357">招待状やグループに録音リンクを添え、ゲストから声を集める。</span>
+        </div><div style="display:flex;gap:11px;align-items:flex-start;padding-bottom:0px">
+          <span class="num en">3</span>
+          <span class="sub" style="flex:1;color:#5f6357">披露宴で開いて流し、そのまま新居の棚に置く。記念日ごとに声を足す。</span>
+        </div>
+      </div>
+    </div>
+  </div></div>
+  </div>
+  <div class="foot"><span>MemoriO Congrats　人生の節目に、声を贈る</span><span class="en">08 / 21</span></div>
+</section>
+<section class="slide">
+  <div class="pad">
+    <div class="shead"><span class="eyebrow">SCENES　05 / 07</span><span class="ja">卒業・部活</span></div>
+    <div class="body">
+  <div style="display:flex;gap:32px;align-items:stretch">
+    <div style="flex:0 0 470px;display:flex;flex-direction:column;gap:15px">
+      <img src="deck-assets/scene-graduation.jpg" alt="卒業・部活"
+           style="display:block;width:100%;aspect-ratio:4/3;object-fit:cover;border-radius:3px">
+      <div class="mark" style="display:flex;flex-direction:column;gap:6px">
+        <span style="font-size:8.5px;letter-spacing:.2em;color:#a2998a">刻印の例</span>
+        <span class="en d">2044.03.15</span>
+        <span class="en l" style="margin-top:4px">Your voice.</span>
+        <span class="en l">Your memories.</span>
+      </div>
+    </div>
+    <div style="flex:1;display:flex;flex-direction:column;gap:18px">
+      <span class="en" style="font-size:12.5px;letter-spacing:.16em;color:#b3925f">Graduation</span>
+      <h3 class="title">今しかない声を、みんなで。</h3>
+      <p class="lead">後輩、同級生、先生。色紙のかわりに、あの時間の声を集めて渡します。代表者が録音リンクを共有すれば、グループでひとつを作れます。</p>
+      <div style="display:flex;flex-wrap:wrap;gap:8px">
+        <span class="pill">贈る時期　卒業式・引退試合の1か月前</span>
+        <span class="pill">集める声　同級生・後輩・顧問</span>
+      </div>
+      <div style="margin-top:6px;padding:22px 24px;border:1px solid #ece3d5;border-radius:3px;background:#fdfaf5">
+        <span class="eyebrow" style="display:block;margin-bottom:16px">HOW TO GIFT</span>
+        <div style="display:flex;gap:11px;align-items:flex-start;padding-bottom:14px">
+          <span class="num en">1</span>
+          <span class="sub" style="flex:1;color:#5f6357">代表者がまとめて注文し、チーム名と日付を刻印にする。</span>
+        </div><div style="display:flex;gap:11px;align-items:flex-start;padding-bottom:14px">
+          <span class="num en">2</span>
+          <span class="sub" style="flex:1;color:#5f6357">グループに録音リンクを回して、一人ずつ短い声を集める。</span>
+        </div><div style="display:flex;gap:11px;align-items:flex-start;padding-bottom:0px">
+          <span class="num en">3</span>
+          <span class="sub" style="flex:1;color:#5f6357">引退試合や卒業式の日に渡す。数年後に開くと、その頃の声が残っている。</span>
+        </div>
+      </div>
+    </div>
+  </div></div>
+  </div>
+  <div class="foot"><span>MemoriO Congrats　人生の節目に、声を贈る</span><span class="en">09 / 21</span></div>
+</section>
+<section class="slide">
+  <div class="pad">
+    <div class="shead"><span class="eyebrow">SCENES　06 / 07</span><span class="ja">家族・祖父母</span></div>
+    <div class="body">
+  <div style="display:flex;gap:32px;align-items:stretch">
+    <div style="flex:0 0 470px;display:flex;flex-direction:column;gap:15px">
+      <img src="deck-assets/scene-family.jpg" alt="家族・祖父母"
+           style="display:block;width:100%;aspect-ratio:4/3;object-fit:cover;border-radius:3px">
+      <div class="mark" style="display:flex;flex-direction:column;gap:6px">
+        <span style="font-size:8.5px;letter-spacing:.2em;color:#a2998a">刻印の例</span>
+        <span class="en d">2026.09.19</span>
+        <span class="en l" style="margin-top:4px">Your voice, forever with us.</span>
+        
+      </div>
+    </div>
+    <div style="flex:1;display:flex;flex-direction:column;gap:18px">
+      <span class="en" style="font-size:12.5px;letter-spacing:.16em;color:#b3925f">Family</span>
+      <h3 class="title">スマホがなくても、開けば聞ける。</h3>
+      <p class="lead">離れて暮らす相手へ。孫の声や何気ない会話を、日常のそばに置ける形で贈ります。次の誕生日に声を足して、変化を聞き比べられます。</p>
+      <div style="display:flex;flex-wrap:wrap;gap:8px">
+        <span class="pill">贈る時期　敬老の日・帰省の前</span>
+        <span class="pill">集める声　孫・子・きょうだい</span>
+      </div>
+      <div style="margin-top:6px;padding:22px 24px;border:1px solid #ece3d5;border-radius:3px;background:#fdfaf5">
+        <span class="eyebrow" style="display:block;margin-bottom:16px">HOW TO GIFT</span>
+        <div style="display:flex;gap:11px;align-items:flex-start;padding-bottom:14px">
+          <span class="num en">1</span>
+          <span class="sub" style="flex:1;color:#5f6357">贈る相手が呼ばれている名前を刻印に入れて注文する。</span>
+        </div><div style="display:flex;gap:11px;align-items:flex-start;padding-bottom:14px">
+          <span class="num en">2</span>
+          <span class="sub" style="flex:1;color:#5f6357">日常の会話や、名前を呼ぶ声をそのまま録音する。</span>
+        </div><div style="display:flex;gap:11px;align-items:flex-start;padding-bottom:0px">
+          <span class="num en">3</span>
+          <span class="sub" style="flex:1;color:#5f6357">帰省のときに手渡して、置き場所を一緒に決める。次の帰省で声を足す。</span>
+        </div>
+      </div>
+    </div>
+  </div></div>
+  </div>
+  <div class="foot"><span>MemoriO Congrats　人生の節目に、声を贈る</span><span class="en">10 / 21</span></div>
+</section>
+<section class="slide">
+  <div class="pad">
+    <div class="shead"><span class="eyebrow">SCENES　07 / 07</span><span class="ja">送別・退職</span></div>
+    <div class="body">
+  <div style="display:flex;gap:32px;align-items:stretch">
+    <div style="flex:0 0 470px;display:flex;flex-direction:column;gap:15px">
+      <img src="deck-assets/scene-farewell.jpg" alt="送別・退職"
+           style="display:block;width:100%;aspect-ratio:4/3;object-fit:cover;border-radius:3px">
+      <div class="mark" style="display:flex;flex-direction:column;gap:6px">
+        <span style="font-size:8.5px;letter-spacing:.2em;color:#a2998a">刻印の例</span>
+        <span class="en d">2026.03.31</span>
+        <span class="en l" style="margin-top:4px">Thank you for everything.</span>
+        
+      </div>
+    </div>
+    <div style="flex:1;display:flex;flex-direction:column;gap:18px">
+      <span class="en" style="font-size:12.5px;letter-spacing:.16em;color:#b3925f">Farewell</span>
+      <h3 class="title">最後に、声で伝える。</h3>
+      <p class="lead">送別や退職の日。寄せ書きでは伝わらない温度を、声のまま渡します。チームで一人ずつのメッセージを集める使い方に向いています。</p>
+      <div style="display:flex;flex-wrap:wrap;gap:8px">
+        <span class="pill">贈る時期　最終出勤日の2週間前</span>
+        <span class="pill">集める声　同僚・チーム・関わりのあった人</span>
+      </div>
+      <div style="margin-top:6px;padding:22px 24px;border:1px solid #ece3d5;border-radius:3px;background:#fdfaf5">
+        <span class="eyebrow" style="display:block;margin-bottom:16px">HOW TO GIFT</span>
+        <div style="display:flex;gap:11px;align-items:flex-start;padding-bottom:14px">
+          <span class="num en">1</span>
+          <span class="sub" style="flex:1;color:#5f6357">幹事が注文し、在籍期間と一言を刻印に決める。</span>
+        </div><div style="display:flex;gap:11px;align-items:flex-start;padding-bottom:14px">
+          <span class="num en">2</span>
+          <span class="sub" style="flex:1;color:#5f6357">関わりのあった人に録音リンクを回し、一人30秒の声を集める。</span>
+        </div><div style="display:flex;gap:11px;align-items:flex-start;padding-bottom:0px">
+          <span class="num en">3</span>
+          <span class="sub" style="flex:1;color:#5f6357">送別会で渡す。次の職場の机に置いて、必要なときに開いてもらう。</span>
+        </div>
+      </div>
+    </div>
+  </div></div>
+  </div>
+  <div class="foot"><span>MemoriO Congrats　人生の節目に、声を贈る</span><span class="en">11 / 21</span></div>
+</section>
+
+<section class="slide">
+  <div class="pad">
+    <div class="shead"><span class="eyebrow">STACK</span><span class="ja">積み重なる</span></div>
+    <div class="body">
+  <div style="display:flex;gap:56px;align-items:center">
+    <div style="flex:1 1 400px;display:flex;flex-direction:column;gap:22px;max-width:470px">
+      <h2 class="title">積み上がった声が、歴史になる。</h2>
+      <p class="lead">節目のたびに新しいMemoriOがひとつ増えます。棚に並ぶ数が、その人が声を残してきた回数そのものになります。1台ずつ買い足していける「積み重なるギフト」であることが、MemoriO Congrats の中心にある考え方です。</p>
+      <div class="card" style="padding:18px 20px;display:flex;flex-direction:column;gap:9px">
+        <span class="eyebrow">STRUCTURE</span>
+        <span class="sub">・1台のなかに複数の声を保存できる</span>
+        <span class="sub">・次の節目には新しい1台を追加する</span>
+        <span class="sub">・棚の積み重なりと、アプリの年表が一致する</span>
+      </div>
+    </div>
+    <div style="flex:1 1 340px;display:flex;flex-direction:column-reverse;gap:8px;align-items:stretch">
+      <div class="cube" style="width:100%;height:78px;background:#f6dedb;border:1px solid #e8c9c5">
+      <span class="en b">MemoriO Congrats</span>
+      <span class="en d">2026.08.15</span>
+      <span class="en p">Welcome to the world.</span>
+    </div><div class="cube" style="width:100%;height:78px;background:#f6ecc6;border:1px solid #e6dab0">
+      <span class="en b">MemoriO Congrats</span>
+      <span class="en d">2027.08.15</span>
+      <span class="en p">Happy Birthday.</span>
+    </div><div class="cube" style="width:100%;height:78px;background:#dde8dc;border:1px solid #c7d6c6">
+      <span class="en b">MemoriO Congrats</span>
+      <span class="en d">2044.03.15</span>
+      <span class="en p">Your voice. Your memories.</span>
+    </div><div class="cube" style="width:100%;height:78px;background:#d9e6f2;border:1px solid #c2d5e6">
+      <span class="en b">MemoriO Congrats</span>
+      <span class="en d">2052.06.01</span>
+      <span class="en p">Forever with us.</span>
+    </div><div class="cube" style="width:100%;height:78px;background:#fdfcfa;border:1px solid #e5dbc9">
+      <span class="en b">MemoriO Congrats</span>
+      <span class="en d">2060.09.19</span>
+      <span class="en p">Thank you, always.</span>
+    </div>
+      <span class="eyebrow" style="margin-bottom:8px;text-align:center">ALL TOGETHER　05 CUBES</span>
+    </div>
+  </div></div>
+  </div>
+  <div class="foot"><span>MemoriO Congrats　人生の節目に、声を贈る</span><span class="en">12 / 21</span></div>
+</section>
+
+<section class="slide">
+  <div class="pad">
+    <div class="shead"><span class="eyebrow">STACK　DETAIL</span><span class="ja">積み重なりの5段</span></div>
+    <div class="body">
+  <div style="display:flex;align-items:flex-end;justify-content:space-between;gap:30px;margin-bottom:14px">
+    <h2 class="title">ひとつ目から、五つ目まで。</h2>
+    <p class="sub" style="max-width:26em;text-align:right">同じ人の人生に沿って買い足していった例です。色は選べるため、節目ごとに違う色を重ねられます。</p>
+  </div>
+  <div><div style="display:flex;gap:18px;align-items:flex-start;padding:16px 0;border-bottom:1px solid #f0e8db">
+      <span style="flex:0 0 62px;height:44px;border-radius:3px;background:#f6dedb;border:1px solid #e8c9c5"></span>
+      <span style="flex:0 0 128px;display:flex;flex-direction:column;gap:3px">
+        <span class="en" style="font-size:12px;letter-spacing:.16em;color:#b3925f">01　Birth</span>
+        <span class="en" style="font-size:10px;letter-spacing:.12em;color:#a2998a">2026.08.15</span>
+      </span>
+      <span style="flex:1;display:flex;flex-direction:column;gap:5px">
+        <span style="font-size:14.5px;letter-spacing:.05em;color:#454a40">はじまりの声が、ひとつ目になる。</span>
+        <span class="sub">産声、初めて名前を呼んだ声、贈られた言葉。人生の最初の声を、その人の1ブロック目として残します。</span>
+      </span>
+    </div><div style="display:flex;gap:18px;align-items:flex-start;padding:16px 0;border-bottom:1px solid #f0e8db">
+      <span style="flex:0 0 62px;height:44px;border-radius:3px;background:#f6ecc6;border:1px solid #e6dab0"></span>
+      <span style="flex:0 0 128px;display:flex;flex-direction:column;gap:3px">
+        <span class="en" style="font-size:12px;letter-spacing:.16em;color:#b3925f">02　Birthday</span>
+        <span class="en" style="font-size:10px;letter-spacing:.12em;color:#a2998a">2027.08.15</span>
+      </span>
+      <span style="flex:1;display:flex;flex-direction:column;gap:5px">
+        <span style="font-size:14.5px;letter-spacing:.05em;color:#454a40">一年ごとの声を、聞き比べられるように。</span>
+        <span class="sub">去年の声と、今年の声。並べて聞くと、成長も声のほうに残っています。</span>
+      </span>
+    </div><div style="display:flex;gap:18px;align-items:flex-start;padding:16px 0;border-bottom:1px solid #f0e8db">
+      <span style="flex:0 0 62px;height:44px;border-radius:3px;background:#dde8dc;border:1px solid #c7d6c6"></span>
+      <span style="flex:0 0 128px;display:flex;flex-direction:column;gap:3px">
+        <span class="en" style="font-size:12px;letter-spacing:.16em;color:#b3925f">03　Graduation</span>
+        <span class="en" style="font-size:10px;letter-spacing:.12em;color:#a2998a">2044.03.15</span>
+      </span>
+      <span style="flex:1;display:flex;flex-direction:column;gap:5px">
+        <span style="font-size:14.5px;letter-spacing:.05em;color:#454a40">今しかない声を、みんなで集めて。</span>
+        <span class="sub">後輩、同級生、先生。色紙のかわりに、あの時間の声を集めて渡します。開いた瞬間、その場がもう一度思い出になります。</span>
+      </span>
+    </div><div style="display:flex;gap:18px;align-items:flex-start;padding:16px 0;border-bottom:1px solid #f0e8db">
+      <span style="flex:0 0 62px;height:44px;border-radius:3px;background:#d9e6f2;border:1px solid #c2d5e6"></span>
+      <span style="flex:0 0 128px;display:flex;flex-direction:column;gap:3px">
+        <span class="en" style="font-size:12px;letter-spacing:.16em;color:#b3925f">04　Wedding</span>
+        <span class="en" style="font-size:10px;letter-spacing:.12em;color:#a2998a">2052.06.01</span>
+      </span>
+      <span style="flex:1;display:flex;flex-direction:column;gap:5px">
+        <span style="font-size:14.5px;letter-spacing:.05em;color:#454a40">その日の空気ごと、残す。</span>
+        <span class="sub">新郎新婦、両親、ゲスト。式の日に集まった声を、式のあとも何度でも開ける記憶にします。</span>
+      </span>
+    </div><div style="display:flex;gap:18px;align-items:flex-start;padding:16px 0;border-bottom:1px solid #f0e8db">
+      <span style="flex:0 0 62px;height:44px;border-radius:3px;background:#fdfcfa;border:1px solid #e5dbc9"></span>
+      <span style="flex:0 0 128px;display:flex;flex-direction:column;gap:3px">
+        <span class="en" style="font-size:12px;letter-spacing:.16em;color:#b3925f">05　Family</span>
+        <span class="en" style="font-size:10px;letter-spacing:.12em;color:#a2998a">2060.09.19</span>
+      </span>
+      <span style="flex:1;display:flex;flex-direction:column;gap:5px">
+        <span style="font-size:14.5px;letter-spacing:.05em;color:#454a40">声を残すたび、ひとつ増えていく。</span>
+        <span class="sub">節目のたびに新しいMemoriOが加わります。棚に並ぶ数が、その人が声を残してきた回数になります。</span>
+      </span>
+    </div></div></div>
+  </div>
+  <div class="foot"><span>MemoriO Congrats　人生の節目に、声を贈る</span><span class="en">13 / 21</span></div>
+</section>
+
+<section class="slide">
+  <div class="pad">
+    <div class="shead"><span class="eyebrow">TOUCH IT</span><span class="ja">3Dで触れてみる</span></div>
+    <div class="body">
+  <div style="display:flex;gap:40px;align-items:stretch;justify-content:space-between">
+    <div style="flex:1;display:flex;flex-direction:column;gap:20px;max-width:470px">
+      <h2 class="title">発売前に、手のなかの<br>感触だけ先に。</h2>
+      <p class="lead">LP上に3Dビューアを用意しています。ドラッグで回して、本体をタップして開閉。色を選び、刻印の文字を打ち替えて、分解した内部の機構まで確認できます。</p>
+      <div style="display:flex;flex-wrap:wrap;gap:8px">
+        <span class="pill">回す</span><span class="pill">開く／閉じる</span><span class="pill">分解して見る</span>
+        <span class="pill">音を鳴らす</span><span class="pill">刻印を入れる</span><span class="pill">5色を切り替える</span>
+      </div>
+      <div class="card" style="padding:20px 22px;display:flex;flex-direction:column;gap:9px">
+        <span class="eyebrow">3Dで確かめられること</span>
+        <span class="sub">・刻印した文字が実際にどう見えるか</span>
+        <span class="sub">・蓋を開けたときのオルゴール機構の見え方</span>
+        <span class="sub">・5色それぞれの質感と、並べたときのトーン</span>
+      </div>
+      <p class="note">画面はモックアップです。製品の仕様・質感は変更になる場合があります。</p>
+    </div>
+    <div style="flex:0 0 340px;display:flex;flex-direction:column;gap:14px;align-items:center;text-align:center;
+                padding:26px 24px;border:1px solid #ece3d5;border-radius:3px;background:#fdfaf5">
+      <span class="eyebrow">3D VIEWER</span>
+      <img src="deck-assets/color-white.png" alt="MemoriO Congrats 本体（白）"
+           style="display:block;width:100%;max-width:190px;object-fit:contain">
+      <span class="sub">ブラウザでそのまま操作できます</span>
+      <span class="en" style="font-size:14px;letter-spacing:.06em;color:#4e5348">www.memorio.gift/#touch</span>
+      <img src="deck-assets/touch-qr.png" width="124" height="124" alt="3Dビューアを開くQRコード"
+           style="display:block;border:1px solid #ece3d5;background:#fff">
+      <span class="note">スマートフォン・PC どちらからでもご覧いただけます</span>
+    </div>
+  </div></div>
+  </div>
+  <div class="foot"><span>MemoriO Congrats　人生の節目に、声を贈る</span><span class="en">14 / 21</span></div>
+</section>
+
+<section class="slide">
+  <div class="pad">
+    <div class="shead"><span class="eyebrow">COLORWAY　1 / 2</span><span class="ja">カラー</span></div>
+    <div class="body">
+  <div style="display:flex;align-items:flex-end;justify-content:space-between;gap:30px;margin-bottom:26px">
+    <h2 class="title">やさしい5色から。</h2>
+    <p class="sub" style="max-width:26em;text-align:right">贈る相手や節目にあわせて選べます。積み重ねたときに調和するトーンで揃えました。</p>
+  </div>
+  <div style="display:flex;gap:26px;align-items:flex-start">
+    <div style="flex:1 1 0;display:flex;flex-direction:column;gap:15px">
+      <div style="background:#efe9dd;border:1px solid #e2d8c6;border-radius:3px;aspect-ratio:1/1;
+                  display:flex;align-items:center;justify-content:center;padding:6%">
+        <img src="deck-assets/color-white.png" alt="白"
+             style="display:block;width:100%;height:auto;max-height:100%;object-fit:contain">
+      </div>
+      <div style="display:flex;flex-direction:column;gap:7px">
+        <span style="display:flex;align-items:baseline;gap:11px">
+          <span class="en" style="font-size:19px;letter-spacing:.16em;color:#454a40">White</span>
+          <span style="font-size:11px;letter-spacing:.12em;color:#a2998a">白</span>
+        </span>
+        <span class="sub">純粋さとやさしさを感じる、あたたかなカラー</span>
+      </div>
+    </div><div style="flex:1 1 0;display:flex;flex-direction:column;gap:15px">
+      <div style="background:#f0cdc8;border:1px solid #e3b8b2;border-radius:3px;aspect-ratio:1/1;
+                  display:flex;align-items:center;justify-content:center;padding:6%">
+        <img src="deck-assets/color-pink.png" alt="ピンク"
+             style="display:block;width:100%;height:auto;max-height:100%;object-fit:contain">
+      </div>
+      <div style="display:flex;flex-direction:column;gap:7px">
+        <span style="display:flex;align-items:baseline;gap:11px">
+          <span class="en" style="font-size:19px;letter-spacing:.16em;color:#454a40">Pink</span>
+          <span style="font-size:11px;letter-spacing:.12em;color:#a2998a">ピンク</span>
+        </span>
+        <span class="sub">愛情と幸福感を育む、やさしいカラー</span>
+      </div>
+    </div><div style="flex:1 1 0;display:flex;flex-direction:column;gap:15px">
+      <div style="background:#c7dbed;border:1px solid #b1cbe2;border-radius:3px;aspect-ratio:1/1;
+                  display:flex;align-items:center;justify-content:center;padding:6%">
+        <img src="deck-assets/color-blue.png" alt="青"
+             style="display:block;width:100%;height:auto;max-height:100%;object-fit:contain">
+      </div>
+      <div style="display:flex;flex-direction:column;gap:7px">
+        <span style="display:flex;align-items:baseline;gap:11px">
+          <span class="en" style="font-size:19px;letter-spacing:.16em;color:#454a40">Blue</span>
+          <span style="font-size:11px;letter-spacing:.12em;color:#a2998a">青</span>
+        </span>
+        <span class="sub">安心感と信頼を与える、やさしいカラー</span>
+      </div>
+    </div>
+  </div></div>
+  </div>
+  <div class="foot"><span>MemoriO Congrats　人生の節目に、声を贈る</span><span class="en">15 / 21</span></div>
+</section>
+
+<section class="slide">
+  <div class="pad">
+    <div class="shead"><span class="eyebrow">COLORWAY　2 / 2</span><span class="ja">カラー</span></div>
+    <div class="body">
+  <div style="display:flex;gap:26px;align-items:stretch">
+    <div style="flex:0 0 319px;display:flex;flex-direction:column;gap:15px">
+      <div style="background:#efe1a8;border:1px solid #e2d290;border-radius:3px;aspect-ratio:1/1;
+                  display:flex;align-items:center;justify-content:center;padding:6%">
+        <img src="deck-assets/color-yellow.png" alt="黄"
+             style="display:block;width:100%;height:auto;max-height:100%;object-fit:contain">
+      </div>
+      <div style="display:flex;flex-direction:column;gap:7px">
+        <span style="display:flex;align-items:baseline;gap:11px">
+          <span class="en" style="font-size:19px;letter-spacing:.16em;color:#454a40">Yellow</span>
+          <span style="font-size:11px;letter-spacing:.12em;color:#a2998a">黄</span>
+        </span>
+        <span class="sub">希望と喜びをもたらす、やさしいカラー</span>
+      </div>
+    </div><div style="flex:0 0 319px;display:flex;flex-direction:column;gap:15px">
+      <div style="background:#cadcc8;border:1px solid #b5ceb3;border-radius:3px;aspect-ratio:1/1;
+                  display:flex;align-items:center;justify-content:center;padding:6%">
+        <img src="deck-assets/color-green.png" alt="緑"
+             style="display:block;width:100%;height:auto;max-height:100%;object-fit:contain">
+      </div>
+      <div style="display:flex;flex-direction:column;gap:7px">
+        <span style="display:flex;align-items:baseline;gap:11px">
+          <span class="en" style="font-size:19px;letter-spacing:.16em;color:#454a40">Green</span>
+          <span style="font-size:11px;letter-spacing:.12em;color:#a2998a">緑</span>
+        </span>
+        <span class="sub">癒しと調和を感じる、やさしいカラー</span>
+      </div>
+    </div>
+    <div style="flex:1 1 0;min-width:0;display:flex;flex-direction:column;gap:16px;justify-content:center;
+                padding:30px 28px;border:1px solid #ece3d5;border-radius:3px;background:#fdfaf5">
+      <span class="eyebrow">COLOR &amp; STACK</span>
+      <h3 class="title" style="font-size:20px">節目ごとに、<br>違う色を重ねられる。</h3>
+      <p class="sub">1台ずつ買い足していくギフトなので、節目のたびに色を選び直せます。棚に並べたときに調和するよう、5色は同じトーンで設計しています。</p>
+      <div style="display:flex;flex-wrap:wrap;gap:9px;margin-top:2px">
+        <span class="pill">全5色</span>
+        <span class="pill">65 × 65 × 73 mm</span>
+        <span class="pill">刻印：日付＋2行</span>
+      </div>
+      <span class="note">写真はイメージです。実際の色味は製品と異なる場合があります。</span>
+    </div>
+  </div></div>
+  </div>
+  <div class="foot"><span>MemoriO Congrats　人生の節目に、声を贈る</span><span class="en">16 / 21</span></div>
+</section>
+
+<section class="slide">
+  <div class="pad">
+    <div class="shead"><span class="eyebrow">HOW IT WORKS</span><span class="ja">使い方</span></div>
+    <div class="body">
+  <div style="display:flex;align-items:flex-end;justify-content:space-between;gap:30px;margin-bottom:26px">
+    <h2 class="title">声を集めて、開くだけ。</h2>
+    <p class="sub" style="max-width:26em;text-align:right">アプリが必要なのは、声を贈る側（購入者）だけです。受け取る側は蓋を開けるだけ、録音リンクの受け手はブラウザ録音で、どちらもダウンロードは不要です。</p>
+  </div>
+  <div class="grid3"><div class="card" style="padding:24px 22px;display:flex;flex-direction:column;gap:12px">
+      <span class="en" style="font-size:24px;letter-spacing:.06em;color:#b3925f">01</span>
+      <span style="font-size:15px;line-height:1.7;letter-spacing:.05em;color:#454a40">問いに答えて録音する</span>
+      <span class="sub">「今だから言える言葉は？」という問いから始まるので、録音ボタンの前で固まりません。</span>
+    </div><div class="card" style="padding:24px 22px;display:flex;flex-direction:column;gap:12px">
+      <span class="en" style="font-size:24px;letter-spacing:.06em;color:#b3925f">02</span>
+      <span style="font-size:15px;line-height:1.7;letter-spacing:.05em;color:#454a40">リンクで家族や友人からも集める</span>
+      <span class="sub">LINEやメールで共有。受け取った人はアプリ不要で、ブラウザからそのまま録音できます。</span>
+    </div><div class="card" style="padding:24px 22px;display:flex;flex-direction:column;gap:12px">
+      <span class="en" style="font-size:24px;letter-spacing:.06em;color:#b3925f">03</span>
+      <span style="font-size:15px;line-height:1.7;letter-spacing:.05em;color:#454a40">蓋を開けるだけで、声が流れる</span>
+      <span class="sub">スマートフォンを探す必要はありません。棚に置いた本体を開くだけで声に出会えます。</span>
+    </div></div>
+  <div style="margin-top:26px;padding:18px 22px;border:1px solid #e5dbc9;border-radius:3px;background:#f9f2e8;
+              display:flex;align-items:center;gap:22px">
+    <span class="eyebrow" style="flex:0 0 auto">NO APP REQUIRED</span>
+    <span class="sub" style="flex:1">祖父母への贈り物でも、操作を覚えていただく必要はありません。蓋を開ける ─ それだけが受け取る側の操作です。</span>
+  </div></div>
+  </div>
+  <div class="foot"><span>MemoriO Congrats　人生の節目に、声を贈る</span><span class="en">17 / 21</span></div>
+</section>
+
+<section class="slide">
+  <div class="pad">
+    <div class="shead"><span class="eyebrow">APP</span><span class="ja">声の年表</span></div>
+    <div class="body">
+  <div style="display:flex;gap:56px;align-items:center">
+    <div style="flex:1 1 auto;display:flex;flex-direction:column;gap:20px">
+      <h2 class="title">棚のキューブと、<br>同じ順で積み重なる。</h2>
+      <p class="lead">アプリには日付・写真・メッセージ・音声が節目ごとに残ります。物理の積み重なりとデジタルの年表を、同じ「人生の積み重ね」として一致させています。</p>
+      <div class="card" style="padding:20px 22px;display:flex;flex-direction:column;gap:9px">
+        <span class="eyebrow">APP</span>
+        <span class="sub">・アプリは無料。2027年春の発売にあわせて公開予定</span>
+        <span class="sub">・声を贈る側は、アプリで年表を管理する</span>
+        <span class="sub">・受け取る側は蓋を開けるだけ。ダウンロード不要</span>
+      </div>
+      <p class="note">画面はイメージです。名称・機能は変更になる場合があります。</p>
+    </div>
+    <div style="flex:0 0 auto;position:relative;width:288px;aspect-ratio:356/733">
+<div style="position:absolute;inset:2.2% 4.5%;border-radius:30px;background:#fdfaf5;overflow:hidden;display:flex;flex-direction:column">
+<div style="flex:0 0 auto;padding:16px 16px 12px;background:#fdfaf5;border-bottom:1px solid #ece3d5;display:flex;flex-direction:column;gap:10px">
+<div style="display:flex;align-items:center;justify-content:space-between">
+<span style="font-family:'Cormorant Garamond',serif;font-size:12px;letter-spacing:.1em;color:#a2998a">9:41</span>
+<span style="font-size:9px;letter-spacing:.14em;color:#c4bcae">▮▮▮</span>
+</div>
+<div style="display:flex;align-items:baseline;justify-content:space-between;gap:8px">
+<span style="font-size:17px;letter-spacing:.06em;color:#454a40">声の年表</span>
+<span style="font-size:10px;letter-spacing:.1em;color:#b3925f">4 / 節目</span>
+</div>
+<div style="display:flex;gap:6px">
+<span style="padding:5px 11px;border-radius:999px;background:#4e5348;color:#fbf7f1;font-size:9.5px;letter-spacing:.08em">すべて</span>
+<span style="padding:5px 11px;border-radius:999px;border:1px solid #e5dbc9;color:#8a8578;font-size:9.5px;letter-spacing:.08em">家族</span>
+<span style="padding:5px 11px;border-radius:999px;border:1px solid #e5dbc9;color:#8a8578;font-size:9.5px;letter-spacing:.08em">未再生</span>
+</div>
+</div>
+<div style="flex:1 1 auto;padding:14px 16px 0;display:flex;flex-direction:column;gap:0;overflow:hidden">
+<div style="display:flex;gap:11px">
+<div style="flex:0 0 auto;display:flex;flex-direction:column;align-items:center;gap:0"><div style="width:9px;height:9px;border-radius:2px;background:#f6dedb;border:1px solid #e6cdc9"></div><div style="width:1px;flex:1;background:#ece3d5"></div></div>
+<div style="flex:1;padding-bottom:14px;display:flex;flex-direction:column;gap:6px">
+<span style="font-family:'Cormorant Garamond',serif;font-size:10px;letter-spacing:.1em;color:#b3925f">2026.08.15 &nbsp;Birth</span>
+<span style="font-size:12.5px;letter-spacing:.04em;color:#454a40">はじめての声</span>
+<div style="display:flex;align-items:center;gap:8px;padding:8px 10px;border:1px solid #ece3d5;border-radius:3px;background:#fff">
+<span style="width:18px;height:18px;border-radius:999px;background:#4e5348;color:#fbf7f1;font-size:7px;display:flex;align-items:center;justify-content:center">▶</span>
+<span style="flex:1;display:flex;align-items:center;gap:1.5px;height:14px"><i style="flex:1;height:4px;background:#ddd2c0"></i><i style="flex:1;height:9px;background:#ddd2c0"></i><i style="flex:1;height:14px;background:#c9bda8"></i><i style="flex:1;height:7px;background:#ddd2c0"></i><i style="flex:1;height:11px;background:#ddd2c0"></i><i style="flex:1;height:5px;background:#ece3d5"></i><i style="flex:1;height:8px;background:#ece3d5"></i><i style="flex:1;height:12px;background:#ece3d5"></i><i style="flex:1;height:6px;background:#ece3d5"></i><i style="flex:1;height:3px;background:#ece3d5"></i></span>
+<span style="font-family:'Cormorant Garamond',serif;font-size:9.5px;color:#a2998a">0:32</span>
+</div>
+<span style="font-size:10px;line-height:1.7;letter-spacing:.03em;color:#8a8578">父・母・祖母 &nbsp;3件の声</span>
+</div>
+</div>
+<div style="display:flex;gap:11px">
+<div style="flex:0 0 auto;display:flex;flex-direction:column;align-items:center"><div style="width:9px;height:9px;border-radius:2px;background:#f6ecc6;border:1px solid #e6dcb6"></div><div style="width:1px;flex:1;background:#ece3d5"></div></div>
+<div style="flex:1;padding-bottom:14px;display:flex;flex-direction:column;gap:6px">
+<span style="font-family:'Cormorant Garamond',serif;font-size:10px;letter-spacing:.1em;color:#b3925f">2027.08.15 &nbsp;Birthday</span>
+<span style="font-size:12.5px;letter-spacing:.04em;color:#454a40">1歳のことば</span>
+<div style="display:flex;align-items:center;gap:8px;padding:8px 10px;border:1px solid #ece3d5;border-radius:3px;background:#fff">
+<span style="width:18px;height:18px;border-radius:999px;border:1px solid #ddd2c0;color:#8a8578;font-size:7px;display:flex;align-items:center;justify-content:center">▶</span>
+<span style="flex:1;display:flex;align-items:center;gap:1.5px;height:14px"><i style="flex:1;height:6px;background:#ece3d5"></i><i style="flex:1;height:11px;background:#ece3d5"></i><i style="flex:1;height:5px;background:#ece3d5"></i><i style="flex:1;height:13px;background:#ece3d5"></i><i style="flex:1;height:8px;background:#ece3d5"></i><i style="flex:1;height:4px;background:#ece3d5"></i><i style="flex:1;height:10px;background:#ece3d5"></i><i style="flex:1;height:7px;background:#ece3d5"></i><i style="flex:1;height:12px;background:#ece3d5"></i><i style="flex:1;height:5px;background:#ece3d5"></i></span>
+<span style="font-family:'Cormorant Garamond',serif;font-size:9.5px;color:#a2998a">0:18</span>
+</div>
+</div>
+</div>
+<div style="display:flex;gap:11px">
+<div style="flex:0 0 auto;display:flex;flex-direction:column;align-items:center"><div style="width:9px;height:9px;border-radius:2px;background:#dde8dc;border:1px solid #cbd8ca"></div><div style="width:1px;flex:1;background:#ece3d5"></div></div>
+<div style="flex:1;padding-bottom:14px;display:flex;flex-direction:column;gap:5px">
+<span style="font-family:'Cormorant Garamond',serif;font-size:10px;letter-spacing:.1em;color:#b3925f">2044.03.15 &nbsp;Graduation</span>
+<span style="font-size:12.5px;letter-spacing:.04em;color:#454a40">部活の仲間から</span>
+<span style="font-size:10px;letter-spacing:.03em;color:#8a8578">12件の声 ／ 未再生 3件</span>
+</div>
+</div>
+<div style="display:flex;gap:11px">
+<div style="flex:0 0 auto;display:flex;flex-direction:column;align-items:center"><div style="width:9px;height:9px;border-radius:2px;border:1px dashed #c9bda8"></div></div>
+<div style="flex:1;display:flex;flex-direction:column;gap:5px">
+<span style="font-size:11.5px;letter-spacing:.04em;color:#8a8578">次の節目を追加する</span>
+<span style="font-size:9.5px;letter-spacing:.03em;color:#b3ab9c">問いに答えるだけで録音できます</span>
+</div>
+</div>
+</div>
+<div style="flex:0 0 auto;padding:10px 16px 14px;border-top:1px solid #ece3d5;background:#fdfaf5;display:flex;justify-content:space-between;align-items:center">
+<span style="font-size:9.5px;letter-spacing:.06em;color:#4e5348">年表</span>
+<span style="font-size:9.5px;letter-spacing:.06em;color:#bdb3a2">集める</span>
+<span style="width:30px;height:30px;border-radius:999px;background:#4e5348;color:#fbf7f1;font-size:13px;display:flex;align-items:center;justify-content:center">＋</span>
+<span style="font-size:9.5px;letter-spacing:.06em;color:#bdb3a2">キューブ</span>
+<span style="font-size:9.5px;letter-spacing:.06em;color:#bdb3a2">設定</span>
+</div>
+</div>
+<img src="deck-assets/iphone-frame.png" alt="" style="position:relative;z-index:2;display:block;width:100%;height:100%;pointer-events:none"></img>
+</div>
+  </div></div>
+  </div>
+  <div class="foot"><span>MemoriO Congrats　人生の節目に、声を贈る</span><span class="en">18 / 21</span></div>
+</section>
+
+<section class="slide" style="display:flex;flex-direction:column">
+  <img src="deck-assets/second-view.jpg" alt="MemoriO Congrats 5色を並べて開いた状態"
+       style="display:block;width:100%;height:86mm;object-fit:cover;object-position:center 42%">
+  <div style="flex:1;padding:11mm 15mm 15mm;display:flex;flex-direction:column">
+    <div class="shead">
+      <span class="eyebrow">PRODUCT &amp; PRICE</span>
+      <span class="ja">仕様と価格</span>
+    </div>
+    <div style="flex:1;display:flex;gap:36px;align-items:flex-start">
+      <div style="flex:1;display:flex;flex-direction:column;gap:16px">
+        <h2 class="title">開くと、声が待っている。</h2>
+        <p class="lead" style="max-width:30em">本体・刻印・クラウド保存を含む価格です。発売は2027年春を予定しています。発売日・価格の確定、先行予約の開始は、登録された方へ先にご案内します。</p>
+        <div style="display:flex;align-items:flex-end;gap:20px;margin-top:2px">
+          <span style="display:flex;flex-direction:column;gap:5px">
+            <span class="eyebrow">PRICE</span>
+            <span class="en" style="font-size:36px;line-height:1;letter-spacing:.04em;color:#454a40">¥16,500</span>
+          </span>
+          <span class="sub" style="padding-bottom:3px">（税込）／ 2027年春 発売予定</span>
+        </div>
+      </div>
+      <div class="card" style="flex:0 0 360px;padding:20px 24px">
+        <span class="eyebrow" style="display:block;margin-bottom:8px">SPEC</span>
+        <div style="display:flex;gap:14px;padding:8px 0;border-bottom:1px solid #f0e8db">
+      <span class="sub" style="flex:0 0 100px;color:#a2998a">価格</span>
+      <span class="sub" style="flex:1;color:#5f6357">¥16,500（税込）</span>
+    </div><div style="display:flex;gap:14px;padding:8px 0;border-bottom:1px solid #f0e8db">
+      <span class="sub" style="flex:0 0 100px;color:#a2998a">発売</span>
+      <span class="sub" style="flex:1;color:#5f6357">2027年春 予定</span>
+    </div><div style="display:flex;gap:14px;padding:8px 0;border-bottom:1px solid #f0e8db">
+      <span class="sub" style="flex:0 0 100px;color:#a2998a">寸法</span>
+      <span class="sub" style="flex:1;color:#5f6357">65 × 65 × 73 mm</span>
+    </div><div style="display:flex;gap:14px;padding:8px 0;border-bottom:1px solid #f0e8db">
+      <span class="sub" style="flex:0 0 100px;color:#a2998a">カラー</span>
+      <span class="sub" style="flex:1;color:#5f6357">全5色（白・ピンク・青・黄・緑）</span>
+    </div><div style="display:flex;gap:14px;padding:8px 0;border-bottom:1px solid #f0e8db">
+      <span class="sub" style="flex:0 0 100px;color:#a2998a">刻印</span>
+      <span class="sub" style="flex:1;color:#5f6357">日付＋メッセージ2行</span>
+    </div><div style="display:flex;gap:14px;padding:8px 0;border-bottom:1px solid #f0e8db">
+      <span class="sub" style="flex:0 0 100px;color:#a2998a">保存</span>
+      <span class="sub" style="flex:1;color:#5f6357">本体＋クラウド</span>
+    </div><div style="display:flex;gap:14px;padding:8px 0;border-bottom:1px solid #f0e8db">
+      <span class="sub" style="flex:0 0 100px;color:#a2998a">含まれるもの</span>
+      <span class="sub" style="flex:1;color:#5f6357">本体・刻印・クラウド保存</span>
+    </div>
+      </div>
+    </div>
+  </div>
+  <div class="foot"><span>MemoriO Congrats　人生の節目に、声を贈る</span><span class="en">19 / 21</span></div>
+</section>
+
+<section class="slide">
+  <div class="pad">
+    <div class="shead"><span class="eyebrow">FAQ</span><span class="ja">よくあるご質問</span></div>
+    <div class="body">
+  <h2 class="title" style="margin-bottom:22px">よくあるご質問</h2>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;align-content:start"><div style="padding:14px 16px;border:1px solid #ece3d5;border-radius:3px;background:#fdfaf5;
+                display:flex;gap:12px;align-items:flex-start">
+      <span class="en" style="flex:0 0 auto;font-size:14px;letter-spacing:.06em;color:#b3925f">Q1</span>
+      <span style="flex:1;display:flex;flex-direction:column;gap:7px">
+        <span style="font-size:12.5px;line-height:1.7;letter-spacing:.05em;color:#454a40">声はあとから追加できますか？</span>
+        <span class="sub">はい。1台のなかに複数の声を残せます。さらに次の節目では新しいMemoriOを追加し、キューブとアプリの年表が一緒に増えていきます。</span>
+      </span>
+    </div><div style="padding:14px 16px;border:1px solid #ece3d5;border-radius:3px;background:#fdfaf5;
+                display:flex;gap:12px;align-items:flex-start">
+      <span class="en" style="flex:0 0 auto;font-size:14px;letter-spacing:.06em;color:#b3925f">Q2</span>
+      <span style="flex:1;display:flex;flex-direction:column;gap:7px">
+        <span style="font-size:12.5px;line-height:1.7;letter-spacing:.05em;color:#454a40">受け取る人にスマートフォンは必要ですか？</span>
+        <span class="sub">必要ありません。蓋を開けるだけで声が流れます。祖父母への贈り物でも、操作を覚えていただく必要はありません。</span>
+      </span>
+    </div><div style="padding:14px 16px;border:1px solid #ece3d5;border-radius:3px;background:#fdfaf5;
+                display:flex;gap:12px;align-items:flex-start">
+      <span class="en" style="flex:0 0 auto;font-size:14px;letter-spacing:.06em;color:#b3925f">Q3</span>
+      <span style="flex:1;display:flex;flex-direction:column;gap:7px">
+        <span style="font-size:12.5px;line-height:1.7;letter-spacing:.05em;color:#454a40">離れて暮らす人からも声を集められますか？</span>
+        <span class="sub">録音リンクをLINEやメールで送るだけで、相手はアプリを入れずにブラウザから録音できます。結婚式や卒業など、人数が多い場面でも使えます。</span>
+      </span>
+    </div><div style="padding:14px 16px;border:1px solid #ece3d5;border-radius:3px;background:#fdfaf5;
+                display:flex;gap:12px;align-items:flex-start">
+      <span class="en" style="flex:0 0 auto;font-size:14px;letter-spacing:.06em;color:#b3925f">Q4</span>
+      <span style="flex:1;display:flex;flex-direction:column;gap:7px">
+        <span style="font-size:12.5px;line-height:1.7;letter-spacing:.05em;color:#454a40">刻印の内容は選べますか？</span>
+        <span class="sub">日付と2行のメッセージを刻めます。資料14ページの3Dビューアで、実際の見え方をお試しいただけます。</span>
+      </span>
+    </div><div style="padding:14px 16px;border:1px solid #ece3d5;border-radius:3px;background:#fdfaf5;
+                display:flex;gap:12px;align-items:flex-start">
+      <span class="en" style="flex:0 0 auto;font-size:14px;letter-spacing:.06em;color:#b3925f">Q5</span>
+      <span style="flex:1;display:flex;flex-direction:column;gap:7px">
+        <span style="font-size:12.5px;line-height:1.7;letter-spacing:.05em;color:#454a40">音声データはどこに保存されますか？</span>
+        <span class="sub">本体とクラウドの両方に保存します。保存・削除・引き継ぎの詳しい方針は、発売時にあらためてご案内します。</span>
+      </span>
+    </div>
+    <div style="padding:14px 16px;border:1px solid #e5dbc9;border-radius:3px;background:#f9f2e8;
+                display:flex;flex-direction:column;gap:7px;justify-content:center">
+      <span class="eyebrow">CONTACT</span>
+      <span class="sub">その他のご質問は、公式LINEからお気軽にお問い合わせください（次ページのQRコード）。</span>
+    </div>
+  </div></div>
+  </div>
+  <div class="foot"><span>MemoriO Congrats　人生の節目に、声を贈る</span><span class="en">20 / 21</span></div>
+</section>
+
+<section class="slide">
+  <div class="pad" style="padding:15mm;background:linear-gradient(180deg,#f9f2e8,#fbf7f1)">
+    <div class="shead"><span class="eyebrow">WAITING LIST</span><span class="ja">発売通知の登録</span></div>
+    <div class="body" style="flex-direction:row;gap:48px;align-items:center;justify-content:space-between">
+      <div style="flex:1;display:flex;flex-direction:column;gap:22px;max-width:480px">
+        <h2 class="title">ひとつ目を、<br>あなたの節目から。</h2>
+        <p class="lead">発売日と先行予約の開始を、いちばん早くお知らせします。公式LINEを友だち追加するだけで登録は完了します。登録は無料で、いつでも解除できます。</p>
+        <div style="display:flex;flex-direction:column;gap:7px">
+          <span class="sub">アプリの公開情報もLINEでご案内します</span>
+        </div>
+        <div style="margin-top:6px;padding-top:20px;border-top:1px solid #ece3d5;display:flex;flex-direction:column;gap:7px">
+          <span class="en" style="font-size:17px;letter-spacing:.05em;color:#4e5348">MemoriO Congrats</span>
+          <span class="sub">人生と共に積み上がる、声のかたち。</span>
+          <span class="en" style="font-size:12px;letter-spacing:.08em;color:#8b7345">https://www.memorio.gift</span>
+        </div>
+      </div>
+      <div style="flex:0 0 470px;display:flex;flex-direction:column;align-items:center;gap:20px;text-align:center;
+                  padding:32px 28px;border:1px solid #e5dbc9;border-radius:3px;background:#fdfaf5">
+        <span class="eyebrow">SCAN TO OPEN</span>
+        <div style="display:flex;gap:24px;align-items:flex-start">
+          <span style="flex:1;display:flex;flex-direction:column;align-items:center;gap:11px">
+            <img src="deck-assets/line-qr.png" width="152" height="152" alt="MemoriO 公式LINE 友だち追加QRコード"
+                 style="display:block;border:1px solid #ece3d5;background:#fff">
+            <span style="font-size:12.5px;letter-spacing:.08em;color:#454a40;white-space:nowrap">LINEで発売通知を受け取る</span>
+            <span class="note">友だち追加<br>lin.ee/pl7X0GAM</span>
+          </span>
+          <span style="flex:1;display:flex;flex-direction:column;align-items:center;gap:11px">
+            <img src="deck-assets/site-qr.png" width="152" height="152" alt="MemoriO 公式サイトのQRコード"
+                 style="display:block;border:1px solid #ece3d5;background:#fff">
+            <span style="font-size:12.5px;letter-spacing:.08em;color:#454a40;white-space:nowrap">ブランドサイトを見る</span>
+            <span class="note">3Dビューア・節目ごとの例<br>www.memorio.gift</span>
+          </span>
+        </div>
+        <span class="note">登録は無料で、いつでも解除できます</span>
+      </div>
+    </div>
+  </div>
+  <div class="foot"><span>© MemoriO.　掲載の画像はイメージです。仕様・価格は変更になる場合があります。</span><span class="en">21 / 21</span></div>
+</section>
+</body>
+</html>

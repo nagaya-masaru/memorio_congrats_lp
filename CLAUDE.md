@@ -7,6 +7,12 @@
 - `Makefile` — 開発・検証・本番化のコマンド集。`make` で一覧
 - `tools/check.py` — `index.html` の静的検査（タグ対応・参照切れ・OGP・LINE URL・重いアセット）
 - `docs/deploy-guide.md` — ドメイン接続手順（完了済み・再設定時の参照用）
+- `docs/deck.html` — **配布用ブランド資料の原本**（A4横20ページ／LPの各セクションを1ページずつ資料化）。テキスト・レイアウトはこのファイルを直接編集する
+- `assets/MemoriO-Congrats-brand-deck.pdf` — 上を書き出したPDF（約4MB／21ページ）。**配信対象**で、LPフッターの「ブランド資料（PDF）」から直接ダウンロードできる。`make pdf` で再生成
+- `docs/deck-assets/` — 資料専用の軽量画像（合計約2MB）。LPの重いPNGを縮小したもの＋QR3種。実写を差し替えたら `make deck-assets`
+  - `line-qr.png` … LINE友だち追加QR（公式URLから取得。`make deck-assets`）
+  - `site-qr.png` … `https://www.memorio.gift/`（segnoで生成。`make deck-qr`）
+  - `touch-qr.png` … `https://www.memorio.gift/#touch`（同上）
 - `assets/main-visual.png` — MV実写（1920×1080、ヒーロー全面背景）
 - `assets/memorio-3d.html` — ユーザー提供の3Dビューア（回転・開閉・分解・音・刻印）。LPのTOUCHセクションにiframeで遅延読み込み
 - `plan.txt` / `plan.docx` — ブランド戦略ドキュメント（コピーの出典）
@@ -22,13 +28,43 @@ make verify     # 本番の疎通・OGP・除外設定を確認
 make status     # DNS・証明書・配信元
 make weigh      # 重いアセット一覧
 make prod       # GitHubを経由せず即時デプロイ（npx vercel --prod）
+make pdf        # ブランド資料PDFを書き出す（docs/deck.html → docs/*.pdf）
+make deck       # PDFを書き出して開く
+make deck-assets # 資料用の軽量画像を作り直す（実写差し替え後）
+make deck-qr    # サイト・3DのQRを作り直す（URL変更時のみ。segnoが必要）
+                # 例: make deck-qr PY=/path/to/venv/bin/python
 ```
 
-`make check` の WARN は現状10件（すべてアセットの重さ）。NG が出たら本番化しない。
+資料PDFはヘッドレスChromeの印刷機能で書き出す（`@page{size:297mm 210mm}`）。
+原本（`docs/deck.html`・`docs/deck-assets/`）は `.vercelignore` で除外、**PDFだけ `assets/` に置いて配信**している。
+`.vercelignore` は親ディレクトリを除外すると中のファイルを再包含できないため、PDFの置き場所は `docs/` ではなく `assets/`。
+`make check` の WARN は11件（すべてアセットの重さ。PDF 4MB を含む）。
+
+`make check` の WARN は現状11件（すべてアセットの重さ）。NG が出たら本番化しない。
+
+## 資料（PDF）の構成（全21ページ）
+1 表紙 / 2 目次 / 3 WHY VOICE / 4 SCENES一覧 / 5–11 7つの節目の詳細 / 12 STACK /
+13 STACK詳細 / 14 TOUCH（3D） / 15–16 COLORWAY / 17 HOW IT WORKS / 18 アプリ「声の年表」 /
+19 PRODUCT & PRICE / 20 FAQ / 21 CONTACT（LINE QR＋サイトQR）
+
+- 目次（2ページ）は**見出し・SUMMARY・FACTSを置かない**。全幅の一覧だけで紙面を使う（2026-09-08 ユーザー指示）
+- COLORWAYは2ページ（3色＋2色）。各色は**製品色の1段濃い色面**を背景に敷き、写真は余白を切り抜いて大きく見せる
+  - 切り抜きは5枚共通のアルファ境界＋3%余白 = Makefile の `CROP := 715 1090 --cropOffset 195 410`
+  - タイル幅は15/16ページとも320px（16ページの2枚は `flex:0 0 319px` で固定）
+- ページを増減したら `TOTAL` に相当するフッターの「NN / 21」と目次のページ番号、FAQ内の「資料14ページ」参照を全部直す
+
+- **リンクはすべてQRコードに置き換えてある**（紙・PDFではリンクが押せないため）
+  - 表紙 … LINEの小QR / ページ14 … 3DビューアのQR / ページ20 … LINEとサイトのQRを2つ並べ
+- **資料にウェイティング人数は書かない**（2026-09-08 ユーザー指示。LP側の表示は継続）
+- ページ17のスマホモックは **LPの実マークアップをそのまま流用**（`assets/iphone-frame.png` を重ねる方式）。LP側を直したら資料も直す
+- 3Dビューアの静止画は用意できていない（ヘッドレスChromeでの撮影はWebGLソフトウェア描画がハングして失敗する）。実機キャプチャを用意できたらページ14の製品画像と差し替える
+- 1ページ=1枚の `<section class="slide">`。高さは `209.6mm`（210mmだと丸め誤差で空白ページが挟まる）
+- 版面の余白は全ページ `padding:15mm` で統一。右側に置いた要素（12ページのスタック、17ページのスマホ、14/20ページのカード）は右の余白線まで伸ばす
 
 ## 確定事項（勝手に変えない）
 - 価格：**¥16,500（税込）**
 - 発売：**2027年春**（日付は非公開）
+- ブランド資料PDFの配布：**LPフッターの「ブランド資料（PDF）」からダウンロード**（2026-09-08 公開。`assets/` 配信、`download` 属性つき）
 - 登録手段：**LINE のみ**（メール登録フォームは 2026-09-08 に全削除。ヒーロー／WAITING LIST とも LINE CTA ＋ 友だち追加QR）
 - LINE公式アカウントURL：**https://lin.ee/pl7X0GAM**（LP内4か所のLINE CTAに設定済み。logic class の `lineUrl` が唯一の定義箇所）
 - LINE友だち追加QR：`https://qr-official.line.me/gs/M_442kiuxo_BW.png?oat_content=qr`（WAITING LISTに外部画像として直リンク）
