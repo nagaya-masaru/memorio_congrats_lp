@@ -58,7 +58,7 @@ PDFは差し替える前提なので、`vercel.json` で `/assets/(.*)` の1年 
 
 - **リンクはすべてQRコードに置き換えてある**（紙・PDFではリンクが押せないため）
   - 表紙 … LINEの小QR / ページ14 … 3DビューアのQR / ページ20 … LINEとサイトのQRを2つ並べ
-- **資料にウェイティング人数は書かない**（2026-09-08 ユーザー指示。LP側の表示は継続）
+- **ウェイティング人数は資料にもLPにも書かない**（2026-09-08 ユーザー指示）
 - ページ17のスマホモックは **LPの実マークアップをそのまま流用**（`assets/iphone-frame.png` を重ねる方式）。LP側を直したら資料も直す
 - 3Dビューアの静止画は用意できていない（ヘッドレスChromeでの撮影はWebGLソフトウェア描画がハングして失敗する）。実機キャプチャを用意できたらページ14の製品画像と差し替える
 - 1ページ=1枚の `<section class="slide">`。高さは `209.6mm`（210mmだと丸め誤差で空白ページが挟まる）
@@ -72,7 +72,8 @@ PDFは差し替える前提なので、`vercel.json` で `/assets/(.*)` の1年 
 - LINE公式アカウントURL：**https://lin.ee/pl7X0GAM**（LP内4か所のLINE CTAに設定済み。logic class の `lineUrl` が唯一の定義箇所）
 - LINE友だち追加QR：`https://qr-official.line.me/gs/M_442kiuxo_BW.png?oat_content=qr`（WAITING LISTに外部画像として直リンク）
 - アプリのストアバッジ（App Store／Google Play）と「公式アプリはこちら」は **HTMLコメントで無効化**。アプリ公開時に `index.html` の `<!-- ストア公開後に復活させる` を外す
-- ウェイティング人数：表示する（Tweaks `waitlistCount`、既定1240）
+- ウェイティング人数：**表示しない**（2026-09-08 にLPから全削除。ヒーローとWAITING LISTの2か所＋Tweaks `waitlistCount` プロパティも撤去。WAITING LISTは「登録は無料、いつでも解除できます」だけ残す）
+- **プライバシーポリシーのリンクは置かない**（2026-09-08 にフッターから削除。もともと `href="#"` のプレースホルダだった）
 - **アプリが必要なのは「声を贈る側（購入者）」だけ。** 受け取る側は蓋を開けるだけ、録音リンクの受け手はブラウザ録音で、どちらもDL不要。逆に書くとユーザー指摘が入る（2026-09-08 修正済み）
 - 節目は7つ：誕生・出産／誕生日／記念日・カップル／結婚／卒業・部活／家族・祖父母／送別・退職
 - 写真はMV以外すべてプレースホルダー（ユーザーが用意中）
@@ -85,7 +86,7 @@ PDFは差し替える前提なので、`vercel.json` で `/assets/(.*)` の1年 
 - **`overflow-x:hidden` をルート要素に付けない。** スクロールコンテナ化してsticky（ヘッダー・STACKステージ）が死ぬ。横溢れ対策は helmet の `html,body{overflow-x:clip}` で済んでいる
 - STACKの積み上がりは logic class の window scroll リスナー＋`stackRef` の getBoundingClientRect で step(0-4) を算出。キューブは opacity と translateY のみ変化
 - 3Dは `threeRef` が画面に近づいたら `load3d` を true にして iframe をマウント（重いため）
-- Tweaks props：`waitlistCount` / `show3d` / `faqOpenFirst`
+- Tweaks props：`show3d` / `faqOpenFirst`（`waitlistCount` は 2026-09-08 に削除）
 
 ## デザイン
 - フォント：見出し・本文 Shippori Mincho / 欧文・数字 Cormorant Garamond
@@ -94,6 +95,7 @@ PDFは差し替える前提なので、`vercel.json` で `/assets/(.*)` の1年 
 - 角丸は 2〜3px（ほぼ直角）、罫線 #ece3d5 / #ddd2c0
 
 ## 未対応・次の作業候補
+- プライバシーポリシーは現在LPに無い。先行予約の受付や問い合わせフォームを作る段階で用意が必要（LINE経由の登録だけなら公式アカウントの規約に依る）
 - 実写画像への差し替え（必要リストは下記）
 - OG画像・ファビコン
 - 独自ドメイン **https://memorio.gift** で公開済み（2026-09-08。Vercel配信、NSを `ns1/ns2.vercel-dns.com` に委任。手順は `docs/deploy-guide.md`）

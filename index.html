@@ -74,7 +74,6 @@
 <div style="display:flex;flex-direction:column;gap:12px;max-width:440px">
 <div style="display:flex;flex-wrap:wrap;align-items:center;gap:16px">
 <a href="{{ lineUrl }}" target="_blank" rel="noopener noreferrer" style="display:inline-flex;align-items:center;gap:8px;padding:15px 28px;border:none;border-radius:2px;background:#4e5348;color:#fbf7f1;font-size:13.5px;letter-spacing:.1em">LINEで発売通知を受け取る</a>
-<span style="font-size:12px;letter-spacing:.06em;color:#a2998a">現在 {{ waitlist }} 人が発売を待っています</span>
 </div>
 </div>
 </div>
@@ -516,7 +515,7 @@
 <div style="display:flex;flex-wrap:wrap;gap:44px;align-items:center;justify-content:center">
 <div style="flex:1 1 300px;min-width:0;display:flex;flex-direction:column;gap:16px">
 <p style="margin:0;font-size:14.5px;line-height:2.05;letter-spacing:.05em;color:#6f6a5d;max-width:26em;text-wrap:pretty">発売日と先行予約の開始を、いちばん早くお知らせします。公式LINEを友だち追加するだけで登録は完了します。</p>
-<span style="font-size:12px;line-height:1.95;letter-spacing:.06em;color:#a2998a">現在 {{ waitlist }} 人が発売を待っています<br>登録は無料、いつでも解除できます</span>
+<span style="font-size:12px;line-height:1.95;letter-spacing:.06em;color:#a2998a">登録は無料、いつでも解除できます</span>
 </div>
 <div style="flex:0 1 240px;display:flex;flex-direction:column;gap:16px;align-items:center">
 <a href="{{ lineUrl }}" target="_blank" rel="noopener noreferrer" style="display:block;padding:12px;border:1px solid #ddd2c0;border-radius:3px;background:#fffdfa;line-height:0">
@@ -543,7 +542,6 @@
 <a href="#regist" style="font-size:12.5px;letter-spacing:.06em;color:#8a8578">発売通知</a>
 <a href="{{ lineUrl }}" target="_blank" rel="noopener noreferrer" style="font-size:12.5px;letter-spacing:.06em;color:#8a8578">LINEで友だち追加</a>
 <a href="assets/MemoriO-Congrats-brand-deck.pdf" target="_blank" rel="noopener noreferrer" download style="font-size:12.5px;letter-spacing:.06em;color:#8a8578">ブランド資料（PDF）</a>
-<a href="#" style="font-size:12.5px;letter-spacing:.06em;color:#8a8578">プライバシーポリシー</a>
 </div>
 </div>
 <div style="max-width:1120px;margin:0 auto;padding:0 28px 44px;font-size:11px;letter-spacing:.08em;color:#bdb3a2">© MemoriO. 掲載の画像はイメージです。</div>
@@ -552,7 +550,7 @@
 </div>
 
 </x-dc>
-<script type="text/x-dc" data-dc-script data-props="{&quot;waitlistCount&quot;:{&quot;editor&quot;:&quot;int&quot;,&quot;default&quot;:1240,&quot;min&quot;:0,&quot;max&quot;:100000,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;ティザー設定&quot;},&quot;show3d&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;ティザー設定&quot;},&quot;faqOpenFirst&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;ティザー設定&quot;}}">
+<script type="text/x-dc" data-dc-script data-props="{&quot;show3d&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;ティザー設定&quot;},&quot;faqOpenFirst&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;ティザー設定&quot;}}">
 class Component extends DCLogic {
   state = { scene: 0, step: 0, faq: 0, load3d: false, scrolled: false, menu: false };
 
@@ -604,7 +602,6 @@ class Component extends DCLogic {
     const step = this.state.step;
     const openFirst = this.props.faqOpenFirst !== false;
     const v = {
-      waitlist: (this.props.waitlistCount ?? 1240).toLocaleString('en-US'),
       lineUrl: this.lineUrl,
       sceneName: s[0], sceneEn: s[1], sceneTitle: s[2], sceneCopy: s[3], sceneEngrave: s[4],
       sceneWhen: s[5], sceneWho: s[6], sceneStep1: s[7], sceneStep2: s[8], sceneStep3: s[9],
